@@ -10,6 +10,6 @@ public class MainController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView getUsersView() {
-		return new ModelAndView("index");
+		return new ModelAndView("main");
 	}
 }
