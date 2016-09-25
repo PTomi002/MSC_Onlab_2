@@ -9,24 +9,52 @@
 	<url>http://maven.apache.org</url>
 
 	<properties>
+		<!-- JUnit -->
 		<junit.version>3.8.1</junit.version>
+		<!-- JDK Complie and Build -->
 		<jdk.version>1.8</jdk.version>
+		<!-- JavaX Servlet Provided -->
 		<javax.version>3.0.1</javax.version>
+		<!-- Spring FW... -->
+		<spring.fw.version>4.3.3.RELEASE</spring.fw.version>
+		<spring.mvc.version>4.3.3.RELEASE</spring.mvc.version>
+		<!-- LOGGER sl4j -->
+		<sl4j.version>1.7.21</sl4j.version>
 	</properties>
 
 	<dependencies>
+		<!-- JUnit -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- JavaX Servlet Provided -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>${javax.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- Spring FW... -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.fw.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.mvc.version}</version>
+		</dependency>
+		<!-- LOGGER sl4j -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${sl4j.version}</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<finalName>TRHandlerTool</finalName>
@@ -39,6 +67,14 @@
 					<configuration>
 						<source>${jdk.version}</source>
 						<target>${jdk.version}</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>2.6</version>
+					<configuration>
+						<failOnMissingWebXml>false</failOnMissingWebXml>
 					</configuration>
 				</plugin>
 			</plugins>
