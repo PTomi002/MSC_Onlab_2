@@ -10,7 +10,8 @@ import org.springframework.web.servlet.DispatcherServlet;
 
 import config.onlab.msc.bme.hu.MvcWebAppConfiguration;
 
-public class TRHandlerWebInitializer implements WebApplicationInitializer {
+//Replaces web.xml when using XML-based config
+public class TRHandlerWebAppInitializer implements WebApplicationInitializer {
 
 	@Override
 	public void onStartup(ServletContext container) throws ServletException {

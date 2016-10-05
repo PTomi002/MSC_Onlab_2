@@ -21,6 +21,7 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 @EnableWebMvc
 @Configuration
 @ComponentScan(basePackages = { "controller.onlab.msc.bme.hu" })
+//Replaces root-servlet.xml when using XML-based config
 public class MvcWebAppConfiguration extends WebMvcConfigurerAdapter {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
