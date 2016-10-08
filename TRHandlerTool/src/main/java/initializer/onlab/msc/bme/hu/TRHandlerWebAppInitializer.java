@@ -8,7 +8,10 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
+import config.onlab.msc.bme.hu.LdapContextConfig;
 import config.onlab.msc.bme.hu.MvcWebAppConfiguration;
+import config.onlab.msc.bme.hu.MvcWebSecurityConfig;
+import config.onlab.msc.bme.hu.ViewResolverContextConfig;
 
 //Replaces web.xml when using XML-based config
 public class TRHandlerWebAppInitializer implements WebApplicationInitializer {
@@ -17,7 +20,7 @@ public class TRHandlerWebAppInitializer implements WebApplicationInitializer {
 	public void onStartup(ServletContext container) throws ServletException {
 //		Create the default WebApp context
 		AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
-		ctx.register(MvcWebAppConfiguration.class);
+		ctx.register(MvcWebAppConfiguration.class, MvcWebSecurityConfig.class, LdapContextConfig.class, ViewResolverContextConfig.class);
 		ctx.setServletContext(container);
 
 //		Register DispatcherServlet with name: "root"
