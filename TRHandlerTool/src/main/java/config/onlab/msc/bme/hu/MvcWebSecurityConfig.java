@@ -20,11 +20,12 @@ public class MvcWebSecurityConfig extends WebSecurityConfigurerAdapter{
 //	||		Configure HTTP auth.				||
 //	----------------------------------------------		
 //	----------------------------------------------
+	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-				.mvcMatchers(INDEX_PAGE_PATH).permitAll()
-				.mvcMatchers(DASHBOARD_PATH).authenticated()
+				.antMatchers(INDEX_PAGE_PATH).permitAll()
+				.antMatchers(DASHBOARD_PATH).authenticated()
 				.anyRequest().authenticated()
 			.and()
 				.formLogin()
@@ -51,6 +52,7 @@ public class MvcWebSecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//		LDAP authentication
 		ldapAuthenticationProvider.configure(auth);
 	}
 }

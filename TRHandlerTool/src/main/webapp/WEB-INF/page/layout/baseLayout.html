@@ -4,16 +4,25 @@
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8"></meta>
+<title>Layout page</title>
+<!-- CSRF-TOKEN -->
+<sec:csrfMetaTags />
+<!-- Scripts -->
+<script th:src="@{/public/js/jquery/jquery-3.1.1.min.js}"></script>
+<script th:src="@{/public/js/bootstrap/bootstrap.min.js}"></script>
+<!-- CSS -->
+<link rel="stylesheet"
+	th:href="@{/public/css/bootstrap/bootstrap.min.css}" />
 </head>
 <body>
 	<header>
-		<div layout:fragment="header">Layout header</div>
+		<div layout:fragment="header">Layout header prototype</div>
 	</header>
 	<section>
-		<div layout:fragment="content">Layout content</div>
+		<div layout:fragment="content">Layout content prototype</div>
 	</section>
 	<footer>
-		<div layout:fragment="footer">Layout footer</div>
+		<div layout:fragment="footer">Layout footer prototype</div>
 	</footer>
 </body>
 </html>
