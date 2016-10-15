@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import exception.onlab.msc.bme.hu.RegistrationException;
 import interf.service.onlab.msc.bme.hu.ILdapService;
 import interf.service.onlab.msc.bme.hu.IUserService;
 import sql.model.onlab.msc.bme.hu.User;
@@ -18,26 +19,25 @@ import sql.model.onlab.msc.bme.hu.User;
 public class RegistrationController extends BaseController {
 	@Autowired
 	private ILdapService ldapService;
-	
+
 	@Autowired
 	private IUserService userService;
 
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
-	public ModelAndView signupUser(@Valid @ModelAttribute(value = "user") User user, BindingResult bindingResult) {
-		ModelAndView view = null;
+	public ModelAndView signupUser(@Valid @ModelAttribute(value = "user") User user, final BindingResult bindingResult)
+			throws RegistrationException {
+		final ModelAndView view;
 
 		if (bindingResult.hasErrors()) {
 			LOGGER.info("Generating sign up error page");
 			view = new ModelAndView("signupError");
 		} else {
-			LOGGER.info("Adsing registration date to user");
-			userService.createRegistrationDate(user);
-			
 			LOGGER.info("Registering User to LDAP server");
-			ldapService.registerLdapEntry(user);
+			ldapService.register(user);
 
 			LOGGER.info("Registering User to MySQL server");
-
+			userService.register(user);
+			
 			LOGGER.info("Generating login page");
 			view = new ModelAndView("login");
 		}

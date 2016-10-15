@@ -14,7 +14,7 @@ public interface ILdapDatabaseManager {
 
 	public LdapUserEntry findOne(LdapQuery query);
 
-	public Object lookupLdapUserEntry(Name dn);
+	public Object lookup(Name dn);
 	
 	public void modify(Name dn, ModificationItem modificationItem);
 }

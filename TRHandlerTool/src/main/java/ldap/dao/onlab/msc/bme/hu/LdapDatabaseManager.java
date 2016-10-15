@@ -34,7 +34,7 @@ public class LdapDatabaseManager implements ILdapDatabaseManager {
 	}
 
 	@Override
-	public Object lookupLdapUserEntry(Name dn) {
+	public Object lookup(Name dn) {
 		return ldapTemplate.lookup(dn);
 	}
 

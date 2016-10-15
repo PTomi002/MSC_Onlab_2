@@ -45,48 +45,54 @@ public class LdapUserEntry implements Serializable {
 		return dn;
 	}
 
-	public void setDn(Name dn) {
+	public LdapUserEntry setDn(Name dn) {
 		this.dn = dn;
+		return this;
 	}
 
 	public String getUid() {
 		return uid;
 	}
 
-	public void setUid(String uid) {
+	public LdapUserEntry setUid(String uid) {
 		this.uid = uid;
+		return this;
 	}
 
 	public String getGn() {
 		return gn;
 	}
 
-	public void setGn(String gn) {
+	public LdapUserEntry setGn(String gn) {
 		this.gn = gn;
+		return this;
 	}
 
 	public String getSn() {
 		return sn;
 	}
 
-	public void setSn(String sn) {
+	public LdapUserEntry setSn(String sn) {
 		this.sn = sn;
+		return this;
 	}
 
 	public String getCn() {
 		return cn;
 	}
 
-	public void setCn(String cn) {
+	public LdapUserEntry setCn(String cn) {
 		this.cn = cn;
+		return this;
 	}
 
 	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(String password) {
+	public LdapUserEntry setPassword(String password) {
 		this.password = password;
+		return this;
 	}
 
 	@Override

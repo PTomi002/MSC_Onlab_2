@@ -13,7 +13,7 @@ public class LoginController extends BaseController{
 	
 	@RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)
 	public ModelAndView getUsersView() {
-		ModelAndView view = null;
+		final ModelAndView view;
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
