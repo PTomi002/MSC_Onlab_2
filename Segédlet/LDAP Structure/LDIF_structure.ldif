@@ -1,0 +1,51 @@
+version: 1
+dn: dc=onlab,dc=msc,dc=bme,dc=hu
+objectClass: top
+objectClass: dcObject
+objectClass: organization
+dc: onlab
+o: bme
+
+dn: cn=admin,dc=onlab,dc=msc,dc=bme,dc=hu
+objectClass: simpleSecurityObject
+objectClass: organizationalRole
+objectClass: uidObject
+objectClass: top
+cn: admin
+description: LDAP administrator
+uid: admin
+userPassword:: e1NTSEF9ZVU0cjB3WE5DN20yRTRXRFlNR24yTlFQTXBrUVU0NDQ=
+
+dn: ou=People,dc=onlab,dc=msc,dc=bme,dc=hu
+objectClass: organizationalUnit
+objectClass: top
+ou: People
+
+dn: cn=test,ou=People,dc=onlab,dc=msc,dc=bme,dc=hu
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: uidObject
+objectClass: top
+cn: test
+sn: test
+uid: test
+
+dn: ou=Groups,dc=onlab,dc=msc,dc=bme,dc=hu
+objectClass: organizationalUnit
+objectClass: top
+ou: Groups
+
+dn: cn=Administrators,ou=Groups,dc=onlab,dc=msc,dc=bme,dc=hu
+objectClass: groupOfUniqueNames
+objectClass: top
+cn: Administrators
+uniqueMember: uid=admin,dc=onlab,dc=msc,dc=bme,dc=hu
+
+dn: cn=Users,ou=Groups,dc=onlab,dc=msc,dc=bme,dc=hu
+objectClass: groupOfUniqueNames
+objectClass: top
+cn: Users
+uniqueMember: uid=admin,dc=onlab,dc=msc,dc=bme,dc=hu
+uniqueMember: uid=test,ou=People,dc=onlab,dc=msc,dc=bme,dc=hu
+

@@ -1,13 +1,18 @@
 package hu.bme.msc.onlab.initializer;
 
+import java.util.EnumSet;
 import java.util.List;
 
+import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
+import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
 
 import com.google.common.collect.Lists;
@@ -17,10 +22,17 @@ import hu.bme.msc.onlab.config.MessageResolverContext;
 import hu.bme.msc.onlab.config.MvcWebAppConfiguration;
 import hu.bme.msc.onlab.config.MvcWebSecurityConfig;
 import hu.bme.msc.onlab.config.ViewResolverContextConfig;
+import hu.bme.msc.onlab.filter.UserNameFilter;
 
 //Replaces web.xml when using XML-based config
 public class TRHandlerWebAppInitializer implements WebApplicationInitializer {
-	private final static List<Class<?>> configurationClasses = Lists.newArrayList(MvcWebAppConfiguration.class,
+	private static final String FILTER_CHAIN_PATTERN = "/*";
+
+	private static final String DEFAULT_MAPPING = "/";
+
+	private static final String SERVLET_NAME = "root";
+	
+	private final static List<Class<?>> CONFIGURATION_CLASSES = Lists.newArrayList(MvcWebAppConfiguration.class,
 			MvcWebSecurityConfig.class, LdapContextConfig.class, ViewResolverContextConfig.class,
 			MessageResolverContext.class);
 
@@ -28,13 +40,21 @@ public class TRHandlerWebAppInitializer implements WebApplicationInitializer {
 	public void onStartup(ServletContext container) throws ServletException {
 		// Create the default WebApp context
 		AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
-		ctx.register(configurationClasses.toArray(new Class<?>[configurationClasses.size()]));
+		ctx.register(CONFIGURATION_CLASSES.toArray(new Class<?>[CONFIGURATION_CLASSES.size()]));
 		ctx.setServletContext(container);
-
+		
 		// Register DispatcherServlet with name: "root"
-		ServletRegistration.Dynamic dispatcher = container.addServlet("root", new DispatcherServlet(ctx));
+		ServletRegistration.Dynamic dispatcher = container.addServlet(SERVLET_NAME, new DispatcherServlet(ctx));
 		dispatcher.setLoadOnStartup(1);
-		dispatcher.addMapping("/");
+		dispatcher.addMapping(DEFAULT_MAPPING);
+		
+		// Adding springSecurityFilter to the Filter Chain
+		FilterRegistration.Dynamic securityFilter = container.addFilter(AbstractSecurityWebApplicationInitializer.DEFAULT_FILTER_NAME, DelegatingFilterProxy.class);
+		securityFilter.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), false, FILTER_CHAIN_PATTERN);
+		
+		// Adding userNameFilter to the Filter Chain
+		FilterRegistration.Dynamic userNameFilter = container.addFilter(UserNameFilter.DEFAULT_FILTER_NAME, UserNameFilter.class);
+		userNameFilter.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), false, FILTER_CHAIN_PATTERN);
 	}
 
 }

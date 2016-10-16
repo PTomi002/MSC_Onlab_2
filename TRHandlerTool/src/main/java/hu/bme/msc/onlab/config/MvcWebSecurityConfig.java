@@ -36,10 +36,9 @@ public class MvcWebSecurityConfig extends WebSecurityConfigurerAdapter{
 				.logout()
 					.deleteCookies(JSESSIONID)
 					.logoutSuccessUrl(INDEX_PAGE_PATH + "logout")
-					.invalidateHttpSession(true)
-			.and()
-				.csrf()
-			;
+					.invalidateHttpSession(true);
+//			.and()
+//				.csrf();
 	}
 	
 //	----------------------------------------------

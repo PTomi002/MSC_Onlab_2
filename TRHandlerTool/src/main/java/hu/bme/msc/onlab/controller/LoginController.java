@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LoginController extends BaseController{
 	
-	@RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/"}, method = RequestMethod.GET)
 	public ModelAndView getUsersView() {
 		final ModelAndView view;
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();

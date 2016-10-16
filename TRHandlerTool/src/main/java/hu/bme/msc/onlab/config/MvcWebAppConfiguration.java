@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @EnableWebMvc
 @Configuration
-@ComponentScan(basePackages = { "controller.onlab.msc.bme.hu" , "service.onlab.msc.bme.hu", "dao.onlab.msc.bme.hu"})
+@ComponentScan(basePackages = { "hu.bme.msc.onlab.controller" , "hu.bme.msc.onlab.service", "hu.bme.msc.onlab.dao"})
 //Replaces root-servlet.xml when using XML-based config
 public class MvcWebAppConfiguration extends WebMvcConfigurerAdapter {
 //	----------------------------------------------
