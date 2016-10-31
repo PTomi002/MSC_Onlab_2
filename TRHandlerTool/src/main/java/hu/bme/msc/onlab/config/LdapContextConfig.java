@@ -45,6 +45,11 @@ public class LdapContextConfig {
 	@Bean(name = "ldapAuthenticationProvider")
 	public LdapAuthenticationProviderConfigurer<AuthenticationManagerBuilder> ldapAuthenticationProvider(){
 		LdapAuthenticationProviderConfigurer<AuthenticationManagerBuilder> config = new LdapAuthenticationProviderConfigurer<AuthenticationManagerBuilder>();
+		config.userSearchBase("ou=People");
+		config.userSearchFilter("(uid={0})");
+		config.groupSearchBase("ou=Groups");
+		config.groupSearchFilter("(uniqueMember={0}");
+		config.groupRoleAttribute("businessCategory");
 		return config.contextSource(contextSource());
 	}
 }

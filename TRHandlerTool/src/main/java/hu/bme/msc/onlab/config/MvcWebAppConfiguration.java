@@ -12,7 +12,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @ComponentScan(basePackages = { "hu.bme.msc.onlab.controller" , "hu.bme.msc.onlab.service", "hu.bme.msc.onlab.dao"})
 //Replaces root-servlet.xml when using XML-based config
 public class MvcWebAppConfiguration extends WebMvcConfigurerAdapter {
-//	----------------------------------------------
+	private static final String ROOT_SERVLET_NAME = "root";
+
+	//	----------------------------------------------
 //	----------------------------------------------
 //	||		Setting default config				||
 //	----------------------------------------------		
@@ -25,6 +27,6 @@ public class MvcWebAppConfiguration extends WebMvcConfigurerAdapter {
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 //		Set default servlet name to "root"
-		configurer.enable("root");
+		configurer.enable(ROOT_SERVLET_NAME);
 	}
 }

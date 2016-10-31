@@ -3,6 +3,7 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
+<!-- Common -->
 <meta charset="UTF-8"></meta>
 <title>Layout page</title>
 <!-- CSRF-TOKEN -->
@@ -10,9 +11,13 @@
 <!-- Scripts -->
 <script th:src="@{/public/js/jquery/jquery-3.1.1.min.js}"></script>
 <script th:src="@{/public/js/bootstrap/bootstrap.min.js}"></script>
+<script th:src="@{/public/js/bootbox/bootbox.min.js}"></script>
+<script th:src="@{/public/js/pages/common.js}"></script>
 <!-- CSS -->
 <link rel="stylesheet"
 	th:href="@{/public/css/bootstrap/bootstrap.min.css}" />
+<link rel="stylesheet"
+	th:href="@{/public/css/pages/common.css}" />
 </head>
 <body>
 	<header>

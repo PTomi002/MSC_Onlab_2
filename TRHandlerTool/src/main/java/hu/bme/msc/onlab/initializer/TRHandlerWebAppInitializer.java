@@ -11,6 +11,7 @@ import javax.servlet.ServletRegistration;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 import org.springframework.web.WebApplicationInitializer;
+import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
@@ -38,10 +39,13 @@ public class TRHandlerWebAppInitializer implements WebApplicationInitializer {
 
 	@Override
 	public void onStartup(ServletContext container) throws ServletException {
-		// Create the default WebApp context
+		// Create the 'root' Spring application context
 		AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
 		ctx.register(CONFIGURATION_CLASSES.toArray(new Class<?>[CONFIGURATION_CLASSES.size()]));
 		ctx.setServletContext(container);
+		
+		// Manage the lifecycle of the root application context
+		container.addListener(new ContextLoaderListener(ctx));
 		
 		// Register DispatcherServlet with name: "root"
 		ServletRegistration.Dynamic dispatcher = container.addServlet(SERVLET_NAME, new DispatcherServlet(ctx));

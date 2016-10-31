@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LoginController extends BaseController{
 	
-	@RequestMapping(value = {"/"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
 	public ModelAndView getUsersView() {
 		final ModelAndView view;
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -20,8 +20,8 @@ public class LoginController extends BaseController{
 			LOGGER.info("Forwarding to the dashboard");
 			view = new ModelAndView("forward:/dashboard");
 		} else {
-			LOGGER.info("Generating login page");
-			view = new ModelAndView("login");
+			LOGGER.info("Generating welcome page");
+			view = new ModelAndView("/welcome");
 		}
 		return view;
 	}

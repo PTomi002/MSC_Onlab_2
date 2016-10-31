@@ -24,9 +24,9 @@ public class MvcWebSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-				.antMatchers(INDEX_PAGE_PATH).permitAll()
-				.antMatchers(DASHBOARD_PATH).authenticated()
-				.anyRequest().authenticated()
+				.mvcMatchers(INDEX_PAGE_PATH).permitAll()
+				.mvcMatchers(DASHBOARD_PATH).authenticated()
+				.anyRequest().permitAll()
 			.and()
 				.formLogin()
 					.loginPage(INDEX_PAGE_PATH)
@@ -35,7 +35,7 @@ public class MvcWebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.and()
 				.logout()
 					.deleteCookies(JSESSIONID)
-					.logoutSuccessUrl(INDEX_PAGE_PATH + "logout")
+					.logoutSuccessUrl(INDEX_PAGE_PATH)
 					.invalidateHttpSession(true);
 //			.and()
 //				.csrf();

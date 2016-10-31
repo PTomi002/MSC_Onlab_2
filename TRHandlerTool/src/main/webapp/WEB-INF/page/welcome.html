@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorator="layout/baseLayout">
+<head>
+<title th:text="#{page.welcome.name}">Welcome page name prototype</title>
+<link rel="stylesheet"
+	th:href="@{/public/css/pages/welcome.css}" />
+<script th:src="@{/public/js/pages/welcome.js}"></script>
+</head>
+<body>
+	<div layout:fragment="header" th:replace="welcome/header :: header">Welcome page header prototype</div>
+	<div layout:fragment="content" th:replace="welcome/content :: content">Welcome page content prototype</div>
+	<div layout:fragment="footer" th:replace="welcome/footer :: footer">Welcome page footer prototype</div>
+</body>
+</html>
