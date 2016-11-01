@@ -21,7 +21,7 @@ public class StringFieldValidator extends BaseValidator implements ConstraintVal
 		try {
 			Assert.checkAgainstPattern(Pattern.compile(DEFAULT_STRING_PATTERN), value);
 		} catch (IllegalArgumentException e) {
-			LOGGER.warn("Invalid username: " + value, e);
+			LOGGER.warn("Invalid value: " + value, e);
 			return false;
 		}
 		return true;

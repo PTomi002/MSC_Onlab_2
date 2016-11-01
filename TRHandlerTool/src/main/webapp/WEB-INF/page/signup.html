@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorator="layout/baseLayout">
+<head>
+<title th:text="#{page.signup.name}">Signup page name prototype</title>
+<link rel="stylesheet" th:href="@{/public/css/pages/signup.css}" />
+</head>
+<body>
+	<div layout:fragment="header" th:replace="header/not_authenticated :: empty-navbar-without-sidebar">Signup
+		page header prototype</div>
+	<div layout:fragment="content">
+		<div class="container">
+			<div th:if="${invalid}">
+				<div class="alert alert-danger alert-dismissable signup-alert">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<span>Invalid registration!</span>
+				</div>
+			</div>
+			<div id="registrationDiv" class="main-center">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">Please register!</h3>
+					</div>
+					<div class="panel-body">
+						<form id="registrationForm" th:action="@{/register}"
+							th:object="${user}" method="POST">
+							<div class="form-group">
+								<input type="text" th:field="*{username}" id="username"
+									class="form-control input-sm" placeholder="Username" />
+<!-- 								<p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username errors</p> -->
+							</div>
+							<div class="row">
+								<div class="col-xs-6 col-sm-6 col-md-6">
+									<div class="form-group">
+										<input type="text" th:field="*{firstname}" id="firstname"
+											class="form-control input-sm" placeholder="First Name" />
+<!-- 										<p th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}">First name errors</p> -->
+									</div>
+								</div>
+								<div class="col-xs-6 col-sm-6 col-md-6">
+									<div class="form-group">
+										<input type="text" th:field="*{lastname}" id="lastname"
+											class="form-control input-sm" placeholder="Last Name" />
+<!-- 										<p th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">Last name errors</p> -->
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<input type="text" th:field="*{email}" name="email" id="email"
+									class="form-control input-sm" placeholder="Email Address" />
+<!-- 								<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">E-mail errors</p> -->
+							</div>
+							<div class="row">
+								<div class="col-xs-6 col-sm-6 col-md-6">
+									<div class="form-group">
+										<input type="password" th:field="*{password}" name="password"
+											id="password" class="form-control input-sm"
+											placeholder="Password" />
+<!-- 										<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password errors</p> -->
+									</div>
+								</div>
+								<div class="col-xs-6 col-sm-6 col-md-6">
+									<div class="form-group">
+										<input type="password" name="passwordConfirmation"
+											id="passwordConfirmation" class="form-control input-sm"
+											placeholder="Confirm Password" />
+									</div>
+								</div>
+							</div>
+							<button type="submit" id="registrationButton"
+								class="btn btn-primary">Sign Up</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div layout:fragment="footer"></div>
+</body>
+</html>

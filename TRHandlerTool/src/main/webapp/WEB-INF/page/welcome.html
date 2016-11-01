@@ -1,16 +1,50 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:th="http://www.thymeleaf.org"
-	layout:decorator="layout/baseLayout">
+	layout:decorator="layout/baseLayout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-<title th:text="#{page.welcome.name}">Welcome page name prototype</title>
-<link rel="stylesheet"
-	th:href="@{/public/css/pages/welcome.css}" />
+<title th:text="#{page.welcome.name}">Welcome page name
+	prototype</title>
+<link rel="stylesheet" th:href="@{/public/css/pages/welcome.css}" />
 <script th:src="@{/public/js/pages/welcome.js}"></script>
 </head>
 <body>
-	<div layout:fragment="header" th:replace="welcome/header :: header">Welcome page header prototype</div>
-	<div layout:fragment="content" th:replace="welcome/content :: content">Welcome page content prototype</div>
-	<div layout:fragment="footer" th:replace="welcome/footer :: footer">Welcome page footer prototype</div>
+	<div sec:authorize="isAnonymous()" layout:fragment="header"
+		th:replace="header/not_authenticated :: empty-navbar-sidebar">Welcome
+		page header prototype</div>
+<!-- 	<div sec:authorize="isAuthenticated()" layout:fragment="header" -->
+<!-- 		th:replace="header/not_authenticated :: empty-navbar-sidebar">Welcome -->
+<!-- 		page header prototype</div> -->
+	<div layout:fragment="content" class="container-fluid">
+		<div class="row">
+			<div class="col-sm-2 col-md-2 sidebar">
+				<div sec:authorize="isAnonymous()"
+					th:replace="fragment/side_menu :: side-menu-not-authenticated">
+				</div>
+				<div sec:authorize="isAuthenticated()"
+					th:replace="fragment/side_menu :: side-menu-authenticated"></div>
+			</div>
+			<div class="col-sm-10 col-md-10 main">
+				<h1>Dashboard</h1>
+				<div class="row">
+					<div class="col-sm-5 col-md-5">
+						<div class="panel panel-default">
+							<div class="panel-heading">Panel heading without title</div>
+							<div class="panel-body">Panel content</div>
+						</div>
+					</div>
+					<div class="col-sm-5 col-md-5">
+						<div class="panel panel-default">
+							<div class="panel-heading">Panel heading without title</div>
+							<div class="panel-body">Panel content</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div layout:fragment="footer" th:insert="footer/side_menu :: side-menu">Welcome
+		page footer prototype</div>
 </body>
 </html>

@@ -6,22 +6,21 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class LoginController extends BaseController{
 	
 	@RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
-	public ModelAndView getUsersView() {
-		final ModelAndView view;
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	public String getUsersView() {
+		final String view;
+		final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			LOGGER.info("Forwarding to the dashboard");
-			view = new ModelAndView("forward:/dashboard");
+			view = new String("forward:/dashboard");
 		} else {
 			LOGGER.info("Generating welcome page");
-			view = new ModelAndView("/welcome");
+			view = new String("/welcome");
 		}
 		return view;
 	}

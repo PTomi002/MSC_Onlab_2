@@ -13,6 +13,7 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 
+import hu.bme.msc.onlab.validator.annotation.Password;
 import hu.bme.msc.onlab.validator.annotation.StringField;
 
 @Entity
@@ -22,26 +23,36 @@ public class User implements Serializable{
 
 	@Id
 	@Column(name = "username", nullable = false)
-	@NotNull @Size(min = 5, max = 15) @StringField
+	@NotNull(message = "Username can not be null!") 
+	@Size(min = 5, max = 15, message = "Username length should be between 5 and 15 character!") 
+	@StringField(message = "Username should contain valid characters!")
 	private String username;
 	
 	@Column(name = "firstname", nullable = false)
-	@NotNull @Size(min = 5, max = 15) @StringField
+	@NotNull(message = "First name can not be null!") 
+	@Size(min = 5, max = 15, message = "First name length should be between 5 and 15 character!") 
+	@StringField(message = "First name should contain valid characters!")
 	private String firstname;
 	
 	@Column(name = "lastname", nullable = false)
-	@NotNull @Size(min = 5, max = 15) @StringField
+	@NotNull(message = "Last name can not be null!")
+	@Size(min = 5, max = 15, message = "Last name length should be between 5 and 15 character!") 
+	@StringField(message = "Last name should contain valid characters!")
 	private String lastname;
 	
 	@Column(name = "registration_date", nullable = false)
+//	is not validated because generated in server side
 	private Date registration_date;
 	
 	@Column(name = "email", nullable = false)
-	@NotNull @Email
+	@NotNull(message = "E-mail can not be null!")
+	@Email(message = "E-mail is not valid!")
 	private String email;
 	
 	@Transient
-	@NotNull @Size(min = 5, max = 15) @StringField
+	@NotNull(message = "Password can not be null!")
+	@Size(min = 5, max = 15, message = "Password length should be between 5 and 15 character!") 
+	@Password(message = "Password is invalid!")
 	private String password;
 	
 	public User() {
