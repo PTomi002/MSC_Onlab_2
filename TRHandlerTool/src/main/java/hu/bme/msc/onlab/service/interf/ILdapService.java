@@ -18,4 +18,6 @@ public interface ILdapService {
 	public ResponseDto<Void> create(LdapUserEntry ldapUserEntry);
 	
 	public ResponseDto<Void> modify(LdapUserGroupEntry ldapUserGroupEntry, List<ModificationItem> modifications);
+	
+	public ResponseDto<Void> delete(LdapUserEntry ldapUserEntry);
 }

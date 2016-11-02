@@ -21,7 +21,7 @@ public final class LdapUserEntry implements Serializable {
 	@Attribute(name = "uid")
 	private String uid;
 
-	@Attribute(name = "gn")
+	@Attribute(name = "givenName")
 	private String gn;
 
 	@Attribute(name = "sn")

@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import com.google.common.base.Joiner;
 
 public final class LoggerUtil {
-	private Logger logger;
+	private final Logger logger;
 
 	private static final String DELIMETER = " ";
 

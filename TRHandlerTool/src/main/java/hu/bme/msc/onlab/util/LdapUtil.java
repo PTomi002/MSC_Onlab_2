@@ -32,4 +32,8 @@ public final class LdapUtil {
 		Assert.notNull(rawPassword, "Password must be not null");
 		return new LdapShaPasswordEncoder().encodePassword(rawPassword, null);
 	}
+	
+	public static final String getRelativeDnToTheBaseDn(String uid) {
+		return Joiner.on(",").join("uid=" + uid, "ou=People");
+	}
 }

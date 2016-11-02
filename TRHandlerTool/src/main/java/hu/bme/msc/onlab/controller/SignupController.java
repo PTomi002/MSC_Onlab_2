@@ -22,7 +22,7 @@ import hu.bme.msc.onlab.service.interf.ILdapService;
 import hu.bme.msc.onlab.service.interf.IUserService;
 
 @Controller
-public class RegistrationController extends BaseController {
+public class SignupController extends BaseController {
 	private static final String INVALID = "invalid";
 
 	@Autowired
@@ -36,6 +36,13 @@ public class RegistrationController extends BaseController {
 		final ModelAndView view;
 		final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
+//		TODO Just for development!
+		user.setFirstname("aaaaa");
+		user.setLastname("aaaaa");
+		user.setEmail("aaa@aaa.aaa");
+		user.setPassword("aA0+++");
+		user.setUsername("aaaaa");
+		
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			LOGGER.info("Forwarding welcome page");
 			view = new ModelAndView("forward:/welcome");

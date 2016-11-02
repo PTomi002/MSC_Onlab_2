@@ -36,8 +36,6 @@ public class LdapService extends BaseService implements ILdapService {
 
 	private static final String UNIQUE_MEMBER = "uniqueMember";
 
-	private static final String BASE_DN_KEY = "ldap.server.base";
-
 	private static final String GROUP_DN_KEY = "ldap.server.default.user.group";
 
 	@Autowired
@@ -52,7 +50,7 @@ public class LdapService extends BaseService implements ILdapService {
 		LdapUserEntry ldapUserEntry = null;
 
 		LOGGER.info("Getting and parsing base DN");
-		ResponseDto<List<Rdn>> rdnsResponse = parseDnToRnds(env.getProperty(BASE_DN_KEY));
+		ResponseDto<List<Rdn>> rdnsResponse = parseDnToRnds(LdapUtil.getRelativeDnToTheBaseDn(user.getUsername()));
 		checkOperationSuccess(rdnsResponse);
 
 		LOGGER.info("Creating LdapUserEntry object");
@@ -123,7 +121,7 @@ public class LdapService extends BaseService implements ILdapService {
 				LOGGER.info("LdapUserEntry has been created in LDAP database");
 				return ResponseDto.ok();
 			} catch (NamingException | IllegalArgumentException e) {
-				return ResponseDto.fail("Could not create LdapUserEntry: " + ldapUserEntry.toString(), e);
+				return ResponseDto.fail("Could not create LdapUserEntry: " + LOGGER_UTIL.getValue(ldapUserEntry), e);
 			}
 		});
 	}
@@ -165,5 +163,18 @@ public class LdapService extends BaseService implements ILdapService {
 		if (!response.isSuccess()) {
 			throw new LdapRegistrationException(response, ldapUserEntry);
 		}
+	}
+
+	@Override
+	public ResponseDto<Void> delete(LdapUserEntry ldapUserEntry) {
+		LOGGER.info("Deleting LdapUserEntry: " + LOGGER_UTIL.getValue(ldapUserEntry));
+		return executeOperation(() -> {
+			try {
+				ldapDatabaseManager.delete(ldapUserEntry);
+				return ResponseDto.ok();
+			} catch (Exception e) {
+				return ResponseDto.fail("Could not delete entry: " + LOGGER_UTIL.getValue(ldapUserEntry), e);
+			}
+		});
 	}
 }
