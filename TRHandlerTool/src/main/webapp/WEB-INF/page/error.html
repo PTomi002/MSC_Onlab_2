@@ -5,6 +5,7 @@
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <title th:text="#{page.error.name}">Error page name prototype</title>
+<link rel="stylesheet" th:href="@{/public/css/pages/error.css}" />
 </head>
 <body>
 	<div layout:fragment="header"
@@ -23,15 +24,15 @@
 
 			<div class="container">
 				<div th:if="${redirectedUrl != ''}" class="col-md-12">
-					<h3>URL which raised the error</h3>
+					<h3>Raised by</h3>
 					<p th:text="${redirectedUrl}" />
 				</div>
 				<div th:if="${httpCode != ''}" class="col-md-12">
-					<h3>Error code</h3>
+					<h3>HTTP Status code</h3>
 					<p th:text="${httpCode}" />
 				</div>
 				<div th:if="${httpMessage != ''}" class="col-md-12">
-					<h3>Error message</h3>
+					<h3>Message</h3>
 					<p th:text="${httpMessage}" />
 				</div>
 			</div>

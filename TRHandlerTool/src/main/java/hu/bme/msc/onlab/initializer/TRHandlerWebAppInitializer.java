@@ -49,6 +49,7 @@ public class TRHandlerWebAppInitializer implements WebApplicationInitializer {
 		
 //		Create dispatcher servlet
 		DispatcherServlet disp = new DispatcherServlet(ctx);
+//		Throw exception if page not found, replaces the error part in web.xml
 		disp.setThrowExceptionIfNoHandlerFound(true);
 		
 		// Register DispatcherServlet with name: "root"

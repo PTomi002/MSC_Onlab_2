@@ -13,10 +13,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class MvcWebSecurityConfig extends WebSecurityConfigurerAdapter{
 	private static final String JSESSIONID = "JSESSIONID";
 	private static final String DASHBOARD = "/dashboard";
-	private static final String APPLICATION_REALM = "/dashboard/*";
+	private static final String APPLICATION_REALM = DASHBOARD + "/*";
 	private static final String WELCOME = "/welcome";
 	private static final String SIGNUP = "/signup";
-	private static final String LOGIN = "/login";
+	private static final String ERROR = "/error";
 
 //	----------------------------------------------
 //	----------------------------------------------
@@ -27,13 +27,12 @@ public class MvcWebSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-				.mvcMatchers(WELCOME).permitAll()
-				.mvcMatchers(SIGNUP).permitAll()
+				.mvcMatchers(WELCOME, SIGNUP, ERROR).permitAll()
 				.mvcMatchers(APPLICATION_REALM).authenticated()
 				.anyRequest().permitAll()
 			.and()
 				.formLogin()
-					.loginPage(LOGIN)
+					.loginPage("/login")
 					.defaultSuccessUrl(DASHBOARD)
 					.failureUrl(WELCOME + "?error=true")
 			.and()
