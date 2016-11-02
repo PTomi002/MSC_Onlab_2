@@ -47,8 +47,12 @@ public class TRHandlerWebAppInitializer implements WebApplicationInitializer {
 		// Manage the lifecycle of the root application context
 		container.addListener(new ContextLoaderListener(ctx));
 		
+//		Create dispatcher servlet
+		DispatcherServlet disp = new DispatcherServlet(ctx);
+		disp.setThrowExceptionIfNoHandlerFound(true);
+		
 		// Register DispatcherServlet with name: "root"
-		ServletRegistration.Dynamic dispatcher = container.addServlet(SERVLET_NAME, new DispatcherServlet(ctx));
+		ServletRegistration.Dynamic dispatcher = container.addServlet(SERVLET_NAME, disp);
 		dispatcher.setLoadOnStartup(1);
 		dispatcher.addMapping(DEFAULT_MAPPING);
 		

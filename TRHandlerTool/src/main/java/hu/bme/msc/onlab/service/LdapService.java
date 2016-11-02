@@ -105,10 +105,11 @@ public class LdapService extends BaseService implements ILdapService {
 		return executeOperation(() -> {
 			try {
 				ldapDatabaseManager.findOne(LdapQueryBuilder.query().where(UID).is(ldapUserEntry.getUid()));
-				LOGGER.info("LdapUserEntry is not exists in LDAP database: " + ldapUserEntry.toString());
-				return ResponseDto.ok();
+				LOGGER.error("LdapUserEntry exists in LDAP database: " + ldapUserEntry.toString());
+				return ResponseDto.fail("LdapUserEntry exists in LDAP database: " + ldapUserEntry.toString());
 			} catch (IncorrectResultSizeDataAccessException e) {
-				return ResponseDto.fail("LdapUserEntry already exists: " + ldapUserEntry.toString(), e);
+				LOGGER.info("LdapUserEntry does not exists in LDAP database: " + ldapUserEntry.toString());
+				return ResponseDto.ok();
 			}
 		});
 	}
@@ -146,7 +147,7 @@ public class LdapService extends BaseService implements ILdapService {
 		return executeOperation(() -> {
 			try {
 				LdapUserEntry ldapUserEntry = LdapUserEntry.of(dn)
-						.setCn(LdapUtil.getCn(user.getFirstname(), user.getLastname())).setSn(user.getLastname())
+						.setCn(LdapUtil.getCn(user.getFirstname(), user.getLastname())).setSn(user.getLastname()).setUid(user.getUsername())
 						.setGn(user.getFirstname()).setPassword(LdapUtil.getEncodedPassword(user.getPassword()));
 				LOGGER.info("LdapUserEnrty has been created successfuly");
 				return ResponseDto.ok(ldapUserEntry);

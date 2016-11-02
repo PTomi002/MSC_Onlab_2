@@ -12,8 +12,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class MvcWebSecurityConfig extends WebSecurityConfigurerAdapter{
 	private static final String JSESSIONID = "JSESSIONID";
-	private static final String DASHBOARD_PATH = "/dashboard";
-	private static final String INDEX_PAGE_PATH = "/";
+	private static final String DASHBOARD = "/dashboard";
+	private static final String APPLICATION_REALM = "/dashboard/*";
+	private static final String WELCOME = "/welcome";
+	private static final String SIGNUP = "/signup";
+	private static final String LOGIN = "/login";
 
 //	----------------------------------------------
 //	----------------------------------------------
@@ -24,18 +27,19 @@ public class MvcWebSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-				.mvcMatchers(INDEX_PAGE_PATH).permitAll()
-				.mvcMatchers(DASHBOARD_PATH).authenticated()
+				.mvcMatchers(WELCOME).permitAll()
+				.mvcMatchers(SIGNUP).permitAll()
+				.mvcMatchers(APPLICATION_REALM).authenticated()
 				.anyRequest().permitAll()
 			.and()
 				.formLogin()
-					.loginPage(INDEX_PAGE_PATH)
-					.defaultSuccessUrl(DASHBOARD_PATH)
-					.failureUrl(INDEX_PAGE_PATH + "error=true")
+					.loginPage(LOGIN)
+					.defaultSuccessUrl(DASHBOARD)
+					.failureUrl(WELCOME + "?error=true")
 			.and()
 				.logout()
 					.deleteCookies(JSESSIONID)
-					.logoutSuccessUrl(INDEX_PAGE_PATH)
+					.logoutSuccessUrl(WELCOME)
 					.invalidateHttpSession(true);
 //			.and()
 //				.csrf();

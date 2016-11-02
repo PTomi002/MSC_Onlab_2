@@ -5,6 +5,8 @@
 <head>
 <title th:text="#{page.signup.name}">Signup page name prototype</title>
 <link rel="stylesheet" th:href="@{/public/css/pages/signup.css}" />
+<script th:src="@{/public/js/jquery/jquery.validate.js}"></script>
+<script th:src="@{/public/js/pages/signup.js}"></script>
 </head>
 <body>
 	<div layout:fragment="header" th:replace="header/not_authenticated :: empty-navbar-without-sidebar">Signup
@@ -23,7 +25,7 @@
 						<h3 class="panel-title">Please register!</h3>
 					</div>
 					<div class="panel-body">
-						<form id="registrationForm" th:action="@{/register}"
+						<form id="registration-form" th:action="@{/register}"
 							th:object="${user}" method="POST">
 							<div class="form-group">
 								<input type="text" th:field="*{username}" id="username"

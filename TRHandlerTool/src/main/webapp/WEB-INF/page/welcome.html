@@ -7,6 +7,7 @@
 <title th:text="#{page.welcome.name}">Welcome page name
 	prototype</title>
 <link rel="stylesheet" th:href="@{/public/css/pages/welcome.css}" />
+<script th:src="@{/public/js/bootbox/bootbox.min.js}"></script>
 <script th:src="@{/public/js/pages/welcome.js}"></script>
 </head>
 <body>
@@ -44,7 +45,7 @@
 			</div>
 		</div>
 	</div>
-	<div layout:fragment="footer" th:insert="footer/side_menu :: side-menu">Welcome
+	<div layout:fragment="footer" th:replace="footer/side_menu :: side-menu">Welcome
 		page footer prototype</div>
 </body>
 </html>

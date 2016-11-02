@@ -12,7 +12,7 @@ import org.springframework.ldap.odm.annotations.Entry;
 import org.springframework.ldap.odm.annotations.Id;
 
 @Entry(objectClasses = { "inetOrgPerson", "organizationalPerson", "person", "top", "uidObject" }, base = "ou=People")
-public class LdapUserEntry implements Serializable {
+public final class LdapUserEntry implements Serializable {
 	private static final long serialVersionUID = -717903404461870212L;
 
 	@Id
@@ -30,9 +30,12 @@ public class LdapUserEntry implements Serializable {
 	@Attribute(name = "cn")
 	private String cn;
 
-	@Attribute(name = "password")
+	@Attribute(name = "userPassword")
 	private String password;
 
+	public LdapUserEntry() {
+	}
+	
 	private LdapUserEntry(List<Rdn> rnds) {
 		this.dn = new LdapName(rnds);
 	}
