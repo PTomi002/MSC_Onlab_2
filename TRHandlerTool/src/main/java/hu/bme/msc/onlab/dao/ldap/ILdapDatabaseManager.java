@@ -1,4 +1,4 @@
-package hu.bme.msc.onlab.dao.ldap.interf;
+package hu.bme.msc.onlab.dao.ldap;
 
 import javax.naming.Name;
 import javax.naming.directory.ModificationItem;

@@ -8,7 +8,6 @@ import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.query.LdapQuery;
 import org.springframework.stereotype.Repository;
 
-import hu.bme.msc.onlab.dao.ldap.interf.ILdapDatabaseManager;
 import hu.bme.msc.onlab.model.ldap.LdapUserEntry;
 
 @Repository

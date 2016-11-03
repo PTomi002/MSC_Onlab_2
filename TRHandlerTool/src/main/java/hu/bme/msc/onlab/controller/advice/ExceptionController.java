@@ -71,6 +71,8 @@ public class ExceptionController {
 			if (user != null) {
 				LOGGER.info("Trying to unregister existing User from LDAP database: " + LOGGER_UTIL.getValue(user));
 				ldapService.unRegister(user);
+			} else {
+				LOGGER.error("User object is null, can not unregister!");
 			}
 		} catch (Exception e) {
 			LOGGER.warn("Could not unregister User LDAP database!", e);

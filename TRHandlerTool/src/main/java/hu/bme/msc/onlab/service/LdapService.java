@@ -16,7 +16,7 @@ import org.springframework.ldap.query.LdapQueryBuilder;
 import org.springframework.ldap.support.LdapUtils;
 import org.springframework.stereotype.Service;
 
-import hu.bme.msc.onlab.dao.ldap.interf.ILdapDatabaseManager;
+import hu.bme.msc.onlab.dao.ldap.ILdapDatabaseManager;
 import hu.bme.msc.onlab.exception.LdapEntryExistsException;
 import hu.bme.msc.onlab.exception.LdapUnknownRegistrationException;
 import hu.bme.msc.onlab.exception.RegistrationException;
