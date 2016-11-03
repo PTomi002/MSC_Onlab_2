@@ -11,6 +11,8 @@ import org.springframework.ldap.odm.annotations.Attribute;
 import org.springframework.ldap.odm.annotations.Entry;
 import org.springframework.ldap.odm.annotations.Id;
 
+import com.google.common.base.Joiner;
+
 @Entry(objectClasses = { "inetOrgPerson", "organizationalPerson", "person", "top", "uidObject" }, base = "ou=People")
 public final class LdapUserEntry implements Serializable {
 	private static final long serialVersionUID = -717903404461870212L;
@@ -98,6 +100,10 @@ public final class LdapUserEntry implements Serializable {
 		return this;
 	}
 
+	public String getFullDn() {
+		return Joiner.on(",").join("uid=" + getUid(), "ou=People,dc=onlab,dc=msc,dc=bme,dc=hu");
+	}
+	
 	@Override
 	public String toString() {
 		return "LdapUserEntry [dn=" + dn + ", uid=" + uid + ", gn=" + gn + ", sn=" + sn + ", cn=" + cn + "]";

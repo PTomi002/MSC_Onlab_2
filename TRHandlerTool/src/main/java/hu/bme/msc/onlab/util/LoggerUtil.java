@@ -29,6 +29,12 @@ public final class LoggerUtil {
 	public void error(ResponseDto<?> responseDto) {
 		error(StringUtils.EMPTY, responseDto);
 	}
+	
+	public void errorIfNotOk(ResponseDto<?> responseDto) {
+		if (!responseDto.isSuccess()) {
+			error(StringUtils.EMPTY, responseDto);
+		}
+	}
 
 	public void error(String message, ResponseDto<?> responseDto) {
 		String errorMessage = Joiner.on(DELIMETER).join(message, "[" + responseDto.getReason() + "]");

@@ -13,10 +13,16 @@
 		page header prototype</div>
 	<div layout:fragment="content">
 		<div class="container">
-			<div th:if="${invalid}">
+			<div th:if="${signup_result.getValue()} == 'FAILED'">
 				<div class="alert alert-danger alert-dismissable signup-alert">
 					<button type="button" class="close" data-dismiss="alert">&times;</button>
-					<span>Invalid registration!</span>
+					<span th:text="${signup_message}">Invalid registration prototype!</span>
+				</div>
+			</div>
+			<div th:if="${signup_result.getValue()} == 'PASSED'">
+				<div class="alert alert-success alert-dismissable signup-alert">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<span th:text="${signup_message}">Successful registration prototype!</span>
 				</div>
 			</div>
 			<div id="registrationDiv" class="main-center">
@@ -25,7 +31,7 @@
 						<h3 class="panel-title">Please register!</h3>
 					</div>
 					<div class="panel-body">
-						<form id="registration-form" th:action="@{/register}"
+						<form id="registration-form" th:action="@{/signup}"
 							th:object="${user}" method="POST">
 							<div class="form-group">
 								<input type="text" th:field="*{username}" id="username"

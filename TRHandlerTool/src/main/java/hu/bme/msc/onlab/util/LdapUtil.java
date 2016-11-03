@@ -1,6 +1,5 @@
 package hu.bme.msc.onlab.util;
 
-import javax.naming.Name;
 import javax.naming.directory.BasicAttribute;
 import javax.naming.directory.ModificationItem;
 
@@ -15,9 +14,8 @@ public final class LdapUtil {
 	private LdapUtil() {
 	}
 
-	public static final ModificationItem getModificationItem(Name dn, int operation, BasicAttribute basicAttribute)
+	public static final ModificationItem getModificationItem(int operation, BasicAttribute basicAttribute)
 			throws IllegalArgumentException {
-		Assert.notNull(dn, "DN must be not null");
 		Assert.notNull(basicAttribute, "BasicAttribute must be not null");
 		return new ModificationItem(operation, basicAttribute);
 	}

@@ -1,4 +1,4 @@
-package hu.b.e.msc.onlab.controller.advice;
+package hu.bme.msc.onlab.controller.advice;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
-import hu.bme.msc.onlab.exception.LdapRegistrationException;
-import hu.bme.msc.onlab.model.ldap.LdapUserEntry;
+import hu.bme.msc.onlab.controller.SignupController;
+import hu.bme.msc.onlab.enums.SignUpResult;
+import hu.bme.msc.onlab.exception.LdapEntryExistsException;
+import hu.bme.msc.onlab.exception.LdapUnknownRegistrationException;
+import hu.bme.msc.onlab.model.sql.User;
 import hu.bme.msc.onlab.service.interf.ILdapService;
 import hu.bme.msc.onlab.util.LoggerUtil;
 
@@ -22,51 +25,71 @@ public class ExceptionController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionController.class);
 
 	protected static final LoggerUtil LOGGER_UTIL = LoggerUtil.getLoggerUtil(LOGGER);
-	
+
 	private static final String ERROR_PAGE_NAME = "error";
-	
-	//	----------------------------------------------
-	//	----------------------------------------------
-	//	||		Specific exceptions					||
-	//	----------------------------------------------		
-	//	----------------------------------------------
-	
+
+	// ----------------------------------------------
+	// ----------------------------------------------
+	// || Specific exceptions ||
+	// ----------------------------------------------
+	// ----------------------------------------------
+
 	@ExceptionHandler({ NoHandlerFoundException.class })
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
 	public ModelAndView pageNotFoundException(NoHandlerFoundException exception, HttpServletRequest request) {
 		return handleError(exception, request, HttpStatus.NOT_FOUND);
 	}
-	
+
 	@Autowired
 	private ILdapService ldapService;
-	
-	@ExceptionHandler({ LdapRegistrationException.class })
-	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-	public ModelAndView ldapRegistrationException(LdapRegistrationException exception, HttpServletRequest request) {
+
+	@ExceptionHandler({ LdapEntryExistsException.class })
+	@ResponseStatus(value = HttpStatus.OK)
+	public ModelAndView ldapEntryExistsException(LdapEntryExistsException exception) {
+		final ModelAndView model = new ModelAndView(SignupController.SIGNUP_PAGE);
+
 		try {
-			final LdapUserEntry ldapUserEntry = exception.getLdapUserEntry();
-			LOGGER.info("Trying to delete existing LdapUserEntry: " + LOGGER_UTIL.getValue(ldapUserEntry));
-			if (ldapService.delete(exception.getLdapUserEntry()).isSuccess()) {
-				LOGGER.info("LdapuserEntry has been deleted: " + LOGGER_UTIL.getValue(ldapUserEntry) + "!");
+			final User user = exception.getUser() == null ? new User() : exception.getUser();
+			LOGGER.info("Generating sign up error page");
+
+			model.addObject("user", user);
+			model.addObject(SignupController.SIGNUP_MESSAGE, "User already exists with username: " + user.getUsername());
+			model.addObject(SignupController.SIGNUP_RESULT, SignUpResult.FAILED);
+		} catch (Exception e) {
+			LOGGER.warn("User is null?", e);
+		}
+
+		return model;
+	}
+
+	@ExceptionHandler({ LdapUnknownRegistrationException.class })
+	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+	public ModelAndView ldapRegistrationException(LdapUnknownRegistrationException exception,
+			HttpServletRequest request) {
+		try {
+			final User user = exception.getUser();
+			if (user != null) {
+				LOGGER.info("Trying to unregister existing User from LDAP database: " + LOGGER_UTIL.getValue(user));
+				ldapService.unRegister(user);
 			}
 		} catch (Exception e) {
-			LOGGER.error("Could not delete LDAP entry!", e);
+			LOGGER.warn("Could not unregister User LDAP database!", e);
 		}
-		
+
 		return handleError(exception, request, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	
-	//	----------------------------------------------
-	//	----------------------------------------------
-	//	||		Every not specific exception		||
-	//	----------------------------------------------		
-	//	----------------------------------------------
+
+	// ----------------------------------------------
+	// ----------------------------------------------
+	// || Every not specific exception ||
+	// ----------------------------------------------
+	// ----------------------------------------------
 	@ExceptionHandler({ Exception.class })
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 	public ModelAndView unhandledException(Exception exception, HttpServletRequest request) {
 		return handleError(exception, request, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	
+
 	private ModelAndView handleError(Exception exception, HttpServletRequest request, HttpStatus httpStatus) {
 		final String redirectedUrl = request.getRequestURL().toString();
 		final String httpMessage = exception.getLocalizedMessage();
@@ -80,7 +103,7 @@ public class ExceptionController {
 		model.addObject("httpCode", httpCode);
 		model.addObject("httpMessage", httpMessage);
 		model.addObject("redirectedUrl", redirectedUrl);
-		
+
 		return model;
 	}
 }
