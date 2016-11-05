@@ -22,6 +22,7 @@ import hu.bme.msc.onlab.config.LdapContextConfig;
 import hu.bme.msc.onlab.config.MessageResolverContext;
 import hu.bme.msc.onlab.config.MvcWebAppConfiguration;
 import hu.bme.msc.onlab.config.MvcWebSecurityConfig;
+import hu.bme.msc.onlab.config.JpaContextConfiguration;
 import hu.bme.msc.onlab.config.ViewResolverContextConfig;
 import hu.bme.msc.onlab.filter.UserNameFilter;
 
@@ -35,7 +36,7 @@ public class TRHandlerWebAppInitializer implements WebApplicationInitializer {
 	
 	private final static List<Class<?>> CONFIGURATION_CLASSES = Lists.newArrayList(MvcWebAppConfiguration.class,
 			MvcWebSecurityConfig.class, LdapContextConfig.class, ViewResolverContextConfig.class,
-			MessageResolverContext.class);
+			MessageResolverContext.class, JpaContextConfiguration.class);
 
 	@Override
 	public void onStartup(ServletContext container) throws ServletException {
@@ -49,7 +50,7 @@ public class TRHandlerWebAppInitializer implements WebApplicationInitializer {
 		
 //		Create dispatcher servlet
 		DispatcherServlet disp = new DispatcherServlet(ctx);
-//		Throw exception if page not found, replaces the error part in web.xml
+//		Throw exception if page was not found, replaces the error part in web.xml
 		disp.setThrowExceptionIfNoHandlerFound(true);
 		
 		// Register DispatcherServlet with name: "root"

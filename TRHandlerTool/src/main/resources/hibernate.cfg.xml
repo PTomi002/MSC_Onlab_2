@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<!-- JBoss Tools provide editors for these kind of .xml files -->
+<!-- An alternative approach to configuration is to specify a full configuration 
+	in a file named hibernate.cfg.xml. This file can be used as a replacement 
+	for the hibernate.properties file or, if both are present, to override properties. -->
+<hibernate-configuration>
+	<session-factory>
+		<!-- Only for Hibernate Tools -->
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/tr_db</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">rootroot</property>
+		<!-- !!! Only for Hibernate Tools !!! -->
+		<mapping resource="user.hbm.xml" />
+	</session-factory>
+</hibernate-configuration>

@@ -1,5 +1,7 @@
 package hu.bme.msc.onlab.controller;
 
+import java.util.Date;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,7 @@ public class SignupController extends BaseController {
 		user.setEmail("aaa@aaa.aaa");
 		user.setPassword("aA0+++");
 		user.setUsername("aaaaa");
+		user.setRegistration_date(new Date());
 
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			LOGGER.info("Forwarding welcome page");
