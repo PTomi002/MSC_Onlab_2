@@ -9,12 +9,6 @@
 	for the hibernate.properties file or, if both are present, to override properties. -->
 <hibernate-configuration>
 	<session-factory>
-		<!-- Only for Hibernate Tools -->
-		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/tr_db</property>
-		<property name="hibernate.connection.username">root</property>
-		<property name="hibernate.connection.password">rootroot</property>
-		<!-- !!! Only for Hibernate Tools !!! -->
 		<mapping resource="user.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>

@@ -18,14 +18,14 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@PropertySource("classpath:jdbc.properties")
+@PropertySource("classpath:hibernate.properties")
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = {"hu.bme.msc.onlab.dao.repository"})
+@EnableJpaRepositories(basePackages = { "hu.bme.msc.onlab.dao.repository" })
 public class JpaContextConfiguration {
-	private static final String DRIVER_NAME_KEY = "jdbc.driver.name";
-	private static final String URL_KEY = "jdbc.server.url";
-	private static final String USERNAME_KEY = "jdbc.server.username";
-	private static final String PASSWORD_KEY = "jdbc.server.password";
+	private static final String DRIVER_NAME_KEY = "hibernate.connection.driver_class";
+	private static final String URL_KEY = "hibernate.connection.url";
+	private static final String USERNAME_KEY = "hibernate.connection.username";
+	private static final String PASSWORD_KEY = "hibernate.connection.password";
 
 	@Autowired
 	private Environment env;
@@ -57,7 +57,7 @@ public class JpaContextConfiguration {
 		localContainerEntityManagerFactoryBean.setDataSource(dataSource());
 		localContainerEntityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdapter());
 		localContainerEntityManagerFactoryBean.setPersistenceXmlLocation("classpath:persistence.xml");
-		
+
 		return localContainerEntityManagerFactoryBean;
 	}
 
