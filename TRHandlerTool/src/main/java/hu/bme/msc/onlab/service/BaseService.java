@@ -10,7 +10,7 @@ import hu.bme.msc.onlab.util.LoggerUtil;
 import hu.bme.msc.onlab.util.ResponseDto;
 
 public abstract class BaseService {
-	protected static final String EXCEPTION_MESSAGE = "Unhandled exception happened during executing operation!";
+	protected static final String EXCEPTION_MESSAGE = "Unhandled exception happened during executing operation: ";
 
 	protected final Logger LOGGER = LoggerFactory.getLogger(getClass());
 	
@@ -25,7 +25,7 @@ public abstract class BaseService {
 		try {
 			return operation.apply(value);
 		} catch (Exception e) {
-			return ResponseDto.fail(EXCEPTION_MESSAGE, e);
+			return ResponseDto.fail(EXCEPTION_MESSAGE + e.getLocalizedMessage(), e);
 		}
 	}
 
@@ -33,7 +33,7 @@ public abstract class BaseService {
 		try {
 			return supplier.get();
 		} catch (Exception e) {
-			return ResponseDto.fail(EXCEPTION_MESSAGE, e);
+			return ResponseDto.fail(EXCEPTION_MESSAGE + e.getLocalizedMessage(), e);
 		}
 	}
 }

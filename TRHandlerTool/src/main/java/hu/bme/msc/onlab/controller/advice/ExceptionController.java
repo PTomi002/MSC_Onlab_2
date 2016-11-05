@@ -16,6 +16,8 @@ import hu.bme.msc.onlab.controller.SignupController;
 import hu.bme.msc.onlab.enums.SignUpResult;
 import hu.bme.msc.onlab.exception.LdapEntryExistsException;
 import hu.bme.msc.onlab.exception.LdapUnknownRegistrationException;
+import hu.bme.msc.onlab.exception.MySqlRegisrationException;
+import hu.bme.msc.onlab.exception.RegistrationException;
 import hu.bme.msc.onlab.model.sql.User;
 import hu.bme.msc.onlab.service.interf.ILdapService;
 import hu.bme.msc.onlab.util.LoggerUtil;
@@ -53,7 +55,8 @@ public class ExceptionController {
 			LOGGER.info("Generating sign up error page");
 
 			model.addObject("user", user);
-			model.addObject(SignupController.SIGNUP_MESSAGE, "User already exists with username: " + user.getUsername());
+			model.addObject(SignupController.SIGNUP_MESSAGE,
+					"User already exists with username: " + user.getUsername());
 			model.addObject(SignupController.SIGNUP_RESULT, SignUpResult.FAILED);
 		} catch (Exception e) {
 			LOGGER.warn("User is null?", e);
@@ -62,9 +65,9 @@ public class ExceptionController {
 		return model;
 	}
 
-	@ExceptionHandler({ LdapUnknownRegistrationException.class })
+	@ExceptionHandler({ LdapUnknownRegistrationException.class , MySqlRegisrationException.class})
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-	public ModelAndView ldapRegistrationException(LdapUnknownRegistrationException exception,
+	public ModelAndView ldapRegistrationException(RegistrationException exception,
 			HttpServletRequest request) {
 		try {
 			final User user = exception.getUser();
@@ -77,7 +80,6 @@ public class ExceptionController {
 		} catch (Exception e) {
 			LOGGER.warn("Could not unregister User LDAP database!", e);
 		}
-
 		return handleError(exception, request, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 

@@ -1,7 +1,5 @@
 package hu.bme.msc.onlab.controller;
 
-import java.util.Date;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +45,6 @@ public class SignupController extends BaseController {
 		user.setEmail("aaa@aaa.aaa");
 		user.setPassword("aA0+++");
 		user.setUsername("aaaaa");
-		user.setRegistration_date(new Date());
 
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			LOGGER.info("Forwarding welcome page");
@@ -62,7 +59,8 @@ public class SignupController extends BaseController {
 	}
 
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
-	public ModelAndView signup(@Valid @ModelAttribute(value = "user") User user, final BindingResult bindingResult) throws RegistrationException {
+	public ModelAndView signup(@Valid @ModelAttribute(value = "user") User user, final BindingResult bindingResult)
+			throws RegistrationException {
 		final ModelAndView model;
 
 		if (bindingResult.hasErrors()) {
@@ -81,6 +79,8 @@ public class SignupController extends BaseController {
 
 			LOGGER.info("Generating login page");
 			model = new ModelAndView(SIGNUP_PAGE);
+			// If registration is OK, then do not fill the form with the previous
+			// data
 			model.addObject("user", new User());
 			model.addObject(SIGNUP_RESULT, SignUpResult.PASSED);
 			model.addObject(SIGNUP_MESSAGE, "Successful sign up!");

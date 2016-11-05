@@ -40,6 +40,16 @@ public final class ResponseDto<T> {
 		return new ResponseDto<T>(null, original.getException(), original.getReason(), false);
 	}
 
+	public static final <T> ResponseDto<Void> convertBooleanTypeToVoid(ResponseDto<Boolean> original) {
+		if (original.isSuccess() && Boolean.TRUE.equals(original.getValue())) {
+			return ResponseDto.ok();
+		} else if (!original.isSuccess() || (original.isSuccess() && Boolean.FALSE.equals(original.getValue()))) {
+			return ResponseDto.fail(original);
+		} else {
+			return ResponseDto.fail("This path should never run!");
+		}
+	}
+
 	public T getValue() {
 		return value;
 	}

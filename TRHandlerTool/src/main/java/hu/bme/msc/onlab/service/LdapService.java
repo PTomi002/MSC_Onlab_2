@@ -191,6 +191,7 @@ public class LdapService extends BaseService implements ILdapService {
 		return executeOperation(() -> {
 			try {
 				ldapDatabaseManager.delete(ldapUserEntry);
+				LOGGER.info("LdapUserEnrty has been deleted successfuly");
 				return ResponseDto.ok();
 			} catch (Exception e) {
 				return ResponseDto.fail("Could not delete entry: " + LOGGER_UTIL.getValue(ldapUserEntry), e);

@@ -6,4 +6,8 @@ import hu.bme.msc.onlab.util.ResponseDto;
 
 public interface IUserService {
 	public ResponseDto<User> register(User user) throws RegistrationException;
+	
+	public ResponseDto<Void> create(User user);
+	
+	public ResponseDto<Boolean> exists(User user);
 }
