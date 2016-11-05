@@ -35,7 +35,7 @@ public class SignupController extends BaseController {
 	private IUserService userService;
 
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
-	public ModelAndView getSignup(@ModelAttribute(value = "user") User user) {
+	public ModelAndView signup(@ModelAttribute(value = "user") User user) {
 		final ModelAndView model;
 		final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
