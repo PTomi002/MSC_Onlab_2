@@ -14,6 +14,11 @@ sudo vi /etc/default/slapd
 GEt Java home:
 echo $JAVA_HOME
 
+OR:
+which java
+OR:
+ls -l /etc/alternatives/ | grep java
+
 LDAP certificate to JVM truststore:
 # Copy the certificate into the directory Java_home\Jre\Lib\Security
 # Change your directory to Java_home\Jre\Lib\Security>
