@@ -9,7 +9,7 @@
 	for the hibernate.properties file or, if both are present, to override properties. -->
 <hibernate-configuration>
 	<session-factory>
-		<mapping resource="user.hbm.xml" />
-		<mapping resource="trouble_report.hbm.xml" />
+		<mapping resource="hu/bme/msc/onlab/model/sql/user.hbm.xml" />
+		<mapping resource="hu/bme/msc/onlab/model/sql/trouble_report.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>
