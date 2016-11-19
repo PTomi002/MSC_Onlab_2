@@ -60,7 +60,7 @@ public class UserService extends BaseService implements IUserService {
 	public ResponseDto<Boolean> exists(User user) {
 		LOGGER.info("Searching User in MySQL database: " + LOGGER_UTIL.getValue(user));
 		return executeOperation(() -> {
-			return ResponseDto.ok(userRepository.exists(user.getUsername()));
+			return ResponseDto.ok(userRepository.exists(user.getUsernameId()));
 		});
 	}
 

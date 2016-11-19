@@ -5,18 +5,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
+@RequestMapping(value = "/dashboard")
 public class DashBoardController extends BaseController{
 
-	@RequestMapping(value = { "/dashboard" }, method = RequestMethod.GET)
-	public String welcome() {
-		LOGGER.info("Generating dashboard page");
-		return "dashboard";
+	@RequestMapping(value = { "/worklist" }, method = RequestMethod.GET)
+	public String worklist() {
+		LOGGER.info("Generating wok list page");
+		return "worklist";
 	}
 	
-	@RequestMapping(value = { "/admin" }, method = RequestMethod.GET)
-	public String admin() {
-		LOGGER.info("Generating dashboard page");
-		return "dashboard";
-	}
-
+	
 }

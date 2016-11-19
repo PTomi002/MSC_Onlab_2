@@ -18,7 +18,7 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 public class ViewResolverContextConfig {
 //	-----------------------------------------------------------------
 //	-----------------------------------------------------------------
-//	||		Setting default VievResolver backend to: Thymeleaf		||
+//	||		Setting default VievResolver back end to: Thymeleaf		||
 //	-----------------------------------------------------------------
 //	-----------------------------------------------------------------
 	@Bean(name = "thymeleafViewResolver")

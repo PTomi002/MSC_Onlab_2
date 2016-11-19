@@ -11,16 +11,27 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 @EnableWebSecurity
 public class MvcWebSecurityConfig extends WebSecurityConfigurerAdapter{
+//	----------------------------------------------
+//	Static attributes
+	
+	private static final String PATH_LOGOUT = "/logout";
 	private static final String J_PASSWORD = "j_password";
 	private static final String J_USERNAME = "j_username";
 	private static final String J_SPRING_SECURITY_CHECK = "/j_spring_security_check";
 	private static final String JSESSIONID = "JSESSIONID";
-	private static final String DASHBOARD = "/dashboard";
-	private static final String APPLICATION_REALM = DASHBOARD + "/**";
-	private static final String WELCOME = "/welcome";
-	private static final String SIGNIN = "/signin";
+	private static final String PATH_DASHBOARD = "/dashboard";
+	private static final String PATH_APPLICATION_REALM = PATH_DASHBOARD + "/**";
+	private static final String PATH_WELCOME = "/welcome";
+	private static final String PATH_SIGNIN = "/signin";
+	private static final String PATH_ADMIN = PATH_DASHBOARD + "/admin"; 
+	private static final String PATH_FAILURE_LOGIN = PATH_SIGNIN + "?invalid=true";
+	
+//	----------------------------------------------
+//	Application default roles
+	
 	private static final String ROLE_ADMIN = "hasRole('ROLE_ADMIN')";
 	private static final String ROLE_USER = "hasRole('ROLE_USER')";
+	
 //	----------------------------------------------
 //	----------------------------------------------
 //	||		Configure HTTP auth.				||
@@ -30,25 +41,34 @@ public class MvcWebSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-				.mvcMatchers(DASHBOARD, APPLICATION_REALM).access(ROLE_USER)
-				.mvcMatchers("/admin").access(ROLE_ADMIN)
+//				* matches for zero or more character
+//				** matches for zero or more character including /
+				.mvcMatchers(PATH_APPLICATION_REALM).access(ROLE_USER)
+				.mvcMatchers(PATH_ADMIN).access(ROLE_ADMIN)
 				.anyRequest().permitAll()
 			.and()
 				.formLogin()
-					.loginPage(SIGNIN)
+					.loginPage(PATH_SIGNIN)
 					.loginProcessingUrl(J_SPRING_SECURITY_CHECK)
-					.defaultSuccessUrl(DASHBOARD)
-					.failureUrl(SIGNIN + "?invalid=true")
+					.defaultSuccessUrl(PATH_DASHBOARD)
+					.failureUrl(PATH_FAILURE_LOGIN)
 					.usernameParameter(J_USERNAME)
 					.passwordParameter(J_PASSWORD)
 			.and()
 				.logout()
 					.deleteCookies(JSESSIONID)
-					.logoutSuccessUrl(WELCOME)
+					.logoutSuccessUrl(PATH_WELCOME)
 					.invalidateHttpSession(true)
+					.logoutUrl(PATH_LOGOUT)
+					.logoutSuccessUrl(PATH_WELCOME)
 			.and()
-				.exceptionHandling()
-					.accessDeniedPage("");
+				.headers()
+					.frameOptions()
+//					Enable iframe tags
+							.sameOrigin();
+//			.and()
+//				.exceptionHandling()
+//					.accessDeniedPage("");
 //			.and()
 //				.csrf();
 	}

@@ -12,7 +12,7 @@ import org.springframework.security.config.annotation.authentication.configurers
 
 @Configuration
 //Environment source annotation
-@PropertySource("classpath:ldap.properties")
+@PropertySource("classpath:ldap/ldap.properties")
 public class LdapContextConfig {
 //	----------------------------------------------
 //	----------------------------------------------

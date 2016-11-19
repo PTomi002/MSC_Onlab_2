@@ -43,7 +43,7 @@ public class LdapService extends BaseService implements ILdapService {
 		LdapUserEntry ldapUserEntry = null;
 
 		LOGGER.info("Getting and parsing base DN");
-		ResponseDto<List<Rdn>> rdnsResponse = parseDnToRnds(LdapUtil.getRelativeDnToTheBaseDn(user.getUsername()));
+		ResponseDto<List<Rdn>> rdnsResponse = parseDnToRnds(LdapUtil.getRelativeDnToTheBaseDn(user.getUsernameId()));
 		checkOperationSuccess(rdnsResponse);
 
 		LOGGER.info("Creating LdapUserEntry object");
@@ -77,7 +77,7 @@ public class LdapService extends BaseService implements ILdapService {
 		LOGGER.info("Unregistering user from LDAP server: " + LOGGER_UTIL.getValue(user));
 		LOGGER.info("Getting and parsing base DN");
 		final ResponseDto<List<Rdn>> rdnsResponse = parseDnToRnds(
-				LdapUtil.getRelativeDnToTheBaseDn(user.getUsername()));
+				LdapUtil.getRelativeDnToTheBaseDn(user.getUsernameId()));
 		LOGGER_UTIL.errorIfNotOk(rdnsResponse);
 		
 		LOGGER.info("Creating LdapUserEntry object");
@@ -163,7 +163,7 @@ public class LdapService extends BaseService implements ILdapService {
 			try {
 				LdapUserEntry ldapUserEntry = LdapUserEntry.of(dn)
 						.setCn(LdapUtil.getCn(user.getFirstname(), user.getLastname())).setSn(user.getLastname())
-						.setUid(user.getUsername()).setGn(user.getFirstname())
+						.setUid(user.getUsernameId()).setGn(user.getFirstname())
 						.setPassword(LdapUtil.getEncodedPassword(user.getPassword()));
 				LOGGER.info("LdapUserEnrty has been created successfuly");
 				return ResponseDto.ok(ldapUserEntry);

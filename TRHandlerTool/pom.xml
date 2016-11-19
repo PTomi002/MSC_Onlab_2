@@ -71,11 +71,11 @@
 			<version>1.1.0.Final</version>
 		</dependency>
 		<!-- Hibernate validation annotations -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.hibernate</groupId> -->
-<!-- 			<artifactId>hibernate-validator</artifactId> -->
-<!-- 			<version>5.0.1.Final</version> -->
-<!-- 		</dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.hibernate</groupId> -->
+		<!-- <artifactId>hibernate-validator</artifactId> -->
+		<!-- <version>5.0.1.Final</version> -->
+		<!-- </dependency> -->
 		<!-- Spring FW... -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -187,13 +187,6 @@
 					<groupId>de.juplo</groupId>
 					<artifactId>hibernate-maven-plugin</artifactId>
 					<version>2.0.0</version>
-					<configuration>
-						<hibernateConfig>src/main/resources/hibernate.cfg.xml</hibernateConfig>
-						<mappings>src/main/resources/user.hbm.xml</mappings>
-						<hibernateProperties>hibernate.properties</hibernateProperties>
-						<outputFile>schema.sql</outputFile>
-						<force>true</force>
-					</configuration>
 				</plugin>
 
 				<plugin>
@@ -206,6 +199,12 @@
 						<failOnMissingWebXml>false</failOnMissingWebXml>
 					</configuration>
 				</plugin>
+
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>exec-maven-plugin</artifactId>
+					<version>1.1.1</version>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 
@@ -216,13 +215,37 @@
 				<executions>
 					<execution>
 						<id>clean-database</id>
-						<phase>install</phase>
+						<phase>deploy</phase>
 						<goals>
 							<goal>drop</goal>
 							<goal>create</goal>
 						</goals>
 					</execution>
 				</executions>
+				<configuration>
+					<scanDependencies>none</scanDependencies>
+					<hibernateConfig>hibernate.cfg.xml</hibernateConfig>
+					<hibernateProperties>hibernate.properties</hibernateProperties>
+					<outputFile>schema.sql</outputFile>
+					<force>true</force>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>clean-ldap-database</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<executable>hostname</executable>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

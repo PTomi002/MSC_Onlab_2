@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="hu.bme.msc.onlab.model.sql">
+	<class name="hu.bme.msc.onlab.model.sql.TroubleReport" table="trouble_report">
+		<id name="troubleReportId" type="java.lang.Long">
+			<column name="TR_ID" not-null="true" />
+			<generator class="native"></generator>
+		</id>
+
+		<property name="answer" type="text">
+			<column name="ANSWER" not-null="false" />
+		</property>
+
+		<property name="observation" type="text">
+			<column name="OBSERVATION" not-null="true" />
+		</property>
+
+		<many-to-one name="user" class="hu.bme.msc.onlab.model.sql.User"
+			fetch="select">
+			<column name="USER_ID" not-null="true" length="15" />
+		</many-to-one>
+
+	</class>
+</hibernate-mapping>

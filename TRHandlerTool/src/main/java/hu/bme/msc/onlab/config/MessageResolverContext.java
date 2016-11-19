@@ -14,7 +14,9 @@ public class MessageResolverContext {
 	@Bean(name = "messageSource")
 	public ResourceBundleMessageSource messageSource() {
 		ResourceBundleMessageSource resourceBundleMessageSource = new ResourceBundleMessageSource();
-		resourceBundleMessageSource.setBasename(BASENAME);
+//		At the original location
+//		resourceBundleMessageSource.setBasename(BASENAME);
+		resourceBundleMessageSource.setBasename("messages/" + BASENAME);
 		resourceBundleMessageSource.setDefaultEncoding(ENCODING.name());
 		return resourceBundleMessageSource;
 	}

@@ -10,5 +10,6 @@
 <hibernate-configuration>
 	<session-factory>
 		<mapping resource="user.hbm.xml" />
+		<mapping resource="trouble_report.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>

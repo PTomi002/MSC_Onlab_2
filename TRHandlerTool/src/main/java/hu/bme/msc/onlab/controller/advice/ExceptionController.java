@@ -56,7 +56,7 @@ public class ExceptionController {
 
 			model.addObject("user", user);
 			model.addObject(SignupController.SIGNUP_MESSAGE,
-					"User already exists with username: " + user.getUsername());
+					"User already exists with username: " + user.getUsernameId());
 			model.addObject(SignupController.SIGNUP_RESULT, SignUpResult.FAILED);
 		} catch (Exception e) {
 			LOGGER.warn("User is null?", e);

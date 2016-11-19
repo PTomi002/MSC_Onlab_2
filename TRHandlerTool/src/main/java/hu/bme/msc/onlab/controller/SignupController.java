@@ -39,12 +39,12 @@ public class SignupController extends BaseController {
 		final ModelAndView model;
 		final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-		// TODO Just for development!
+//		TODO !!! Only for development !!!
 		user.setFirstname("aaaaa");
 		user.setLastname("aaaaa");
 		user.setEmail("aaa@aaa.aaa");
 		user.setPassword("aA0+++");
-		user.setUsername("aaaaa");
+		user.setUsernameId("aaaaa");
 
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			LOGGER.info("Forwarding welcome page");
@@ -78,10 +78,7 @@ public class SignupController extends BaseController {
 			userService.register(user);
 
 			LOGGER.info("Generating login page");
-			model = new ModelAndView(SIGNUP_PAGE);
-			// If registration is OK, then do not fill the form with the previous
-			// data
-			model.addObject("user", new User());
+			model = new ModelAndView("signin");
 			model.addObject(SIGNUP_RESULT, SignUpResult.PASSED);
 			model.addObject(SIGNUP_MESSAGE, "Successful sign up!");
 		}
