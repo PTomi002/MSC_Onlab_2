@@ -215,6 +215,8 @@
 				<executions>
 					<execution>
 						<id>clean-database</id>
+						<!-- CLEAN PROJECT AND/OR UPDATE PROECT WITH MAVEN BEFORE RUNNING PUGINS -->
+						<!-- BUT WHY??? -->
 						<phase>pre-clean</phase>
 						<goals>
 							<goal>drop</goal>
@@ -235,8 +237,8 @@
 				<executions>
 					<execution>
 						<id>clean-ldap-database</id>
-	<!-- CLEAN PROJECT AND/OR UPDATE PROECT WITH MAVEN BEFORE RUNNING PUGINS -->
-	<!-- BUT WHY??? -->
+						<!-- CLEAN PROJECT AND/OR UPDATE PROECT WITH MAVEN BEFORE RUNNING PUGINS -->
+						<!-- BUT WHY??? -->
 						<phase>pre-clean</phase>
 						<goals>
 							<goal>exec</goal>

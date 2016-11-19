@@ -1,0 +1,94 @@
+version: 1
+dn: dc=onlab,dc=msc,dc=bme,dc=hu
+objectClass: top
+objectClass: dcObject
+objectClass: organization
+dc: onlab
+o: bme
+
+dn: cn=admin,dc=onlab,dc=msc,dc=bme,dc=hu
+objectClass: simpleSecurityObject
+objectClass: organizationalRole
+objectClass: uidObject
+objectClass: top
+cn: admin
+description: LDAP administrator
+uid: admin
+userPassword:: e1NTSEF9ZVU0cjB3WE5DN20yRTRXRFlNR24yTlFQTXBrUVU0NDQ=
+
+dn: ou=People,dc=onlab,dc=msc,dc=bme,dc=hu
+objectClass: organizationalUnit
+objectClass: top
+ou: People
+
+dn: uid=aaaaa,ou=People,dc=onlab,dc=msc,dc=bme,dc=hu
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+objectClass: uidObject
+cn: aaaaa aaaaa
+givenName: aaaaa
+sn: aaaaa
+uid: aaaaa
+userPassword:: e1NIQX1pS2sxZFpIMGZyOG5IRXIybHJhcStvbTVoVUk9
+
+dn: uid=aaaaaff,ou=People,dc=onlab,dc=msc,dc=bme,dc=hu
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+objectClass: uidObject
+cn: aaaaa aaaaa
+givenName: aaaaa
+sn: aaaaa
+uid: aaaaaff
+userPassword:: e1NIQX1pS2sxZFpIMGZyOG5IRXIybHJhcStvbTVoVUk9
+
+dn: uid=aaaaaa,ou=People,dc=onlab,dc=msc,dc=bme,dc=hu
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+objectClass: uidObject
+cn: aaaaa aaaaa
+givenName: aaaaa
+sn: aaaaa
+uid: aaaaaa
+userPassword:: e1NIQX1pS2sxZFpIMGZyOG5IRXIybHJhcStvbTVoVUk9
+
+dn: uid=bbbbb,ou=People,dc=onlab,dc=msc,dc=bme,dc=hu
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+objectClass: uidObject
+cn: aaaaa aaaaa
+givenName: aaaaa
+sn: aaaaa
+uid: bbbbb
+userPassword:: e1NIQX1xQ1UzOGNObTVwVStDK2ZZM1Y4STBPUmFSVzA9
+
+dn: ou=Groups,dc=onlab,dc=msc,dc=bme,dc=hu
+objectClass: organizationalUnit
+objectClass: top
+ou: Groups
+
+dn: cn=Administrators,ou=Groups,dc=onlab,dc=msc,dc=bme,dc=hu
+objectClass: groupOfUniqueNames
+objectClass: top
+businessCategory: ADMIN
+cn: Administrators
+uniqueMember: uid=admin,dc=onlab,dc=msc,dc=bme,dc=hu
+
+dn: cn=Users,ou=Groups,dc=onlab,dc=msc,dc=bme,dc=hu
+objectClass: groupOfUniqueNames
+objectClass: top
+businessCategory: USER
+cn: Users
+uniqueMember: uid=admin,dc=onlab,dc=msc,dc=bme,dc=hu
+uniqueMember: uid=aaaaa,ou=People,dc=onlab,dc=msc,dc=bme,dc=hu
+uniqueMember: uid=aaaaaff,ou=People,dc=onlab,dc=msc,dc=bme,dc=hu
+uniqueMember: uid=aaaaaa,ou=People,dc=onlab,dc=msc,dc=bme,dc=hu
+uniqueMember: uid=bbbbb,ou=People,dc=onlab,dc=msc,dc=bme,dc=hu
+
