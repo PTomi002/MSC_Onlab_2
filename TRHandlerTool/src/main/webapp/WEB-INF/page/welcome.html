@@ -12,7 +12,7 @@
 </head>
 <body>
 	<div layout:fragment="header"
-		th:replace="${#authorization.expression('isAuthenticated()')} ? 'AUTHED' : ~{header/empty_header :: with-sidebar}">Welcome
+		th:replace="${#authorization.expression('isAuthenticated()')} ? ~{header/common_header :: common-header} : ~{header/empty_header :: with-sidebar}">Welcome
 		page header prototype</div>
 	<div layout:fragment="content" class="container-fluid">
 		<div class="row">

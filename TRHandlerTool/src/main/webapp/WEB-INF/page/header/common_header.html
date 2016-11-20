@@ -1,6 +1,42 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
+<nav class="navbar navbar-inverse navbar-fixed-top" th:fragment="common-header">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#navbar">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" th:href="@{${@environment.getProperty('page.welcome')}}">
+				<span th:text="#{project.name}">project.name</span></a>
+		</div>
+
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li><a th:href="."> <span
+						class="glyphicon glyphicon-home"></span> Index
+				</a></li>
+				<li><a th:href="."> <span
+						class="glyphicon glyphicon-user"></span> Users
+				</a></li>
+			</ul>
+<!-- 				Thymeleaf 2.1+ or form:form automatically adds CSRF token -->
+			<form class="navbar-form navbar-right" th:action="@{${@environment.getProperty('page.signout')}}" method="POST">
+				<button type="submit" class=" btn btn-primary center-block">
+					Logout <span class="glyphicon glyphicon-off"> </span>
+				</button>
+			</form>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a>Logged in as: <span sec:authentication="name">Logged.in.username</span></a></li>
+				<li><a><img width="20" height=20 th:src="@{${@environment.getProperty('user.avatar.default')}}"></img></a></li>
+			</ul>	
+		</div>
+	</div>
+</nav>
 
 </html>

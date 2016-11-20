@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value = "/dashboard")
 public class DashBoardController extends BaseController{
 
-	@RequestMapping(value = { "/worklist" }, method = RequestMethod.GET)
+	@RequestMapping(value = "/worklist", method = RequestMethod.GET)
 	public String worklist() {
 		LOGGER.info("Generating wok list page");
 		return "worklist";

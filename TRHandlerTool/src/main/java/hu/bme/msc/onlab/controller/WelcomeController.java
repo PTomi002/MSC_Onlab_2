@@ -21,7 +21,7 @@ public class WelcomeController extends BaseController {
 		return "welcome";
 	}
 
-	@RequestMapping(value = { "/signin" }, method = RequestMethod.GET)
+	@RequestMapping(value = "/signin", method = RequestMethod.GET)
 	public ModelAndView signin(@RequestParam(name = INVALID_SIGNIN, required = false) boolean invalid) {
 		final ModelAndView model;
 		final Authentication auth = SecurityContextHolder.getContext().getAuthentication();

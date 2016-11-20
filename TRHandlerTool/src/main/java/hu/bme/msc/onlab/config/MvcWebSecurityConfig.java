@@ -14,7 +14,7 @@ public class MvcWebSecurityConfig extends WebSecurityConfigurerAdapter{
 //	----------------------------------------------
 //	Static attributes
 	
-	private static final String PATH_LOGOUT = "/logout";
+	private static final String PATH_LOGOUT = "/j_spring_security_logout";
 	private static final String J_PASSWORD = "j_password";
 	private static final String J_USERNAME = "j_username";
 	private static final String J_SPRING_SECURITY_CHECK = "/j_spring_security_check";
@@ -43,7 +43,7 @@ public class MvcWebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.authorizeRequests()
 //				* matches for zero or more character
 //				** matches for zero or more character including /
-				.mvcMatchers(PATH_APPLICATION_REALM).access(ROLE_USER)
+				.mvcMatchers(PATH_DASHBOARD, PATH_APPLICATION_REALM).access(ROLE_USER)
 				.mvcMatchers(PATH_ADMIN).access(ROLE_ADMIN)
 				.anyRequest().permitAll()
 			.and()
@@ -60,7 +60,6 @@ public class MvcWebSecurityConfig extends WebSecurityConfigurerAdapter{
 					.logoutSuccessUrl(PATH_WELCOME)
 					.invalidateHttpSession(true)
 					.logoutUrl(PATH_LOGOUT)
-					.logoutSuccessUrl(PATH_WELCOME)
 			.and()
 				.headers()
 					.frameOptions()
