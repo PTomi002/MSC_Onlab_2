@@ -1,44 +1,38 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:th="http://www.thymeleaf.org"
-	layout:decorator="layout/baseLayout"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	layout:decorate="~{layout/commonLayout}">
 <head>
 	<title th:text="#{page.welcome.name}">Welcome page name prototype</title>
-	<link rel="stylesheet" th:href="@{/public/css/pages/welcome.css}" />
-	<script th:src="@{/public/js/bootbox/bootbox.min.js}"></script>
+	<!-- welcome.html scripts -->
 	<script th:src="@{/public/js/pages/welcome.js}"></script>
+	<!-- welcome.html css -->
+	<link rel="stylesheet" th:href="@{/public/css/pages/welcome.css}" />
 </head>
 <body>
-	<div layout:fragment="header" th:replace="${#authorization.expression('isAuthenticated()')} ? ~{header/common_header :: common-header} : ~{header/empty_header :: with-sidebar}">
-		Welcome page header prototype
+	<div layout:fragment="sidebar-content">
+		<!-- Welcome page sidebar content -->
+		<div th:replace="${#authorization.expression('hasRole(''ROLE_USER'')')} ? ~{fragment/side_menu :: authenticated} : ~{fragment/side_menu :: not-authenticated}"></div>
 	</div>
-	<div layout:fragment="content" class="container-fluid">
+	<div layout:fragment="page-content" class="container-fluid">
+		<!-- Welcome page content -->
 		<div class="row">
-			<div class="col-sm-1 col-md-1 sidebar" th:insert="${#authorization.expression('isAuthenticated()')} ? ~{fragment/side_menu :: authenticated} : ~{fragment/side_menu :: not-authenticated}"></div>
-			<div class="col-sm-11 col-md-11 main">
-				<h1>Dashboard</h1>
-				<div class="row">
-					<div class="col-sm-5 col-md-5">
-						<div class="panel panel-default">
-							<div class="panel-heading">Work list - Trouble Reports</div>
-							<div class="panel-body">
-<!-- 								<iframe name="worklist" th:src="@{${@environment.getProperty('page.dashboard')}}"> Work list prototype</iframe> -->
-							</div>
-						</div>
+			<div class="col-lg-12">
+				<div class="col-sm-6 col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">Work list - Trouble Reports</div>
+						<div class="panel-body"></div>
 					</div>
-					<div class="col-sm-5 col-md-5">
-						<div class="panel panel-default">
-							<div class="panel-heading">Panel heading without title</div>
-							<div class="panel-body"><a th:href="@{${@environment.getProperty('page.welcome')}}">AAA</a></div>
+				</div>
+				<div class="col-sm-6 col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">Panel heading without title</div>
+						<div class="panel-body">
+							<a th:href="@{${@environment.getProperty('page.welcome')}}">AAA</a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div layout:fragment="footer" th:replace="${#authorization.expression('isAuthenticated()')} ? ~{footer/side_menu :: authenticated} : ~{footer/side_menu :: not-authenticated}">
-		Welcome page footer prototype
-	</div>
-</body>
 </html>

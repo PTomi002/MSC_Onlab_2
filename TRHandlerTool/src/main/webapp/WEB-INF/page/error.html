@@ -1,40 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:th="http://www.thymeleaf.org"
-	layout:decorator="layout/baseLayout"
+	layout:decorate="~{layout/emptyLayout}"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 	<title th:text="#{page.error.name}">Error page name prototype</title>
+	<!-- error.html css -->
 	<link rel="stylesheet" th:href="@{/public/css/pages/error.css}" />
 </head>
 <body>
-	<div layout:fragment="header" th:replace="header/empty_header :: without-sidebar">
-		Error page header prototype
-	</div>
 	<div class="container" layout:fragment="content">
+		<!-- Error page content -->
+		<div class="jumbotron">
+			<h1>We have got a problem</h1>
+			<p>During an operation an exception happened</p>
+			<p>
+				<a class="btn btn-lg btn-primary" th:href="@{${@environment.getProperty('page.welcome')}}">
+					Return &raquo;
+				</a>
+			</p>
+		</div>
 		<div class="container">
-			<div class="jumbotron">
-				<h1>We have got a problem</h1>
-				<p>During an operation an exception happened</p>
-				<p>
-					<a class="btn btn-lg btn-primary" th:href="@{${@environment.getProperty('page.welcome')}}">
-						Return to welcome page &raquo;
-					</a>
-				</p>
+			<div th:if="${redirectedUrl != ''}" class="col-md-12">
+				<h3>Raised by</h3>
+				<p th:text="${redirectedUrl}" />
 			</div>
-			<div class="container">
-				<div th:if="${redirectedUrl != ''}" class="col-md-12">
-					<h3>Raised by</h3>
-					<p th:text="${redirectedUrl}" />
-				</div>
-				<div th:if="${httpCode != ''}" class="col-md-12">
-					<h3>HTTP Status code</h3>
-					<p th:text="${httpCode}" />
-				</div>
-				<div th:if="${httpMessage != ''}" class="col-md-12">
-					<h3>Message</h3>
-					<p th:text="${httpMessage}" />
-				</div>
+			<div th:if="${httpCode != ''}" class="col-md-12">
+				<h3>HTTP Status code</h3>
+				<p th:text="${httpCode}" />
+			</div>
+			<div th:if="${httpMessage != ''}" class="col-md-12">
+				<h3>Message</h3>
+				<p th:text="${httpMessage}" />
 			</div>
 		</div>
 	</div>

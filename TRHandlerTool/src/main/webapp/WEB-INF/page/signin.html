@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:th="http://www.thymeleaf.org"
-	layout:decorator="layout/baseLayout">
+	layout:decorate="~{layout/emptyLayout}">
 <head>
 	<title th:text="#{page.signin.name}">Sign in page name prototype</title>
+	<!-- signin.html css -->
 	<link rel="stylesheet" th:href="@{/public/css/pages/signin.css}" />
 </head>
 <body>
-	<div layout:fragment="header" th:replace="header/empty_header :: without-sidebar">
-		Sign in page header prototype
-	</div>
 	<div layout:fragment="content">
+		<!-- Signin page content -->
 		<div class="container">
 			<div th:if="${invalid}">
 				<div class="alert alert-danger alert-dismissable alert-message-position">
@@ -40,7 +39,7 @@
 				<div class="form-group">
 					<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 					<a class="btn btn-lg btn-primary btn-block" th:href="@{${@environment.getProperty('page.welcome')}}">
-						Return
+						Return &raquo;
 					</a>
 				</div>
 			</form>

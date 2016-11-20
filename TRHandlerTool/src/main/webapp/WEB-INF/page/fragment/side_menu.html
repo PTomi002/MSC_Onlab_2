@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 
-<ul th:fragment="authenticated" class="nav nav-sidebar">
+<ul th:fragment="authenticated" class="sidebar-nav">
 	<li class="active"><a th:href="@{${@environment.getProperty('page.dashboard')}}">Dashboard<span class="sr-only">(current)</span></a></li>
 	<li><a th:href="@{${@environment.getProperty('page.search')}}">Search</a></li>
 </ul>
 
-<ul th:fragment="not-authenticated" class="nav nav-sidebar">
+<ul th:fragment="not-authenticated" class="sidebar-nav">
 	<li class="active"><a th:href="@{${@environment.getProperty('page.signup')}}">Sign up<span class="sr-only">(current)</span></a></li>
 	<li><a th:href="@{${@environment.getProperty('page.signin')}}">Sign in</a></li>
 	<li><a th:href="@{${@environment.getProperty('page.search')}}">Search</a></li>

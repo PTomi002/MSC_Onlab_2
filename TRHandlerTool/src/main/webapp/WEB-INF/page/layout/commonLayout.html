@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorate="~{layout/baseLayout}">
+<head>
+	<!-- Base scripts -->
+	<script th:src="@{/public/js/pages/common.js}"></script>
+</head>
+<body>
+	<div layout:fragment="header">
+		<!-- Common layout header -->
+		<div th:replace="${#authorization.expression('hasRole(''ROLE_USER'')')} ? ~{header/common_header :: common-header} : ~{header/empty_header :: with-sidebar}"></div>
+	</div>
+	<div layout:fragment="content" class="container-fluid">
+		<!-- Common layout content -->
+		<div id="wrapper">
+	        <div id="sidebar-wrapper">
+				<!-- Common layout sidebar content -->
+	        	<div layout:fragment="sidebar-content"></div>
+	        </div>
+	        <div id="page-content-wrapper">
+	        	<!-- Common layout page Content -->
+	        	<div layout:fragment="page-content"></div>
+	        </div>
+	    </div>
+	</div>
+</body>
+</html>
