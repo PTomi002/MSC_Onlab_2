@@ -78,7 +78,7 @@ public class SignupController extends BaseController {
 			userService.register(user);
 
 			LOGGER.info("Generating login page");
-			model = new ModelAndView("signin");
+			model = new ModelAndView("signup");
 			model.addObject(SIGNUP_RESULT, SignUpResult.PASSED);
 			model.addObject(SIGNUP_MESSAGE, "Successful sign up!");
 		}

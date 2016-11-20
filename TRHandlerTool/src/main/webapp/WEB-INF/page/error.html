@@ -9,7 +9,7 @@
 </head>
 <body>
 	<div layout:fragment="header"
-		th:replace="header/not_authenticated :: empty-navbar-without-sidebar">Error
+		th:replace="header/empty_header :: without-sidebar">Error
 		page header prototype</div>
 	<div class="container" layout:fragment="content">
 		<div class="container">
@@ -17,7 +17,7 @@
 				<h1>We have got a problem</h1>
 				<p>During an operation an exception happened</p>
 				<p>
-					<a class="btn btn-lg btn-primary" th:href="@{${@environment.getProperty('page.welcome')}}">Return &raquo;</a>
+					<a class="btn btn-lg btn-primary" th:href="@{${@environment.getProperty('page.welcome')}}">Return to welcome page &raquo;</a>
 				</p>
 			</div>
 

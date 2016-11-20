@@ -8,12 +8,13 @@
 </head>
 <body>
 	<div layout:fragment="header"
-		th:replace="header/not_authenticated :: empty-navbar-without-sidebar">Sign
+		th:replace="header/empty_header :: without-sidebar">Sign
 		in page header prototype</div>
 	<div layout:fragment="content">
 		<div class="container">
 			<div th:if="${invalid}">
-				<div class="alert alert-danger alert-dismissable alert-message-position">
+				<div
+					class="alert alert-danger alert-dismissable alert-message-position">
 					<button type="button" class="close" data-dismiss="alert">&times;</button>
 					<span th:text="${signin_message}">Invalid registration
 						prototype!</span>
@@ -30,6 +31,9 @@
 					placeholder="Password" class="form-control"></input>
 				<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
 					in</button>
+				<a class="btn btn-lg btn-primary btn-block"
+					th:href="@{${@environment.getProperty('page.welcome')}}">Return
+					to welcome page &raquo;</a>
 			</form>
 		</div>
 	</div>

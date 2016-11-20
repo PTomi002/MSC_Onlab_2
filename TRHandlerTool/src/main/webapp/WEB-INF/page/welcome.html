@@ -11,20 +11,13 @@
 <script th:src="@{/public/js/pages/welcome.js}"></script>
 </head>
 <body>
-	<div sec:authorize="isAnonymous()" layout:fragment="header"
-		th:replace="header/not_authenticated :: empty-navbar-sidebar">Welcome
+	<div layout:fragment="header"
+		th:replace="${#authorization.expression('isAuthenticated()')} ? 'AUTHED' : ~{header/empty_header :: with-sidebar}">Welcome
 		page header prototype</div>
-<!-- 	<div sec:authorize="isAuthenticated()" layout:fragment="header" -->
-<!-- 		th:replace="header/not_authenticated :: empty-navbar-sidebar">Welcome -->
-<!-- 		page header prototype</div> -->
 	<div layout:fragment="content" class="container-fluid">
 		<div class="row">
-			<div class="col-sm-2 col-md-2 sidebar">
-				<div sec:authorize="isAnonymous()"
-					th:replace="fragment/side_menu :: side-menu-not-authenticated">
-				</div>
-				<div sec:authorize="isAuthenticated()"
-					th:replace="fragment/side_menu :: side-menu-authenticated"></div>
+			<div class="col-sm-2 col-md-2 sidebar" 
+			th:insert="${#authorization.expression('isAuthenticated()')} ? ~{fragment/side_menu :: authenticated} : ~{fragment/side_menu :: not-authenticated}">
 			</div>
 			<div class="col-sm-10 col-md-10 main">
 				<h1>Dashboard</h1>
@@ -47,7 +40,7 @@
 			</div>
 		</div>
 	</div>
-	<div layout:fragment="footer" th:replace="footer/side_menu :: side-menu">Welcome
+	<div layout:fragment="footer" th:replace="${#authorization.expression('isAuthenticated()')} ? ~{footer/side_menu :: authenticated} : ~{footer/side_menu :: not-authenticated}">Welcome
 		page footer prototype</div>
 </body>
 </html>

@@ -3,16 +3,16 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<div th:fragment = "side-menu" class="list-group hidden" id="menu-items">
-	<div sec:authorize="isAuthenticated()">
-		<a href="#" class="list-group-item">Sign out</a> <a href="#"
-			class="list-group-item">Dashboard</a>
-	</div>
-	<div sec:authorize="isAnonymous()">
-		<a th:href="signup" class="list-group-item">Sign up</a> <a th:href="signin"
-			class="list-group-item">Sign in</a> <a href="#"
-			class="list-group-item">Search</a>
-	</div>
+<div th:fragment="authenticated" class="list-group hidden" id="menu-items">
+	<a th:href="@{${@environment.getProperty('page.dashboard')}}" class="active list-group-item">Dashboard</a> 
+	<a th:href="@{${@environment.getProperty('page.search')}}" class="list-group-item">Search</a> 
+	<a th:href="@{${@environment.getProperty('page.signout')}}" class="list-group-item">Sign out</a>
+</div>
+
+<div th:fragment="not-authenticated" class="list-group hidden" id="menu-items">
+	<a th:href="@{${@environment.getProperty('page.signup')}}" class="active list-group-item">Sign up</a> 
+	<a th:href="@{${@environment.getProperty('page.signin')}}" class="list-group-item">Sign in</a>
+	<a th:href="@{${@environment.getProperty('page.search')}}" class="list-group-item">Search</a>
 </div>
 
 </html>
