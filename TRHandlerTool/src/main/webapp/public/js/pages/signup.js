@@ -12,7 +12,7 @@ $(document).ready(function() {
 	
 	$('#registration-form').validate({
 		rules : {
-			username : {
+			usernameId : {
 				maxlength : 15,
 				minlength : 5,
 				required : true
@@ -47,10 +47,13 @@ $(document).ready(function() {
 			}
 		},
 		highlight : function(element) {
-			$(element).closest('.form-group').addClass('error');
+			$(element).closest('.input-group').addClass('error');
 		},
 		unhighlight : function(element) {
-			$(element).closest('.form-group').removeClass('error');
+			$(element).closest('.input-group').removeClass('error');
+		},
+		errorPlacement: function(error, element) {
+		    error.insertAfter($(element).closest('.input-group'));
 		}
 	});
 });

@@ -46,6 +46,12 @@ body {
 	margin-top: 50px;
 }
 
+hr{
+	width: 70%;
+	color: #337ab7;
+	height: 1px;
+	background-color: #337ab7;
+}
 /*------------------------------*/
 /*				SIDEBAR		 	*/ 
 /*------------------------------*/
@@ -141,3 +147,4 @@ body {
 	padding: 0px;
 	overflow: hidden;
 }
+
