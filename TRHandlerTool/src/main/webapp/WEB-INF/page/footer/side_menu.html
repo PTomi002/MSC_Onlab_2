@@ -5,7 +5,10 @@
 
 <div th:fragment="authenticated" class="list-group hidden" id="menu-items">
 	<a th:href="@{${@environment.getProperty('page.dashboard')}}" class="active list-group-item">Dashboard</a> 
-	<a th:href="@{${@environment.getProperty('page.search')}}" class="list-group-item">Search</a> 
+	<a th:href="@{${@environment.getProperty('page.search')}}" class="list-group-item">Search</a>
+	<form th:action="@{${@environment.getProperty('page.signout')}}" method="POST"> 
+		<button type="submit" class="list-group-item" >Sign out</button>
+	</form>
 </div>
 
 <div th:fragment="not-authenticated" class="list-group hidden" id="menu-items">

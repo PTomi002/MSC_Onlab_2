@@ -3,38 +3,62 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<nav class="navbar navbar-inverse navbar-fixed-top" th:fragment="common-header">
+<nav class="navbar navbar-default navbar-fixed-top"
+	th:fragment="common-header">
 	<div class="container">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed"
-				data-toggle="collapse" data-target="#navbar">
+				aria-expanded="false" aria-controls="navbar" id="menu-button">
 				<span class="sr-only">Toggle navigation</span> <span
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" th:href="@{${@environment.getProperty('page.welcome')}}">
-				<span th:text="#{project.name}">project.name</span></a>
+			<a class="navbar-brand"
+				th:href="@{${@environment.getProperty('page.welcome')}}"> <span
+				th:text="#{project.name}">project.name</span></a>
 		</div>
 
 		<div id="navbar" class="navbar-collapse collapse">
-			<ul class="nav navbar-nav">
-				<li><a th:href="."> <span
-						class="glyphicon glyphicon-home"></span> Index
-				</a></li>
-				<li><a th:href="."> <span
-						class="glyphicon glyphicon-user"></span> Users
-				</a></li>
-			</ul>
-<!-- 				Thymeleaf 2.1+ or form:form automatically adds CSRF token -->
-			<form class="navbar-form navbar-right" th:action="@{${@environment.getProperty('page.signout')}}" method="POST">
-				<button type="submit" class=" btn btn-primary center-block">
-					Logout <span class="glyphicon glyphicon-off"> </span>
-				</button>
-			</form>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a>Logged in as: <span sec:authentication="name">Logged.in.username</span></a></li>
-				<li><a><img width="20" height=20 th:src="@{${@environment.getProperty('user.avatar.default')}}"></img></a></li>
-			</ul>	
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown">Account <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li>
+							<div class="navbar-content">
+								<div class="row">
+									<div class="col-md-5">
+										<img src="http://placehold.it/120x120" alt="Alternate Text"
+											class="img-responsive" />
+										<p class="text-center small">
+											<a href="#">Change Photo</a>
+										</p>
+									</div>
+									<div class="col-md-7">
+										<span>Bhaumik Patel</span>
+										<p class="text-muted small">mail@gmail.com</p>
+										<div class="divider"></div>
+										<a href="#" class="btn btn-primary btn-sm active">View
+											Profile</a>
+									</div>
+								</div>
+							</div>
+							<div class="navbar-footer">
+								<div class="navbar-footer-content">
+									<div class="row">
+										<div class="col-md-6">
+											<a href="#" class="btn btn-default btn-sm">Change
+												Passowrd</a>
+										</div>
+										<div class="col-md-6">
+											<a href="http://www.jquery2dotnet.com"
+												class="btn btn-default btn-sm pull-right">Sign Out</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul></li>
+			</ul>
 		</div>
 	</div>
 </nav>

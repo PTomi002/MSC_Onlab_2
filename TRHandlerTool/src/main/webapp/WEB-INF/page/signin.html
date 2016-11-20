@@ -3,40 +3,37 @@
 	xmlns:th="http://www.thymeleaf.org"
 	layout:decorator="layout/baseLayout">
 <head>
-<title th:text="#{page.signin.name}">Sign in page name prototype</title>
-<link rel="stylesheet" th:href="@{/public/css/pages/signin.css}" />
+	<title th:text="#{page.signin.name}">Sign in page name prototype</title>
+	<link rel="stylesheet" th:href="@{/public/css/pages/signin.css}" />
 </head>
 <body>
-	<div layout:fragment="header"
-		th:replace="header/empty_header :: without-sidebar">Sign
-		in page header prototype</div>
+	<div layout:fragment="header" th:replace="header/empty_header :: without-sidebar">
+		Sign in page header prototype
+	</div>
 	<div layout:fragment="content">
 		<div class="container">
 			<div th:if="${invalid}">
-				<div
-					class="alert alert-danger alert-dismissable alert-message-position">
+				<div class="alert alert-danger alert-dismissable alert-message-position">
 					<button type="button" class="close" data-dismiss="alert">&times;</button>
-					<span th:text="${signin_message}">Invalid registration
-						prototype!</span>
+					<span th:text="${signin_message}">
+						Invalid registration prototype!
+					</span>
 				</div>
 			</div>
-			<form class="form-signin" th:action="@{/j_spring_security_check}"
-				method="post">
-				<h2 class="form-signin-heading">Please sign in</h2>
-				<label for="inputUsername" class="sr-only">Username</label> <input
-					type="text" id="j_username" name="j_username"
-					placeholder="User name" class="form-control"></input><label
-					for="inputPassword" class="sr-only">Password</label> <input
-					type="password" id="j_password" name="j_password"
-					placeholder="Password" class="form-control"></input>
-				<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
-					in</button>
-				<a class="btn btn-lg btn-primary btn-block"
-					th:href="@{${@environment.getProperty('page.welcome')}}">Return
-					to welcome page &raquo;</a>
+			<form class="form-signin" th:action="@{/j_spring_security_check}" method="post">
+				<h2 class="form-signin-heading">
+					Please sign in
+				</h2>
+				<label for="inputUsername" class="sr-only">Username</label>
+				<input type="text" id="j_username" name="j_username" placeholder="User name" class="form-control"></input>
+				<label for="inputPassword" class="sr-only">Password</label>
+				<input type="password" id="j_password" name="j_password" placeholder="Password" class="form-control"></input>
+				<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+				<a class="btn btn-lg btn-primary btn-block" th:href="@{${@environment.getProperty('page.welcome')}}">
+					Return to welcome page &raquo;
+				</a>
 			</form>
 		</div>
 	</div>
-	<div layout:fragment="footer"></div>
 </body>
 </html>

@@ -1,3 +1,6 @@
+/*------------------------------*/
+/*	SIGNUP FORM VALIDATOR		*/ 
+/*------------------------------*/
 $(document).ready(function() {
 	$.validator.addMethod("regexp_email", function(value, element, regexpr) {          
 	    return regexpr.test(value);

@@ -4,23 +4,24 @@
 	layout:decorator="layout/baseLayout"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-<title th:text="#{page.error.name}">Error page name prototype</title>
-<link rel="stylesheet" th:href="@{/public/css/pages/error.css}" />
+	<title th:text="#{page.error.name}">Error page name prototype</title>
+	<link rel="stylesheet" th:href="@{/public/css/pages/error.css}" />
 </head>
 <body>
-	<div layout:fragment="header"
-		th:replace="header/empty_header :: without-sidebar">Error
-		page header prototype</div>
+	<div layout:fragment="header" th:replace="header/empty_header :: without-sidebar">
+		Error page header prototype
+	</div>
 	<div class="container" layout:fragment="content">
 		<div class="container">
 			<div class="jumbotron">
 				<h1>We have got a problem</h1>
 				<p>During an operation an exception happened</p>
 				<p>
-					<a class="btn btn-lg btn-primary" th:href="@{${@environment.getProperty('page.welcome')}}">Return to welcome page &raquo;</a>
+					<a class="btn btn-lg btn-primary" th:href="@{${@environment.getProperty('page.welcome')}}">
+						Return to welcome page &raquo;
+					</a>
 				</p>
 			</div>
-
 			<div class="container">
 				<div th:if="${redirectedUrl != ''}" class="col-md-12">
 					<h3>Raised by</h3>
@@ -35,9 +36,7 @@
 					<p th:text="${httpMessage}" />
 				</div>
 			</div>
-
 		</div>
 	</div>
-	<div layout:fragment="footer"></div>
 </body>
 </html>

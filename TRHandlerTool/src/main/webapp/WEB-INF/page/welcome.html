@@ -4,29 +4,26 @@
 	layout:decorator="layout/baseLayout"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-<title th:text="#{page.welcome.name}">Welcome page name
-	prototype</title>
-<link rel="stylesheet" th:href="@{/public/css/pages/welcome.css}" />
-<script th:src="@{/public/js/bootbox/bootbox.min.js}"></script>
-<script th:src="@{/public/js/pages/welcome.js}"></script>
+	<title th:text="#{page.welcome.name}">Welcome page name prototype</title>
+	<link rel="stylesheet" th:href="@{/public/css/pages/welcome.css}" />
+	<script th:src="@{/public/js/bootbox/bootbox.min.js}"></script>
+	<script th:src="@{/public/js/pages/welcome.js}"></script>
 </head>
 <body>
-	<div layout:fragment="header"
-		th:replace="${#authorization.expression('isAuthenticated()')} ? ~{header/common_header :: common-header} : ~{header/empty_header :: with-sidebar}">Welcome
-		page header prototype</div>
+	<div layout:fragment="header" th:replace="${#authorization.expression('isAuthenticated()')} ? ~{header/common_header :: common-header} : ~{header/empty_header :: with-sidebar}">
+		Welcome page header prototype
+	</div>
 	<div layout:fragment="content" class="container-fluid">
 		<div class="row">
-			<div class="col-sm-2 col-md-2 sidebar" 
-			th:insert="${#authorization.expression('isAuthenticated()')} ? ~{fragment/side_menu :: authenticated} : ~{fragment/side_menu :: not-authenticated}">
-			</div>
-			<div class="col-sm-10 col-md-10 main">
+			<div class="col-sm-1 col-md-1 sidebar" th:insert="${#authorization.expression('isAuthenticated()')} ? ~{fragment/side_menu :: authenticated} : ~{fragment/side_menu :: not-authenticated}"></div>
+			<div class="col-sm-11 col-md-11 main">
 				<h1>Dashboard</h1>
 				<div class="row">
 					<div class="col-sm-5 col-md-5">
 						<div class="panel panel-default">
 							<div class="panel-heading">Work list - Trouble Reports</div>
 							<div class="panel-body">
-								<iframe name="worklist" th:src="@{${@environment.getProperty('page.dashboard')}}"> Work list prototype</iframe>
+<!-- 								<iframe name="worklist" th:src="@{${@environment.getProperty('page.dashboard')}}"> Work list prototype</iframe> -->
 							</div>
 						</div>
 					</div>
@@ -40,7 +37,8 @@
 			</div>
 		</div>
 	</div>
-	<div layout:fragment="footer" th:replace="${#authorization.expression('isAuthenticated()')} ? ~{footer/side_menu :: authenticated} : ~{footer/side_menu :: not-authenticated}">Welcome
-		page footer prototype</div>
+	<div layout:fragment="footer" th:replace="${#authorization.expression('isAuthenticated()')} ? ~{footer/side_menu :: authenticated} : ~{footer/side_menu :: not-authenticated}">
+		Welcome page footer prototype
+	</div>
 </body>
 </html>

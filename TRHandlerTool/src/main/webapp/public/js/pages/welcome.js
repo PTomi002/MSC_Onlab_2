@@ -1,3 +1,6 @@
+/*------------------------------*/
+/*			SIDE MENU			*/ 
+/*------------------------------*/
 $(document).on('click', '#menu-button', function() {
 	var menu_items = $('#menu-items');
 	var class_hidden = "hidden";
