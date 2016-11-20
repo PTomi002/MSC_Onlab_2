@@ -1,0 +1,6 @@
+dn: cn=Users,ou=Groups,dc=onlab,dc=msc,dc=bme,dc=hu
+changetype: modify
+delete: uniqueMember
+-
+add: uniqueMember
+uniqueMember: uid=admin,dc=onlab,dc=msc,dc=bme,dc=hu
