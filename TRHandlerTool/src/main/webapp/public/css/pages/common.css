@@ -3,7 +3,7 @@
 /*------------------------------*/
 /* Add padding because of fixed navbar at the top */
 body {
-	padding-top: 49px;
+	padding-top: 50px;
 	background-color: #eee;
 }
 
@@ -47,6 +47,14 @@ hr{
 	color: #337ab7;
 	height: 1px;
 	background-color: #337ab7;
+}
+
+.button-link {
+     background:none!important;
+     border:none; 
+     font: inherit;
+     cursor: pointer;
+     padding-right: 45%;
 }
 /*------------------------------*/
 /*				SIDEBAR		 	*/ 
@@ -109,16 +117,28 @@ hr{
     line-height: 40px;
 }
 
+.sidebar-nav li form,
 .sidebar-nav li a {
     display: block;
     text-decoration: none;
     color: #fff;;
 }
 
+.sidebar-nav li form:hover {
+	text-decoration: none;
+    background: #D9853B;
+	border-left: 3px solid #ECECEA;
+}
+
 .sidebar-nav li a:hover {
     text-decoration: none;
     background: #D9853B;
 	border-left: 3px solid #ECECEA;
+}
+
+.sidebar-nav li form button:active,
+.sidebar-nav li form button:focus {
+	text-decoration: none;
 }
 
 .sidebar-nav li a:active,

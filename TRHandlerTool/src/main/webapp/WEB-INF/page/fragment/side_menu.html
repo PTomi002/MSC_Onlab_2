@@ -4,7 +4,13 @@
 
 <ul th:fragment="authenticated" class="sidebar-nav">
 	<li class="active"><a th:href="@{${@environment.getProperty('page.dashboard')}}">Dashboard<span class="sr-only">(current)</span></a></li>
+	<li><a th:href="@{${@environment.getProperty('page.profile')}}">Profile</a></li>
 	<li><a th:href="@{${@environment.getProperty('page.search')}}">Search</a></li>
+	<li>
+		<form th:action="@{${@environment.getProperty('page.signout')}}" method="POST"> 
+			<button type="submit" class="btn-block button-link" >Sign out</button>
+		</form>
+	</li>
 </ul>
 
 <ul th:fragment="not-authenticated" class="sidebar-nav">
