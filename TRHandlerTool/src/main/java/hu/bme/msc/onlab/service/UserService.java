@@ -1,6 +1,7 @@
 package hu.bme.msc.onlab.service;
 
 import java.util.Date;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,8 @@ public class UserService extends BaseService implements IUserService {
 			// exception happened
 			throw new MySqlRegisrationException(existResponse).setUser(user);
 		} else if (existResponse.isSuccess() && Boolean.TRUE.equals(existResponse.getValue())) {
-			throw new MySqlRegisrationException("User exists in MySQL database: " + LOGGER_UTIL.getValue(user)).setUser(user);
+			throw new MySqlRegisrationException("User exists in MySQL database: " + LOGGER_UTIL.getValue(user))
+					.setUser(user);
 		}
 		LOGGER.info("User does not exists in MySQL database: " + LOGGER_UTIL.getValue(user));
 
@@ -40,7 +42,7 @@ public class UserService extends BaseService implements IUserService {
 		if (!createResponse.isSuccess()) {
 			throw new MySqlRegisrationException(createResponse).setUser(user);
 		}
-		
+
 		LOGGER.info("MySQL registration has been finished successfullly");
 		return ResponseDto.ok(user);
 	}
@@ -61,6 +63,17 @@ public class UserService extends BaseService implements IUserService {
 		LOGGER.info("Searching User in MySQL database: " + LOGGER_UTIL.getValue(user));
 		return executeOperation(() -> {
 			return ResponseDto.ok(userRepository.exists(user.getUsernameId()));
+		});
+	}
+
+	@Override
+	@Transactional
+	public ResponseDto<User> get(String usernameId) {
+		LOGGER.info("Get user by its username: " + usernameId);
+		return executeOperation(() -> {
+			return Optional.ofNullable(userRepository.findByUsernameId(usernameId)).map(user -> {
+				return ResponseDto.ok(user);
+			}).orElse(ResponseDto.fail("Could not find user by id: " + usernameId));
 		});
 	}
 

@@ -10,4 +10,6 @@ public interface IUserService {
 	public ResponseDto<Void> create(User user);
 	
 	public ResponseDto<Boolean> exists(User user);
+	
+	public ResponseDto<User> get(String usernameId);
 }

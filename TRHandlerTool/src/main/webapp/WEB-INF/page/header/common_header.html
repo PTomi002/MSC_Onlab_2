@@ -21,23 +21,23 @@
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown">Account <b class="caret"></b></a>
+					data-toggle="dropdown">Profile <b class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<li>
 							<div class="navbar-content">
 								<div class="row">
 									<div class="col-md-5">
-										<img src="http://placehold.it/120x120" alt="Alternate Text"
+										<img th:src="@{${@environment.getProperty('user.avatar.default')}}" alt="Alternate User Avatar"
 											class="img-responsive" />
 										<p class="text-center small">
-											<a href="#">Change Photo</a>
+											Avatar
 										</p>
 									</div>
 									<div class="col-md-7">
-										<span>Bhaumik Patel</span>
-										<p class="text-muted small">mail@gmail.com</p>
+										<span th:text = "${user.usernameId}">Username prototype</span>
+										<p class="text-muted small" th:text = "${user.email}">e-mail prototype</p>
 										<div class="divider"></div>
-										<a href="#" class="btn btn-primary btn-sm active">View
+										<a href="#" class="btn btn-primary btn-sm">View
 											Profile</a>
 									</div>
 								</div>
@@ -45,13 +45,14 @@
 							<div class="navbar-footer">
 								<div class="navbar-footer-content">
 									<div class="row">
-										<div class="col-md-6">
-											<a href="#" class="btn btn-default btn-sm">Change
-												Passowrd</a>
-										</div>
-										<div class="col-md-6">
-											<a href="http://www.jquery2dotnet.com"
-												class="btn btn-default btn-sm pull-right">Sign Out</a>
+<!-- 										<div class="col-md-6"> -->
+<!-- 											<a href="#" class="btn btn-default btn-sm">Change -->
+<!-- 												Passowrd</a> -->
+<!-- 										</div> -->
+										<div class="col-md-12">
+											<form th:action="@{${@environment.getProperty('page.signout')}}" method="POST"> 
+												<button type="submit" class="pull-right" >Sign out</button>
+											</form>
 										</div>
 									</div>
 								</div>
