@@ -1,6 +1,5 @@
 package hu.bme.msc.onlab.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,30 +9,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import hu.bme.msc.onlab.model.sql.User;
-import hu.bme.msc.onlab.service.interf.IUserService;
-import hu.bme.msc.onlab.util.ResponseDto;
-
 @Controller
 public class WelcomeController extends BaseController {
-
+	// ~ Fields
+	// ================================================================================================
 	private static final String SIGNIN_MESSAGE = "signin_message";
 	private static final String INVALID_SIGNIN = "invalid";
 
-	@Autowired
-	private IUserService userService;
-
+	// ~ HTTP Methods
+	// ================================================================================================
 	@RequestMapping(value = { "/", "/welcome" }, method = RequestMethod.GET)
 	public ModelAndView welcome() {
 		final ModelAndView model = new ModelAndView("welcome");
 		final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		final String usernameId = auth.getName();
-		
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
-			ResponseDto<User> getResponse = userService.get(usernameId); 
-			model.addObject("user", getResponse.isSuccess() ? getResponse.getValue() : new User());
+			model.addObject("user", getCurrentUser());
 		}
-		
 		LOGGER.info("Generating welcome page");
 		return model;
 	}

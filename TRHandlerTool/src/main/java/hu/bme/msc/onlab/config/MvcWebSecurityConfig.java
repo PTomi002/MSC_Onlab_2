@@ -1,6 +1,7 @@
 package hu.bme.msc.onlab.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configurers.ldap.LdapAuthenticationProviderConfigurer;
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @Configuration
 @EnableWebSecurity
+@ComponentScan(basePackages = {"hu.bme.msc.onlab.listener"})
 public class MvcWebSecurityConfig extends WebSecurityConfigurerAdapter{
 //	----------------------------------------------
 //	Static attributes
@@ -50,7 +52,7 @@ public class MvcWebSecurityConfig extends WebSecurityConfigurerAdapter{
 				.formLogin()
 					.loginPage(PATH_SIGNIN)
 					.loginProcessingUrl(J_SPRING_SECURITY_CHECK)
-					.defaultSuccessUrl(PATH_DASHBOARD)
+					.defaultSuccessUrl(PATH_WELCOME)
 					.failureUrl(PATH_FAILURE_LOGIN)
 					.usernameParameter(J_USERNAME)
 					.passwordParameter(J_PASSWORD)
