@@ -46,6 +46,8 @@ public class User implements Serializable {
 	
 	private List<TroubleReport> trList;
 	
+	private List<ModificationHandlingOffice> mhos;
+	
 	public User() {
 	}
 
@@ -53,75 +55,70 @@ public class User implements Serializable {
 		return usernameId;
 	}
 
+	public List<ModificationHandlingOffice> getMhos() {
+		return mhos;
+	}
+
+	public void setMhos(List<ModificationHandlingOffice> mhos) {
+		this.mhos = mhos;
+	}
 
 	public void setUsernameId(String usernameId) {
 		this.usernameId = usernameId;
 	}
 
-
 	public String getFirstname() {
 		return firstname;
 	}
-
 
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
 	}
 
-
 	public String getLastname() {
 		return lastname;
 	}
-
 
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
 
-
 	public String getEmail() {
 		return email;
 	}
-
 
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-
 	public String getPassword() {
 		return password;
 	}
-
 
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-
 	public Date getRegistration_date() {
 		return registration_date;
 	}
-
 
 	public void setRegistration_date(Date registration_date) {
 		this.registration_date = registration_date;
 	}
 
-
 	public List<TroubleReport> getTrList() {
 		return trList;
 	}
-
 
 	public void setTrList(List<TroubleReport> trList) {
 		this.trList = trList;
 	}
 
-
 	@Override
 	public String toString() {
-		return "User [username=" + usernameId + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
-				+ ", registration_date=" + registration_date + "]";
+		return "User [usernameId=" + usernameId + ", firstname=" + firstname + ", lastname=" + lastname + ", email="
+				+ email + ", password=" + password + ", registration_date=" + registration_date + ", trList=" + trList
+				+ ", mhos=" + mhos + "]";
 	}
 }

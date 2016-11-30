@@ -25,11 +25,18 @@
 
 		<!-- Password is not mapped, meaning it is transient -->
 
-		<bag name="trList" lazy="true" cascade="all" fetch="select">
+		<bag name="trList" lazy="true" cascade="save-update" fetch="select">
+			<key>
+				<column name="USER_ID" length="15" not-null="true"></column>
+			</key>
+			<one-to-many class="hu.bme.msc.onlab.model.sql.TroubleReport" />
+		</bag>
+
+		<bag name="mhos" lazy="true" table="user_mho" fetch="select">
 			<key>
 				<column name="USER_ID" not-null="true"></column>
 			</key>
-			<one-to-many class="hu.bme.msc.onlab.model.sql.TroubleReport" />
+			<many-to-many column="MHO_ID" class="hu.bme.msc.onlab.model.sql.ModificationHandlingOffice" />
 		</bag>
 	</class>
 </hibernate-mapping>

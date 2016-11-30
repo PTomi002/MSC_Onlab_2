@@ -8,18 +8,59 @@
 			<generator class="native"></generator>
 		</id>
 
-		<property name="answer" type="text">
+		<many-to-one name="actualUser" class="hu.bme.msc.onlab.model.sql.User"
+			fetch="select">
+			<column name="USER_ID" not-null="false" length="15" />
+		</many-to-one>
+
+		<property name="answerField" type="text">
 			<column name="ANSWER" not-null="false" />
 		</property>
 
-		<property name="observation" type="text">
+		<property name="observationField" type="text">
 			<column name="OBSERVATION" not-null="true" />
 		</property>
 
-		<many-to-one name="user" class="hu.bme.msc.onlab.model.sql.User"
+		<many-to-one name="plannedReleaseVersion" class="hu.bme.msc.onlab.model.sql.Product"
 			fetch="select">
-			<column name="USER_ID" not-null="true" length="15" />
+			<column name="PRODUCT_PLANNED_RELEASE_ID" not-null="false"
+				length="15" />
 		</many-to-one>
 
+		<many-to-one name="releaseVersion" class="hu.bme.msc.onlab.model.sql.Product"
+			fetch="select">
+			<column name="PRODUCT_RELEASE_ID" not-null="false" length="15" />
+		</many-to-one>
+
+		<many-to-one name="issuedFor" class="hu.bme.msc.onlab.model.sql.Product"
+			fetch="select">
+			<column name="PRODUCT_ISSUED_FOR_ID" not-null="true" length="15" />
+		</many-to-one>
+
+		<bag name="history" lazy="true" cascade="save-update" fetch="select">
+			<key>
+				<column name="TR_ID" not-null="true"></column>
+			</key>
+			<one-to-many class="hu.bme.msc.onlab.model.sql.History" />
+		</bag>
+
+		<property name="stage">
+			<column name="STAGE" not-null="true" />
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">hu.bme.msc.onlab.model.sql.TroubleReportStage</param>
+			</type>
+		</property>
+
+		<property name="priority">
+			<column name="PRIORITY" not-null="true" />
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">hu.bme.msc.onlab.model.sql.Priority</param>
+			</type>
+		</property>
+
+		<many-to-one name="mho"
+			class="hu.bme.msc.onlab.model.sql.ModificationHandlingOffice" fetch="select">
+			<column name="MHO_ID" not-null="true" />
+		</many-to-one>
 	</class>
 </hibernate-mapping>

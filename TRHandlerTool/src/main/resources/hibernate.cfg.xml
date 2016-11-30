@@ -11,5 +11,8 @@
 	<session-factory>
 		<mapping resource="hu/bme/msc/onlab/model/sql/user.hbm.xml" />
 		<mapping resource="hu/bme/msc/onlab/model/sql/trouble_report.hbm.xml" />
+		<mapping resource="hu/bme/msc/onlab/model/sql/history.hbm.xml" />
+		<mapping resource="hu/bme/msc/onlab/model/sql/product.hbm.xml" />
+		<mapping resource="hu/bme/msc/onlab/model/sql/mho.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>

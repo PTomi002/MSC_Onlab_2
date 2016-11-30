@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="hu.bme.msc.onlab.model.sql">
+	<class name="hu.bme.msc.onlab.model.sql.ModificationHandlingOffice"
+		table="mho">
+		<id name="mhoId" type="java.lang.Long">
+			<column name="MHO_ID" not-null="true" />
+			<generator class="native"></generator>
+		</id>
+
+		<property name="name" type="java.lang.String">
+			<column name="NAME" not-null="true" length="15" />
+		</property>
+
+		<bag name="users" lazy="true" table="user_mho" fetch="select" inverse="true">
+			<key>
+				<column name="MHO_ID" not-null="true"></column>
+			</key>
+			<many-to-many column="USER_ID" class="hu.bme.msc.onlab.model.sql.User" />
+		</bag>
+
+		<bag name="trs" lazy="true" fetch="select">
+			<key>
+				<column name="MHO_ID" length="15" not-null="true"></column>
+			</key>
+			<one-to-many class="hu.bme.msc.onlab.model.sql.TroubleReport" />
+		</bag>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="hu.bme.msc.onlab.model.sql">
+	<class name="hu.bme.msc.onlab.model.sql.History" table="history">
+		<id name="historyId" type="java.lang.Long">
+			<column name="HISTORY_ID" not-null="true" />
+			<generator class="native"></generator>
+		</id>
+
+		<many-to-one name="troubleReport"
+			class="hu.bme.msc.onlab.model.sql.TroubleReport" fetch="select">
+			<column name="TR_ID" not-null="true" />
+		</many-to-one>
+
+		<property name="usernameId" type="java.lang.String">
+			<column name="USERNAME_ID" length="15" not-null="true" />
+		</property>
+
+		<property name="when" type="java.util.Date">
+			<column name="WHEN_HAPPENED" not-null="true" />
+		</property>
+
+		<property name="oldState">
+			<column name="OLD_STATE" not-null="true" />
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">hu.bme.msc.onlab.model.sql.TroubleReportStage</param>
+			</type>
+		</property>
+
+		<property name="newState">
+			<column name="NEW_STATE" not-null="true" />
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">hu.bme.msc.onlab.model.sql.TroubleReportStage</param>
+			</type>
+		</property>
+	</class>
+</hibernate-mapping>

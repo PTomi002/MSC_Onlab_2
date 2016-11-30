@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="hu.bme.msc.onlab.model.sql">
+	<class name="hu.bme.msc.onlab.model.sql.Product" table="product">
+		<id name="productId" type="java.lang.String">
+			<column name="PRODUCT_ID" length="15" not-null="true" />
+		</id>
+
+		<property name="version" type="java.lang.String">
+			<column name="VERSION" length="15" not-null="true" />
+		</property>
+	</class>
+</hibernate-mapping>
