@@ -14,8 +14,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.asserts.Assertion;
 
-import hu.bme.msc.onlab.entity.SUT;
-import hu.bme.msc.onlab.util.SUTHolder;
+import hu.bme.msc.onlab.framework.entity.SUT;
+import hu.bme.msc.onlab.framework.util.SUTHolder;
 
 public abstract class BaseTestCase {
 

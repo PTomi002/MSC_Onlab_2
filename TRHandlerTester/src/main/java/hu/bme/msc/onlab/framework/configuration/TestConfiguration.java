@@ -1,4 +1,4 @@
-package hu.bme.msc.onlab.configuration;
+package hu.bme.msc.onlab.framework.configuration;
 
 import java.util.Properties;
 

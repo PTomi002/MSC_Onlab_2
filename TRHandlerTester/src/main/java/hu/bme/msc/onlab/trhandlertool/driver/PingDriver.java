@@ -1,4 +1,4 @@
-package hu.bme.msc.onlab.driver;
+package hu.bme.msc.onlab.trhandlertool.driver;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -8,7 +8,7 @@ import java.time.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import hu.bme.msc.onlab.entity.SUT;
+import hu.bme.msc.onlab.framework.entity.SUT;
 
 public class PingDriver {
 	private static final int DEFAULT_TIMEOUT = 3;

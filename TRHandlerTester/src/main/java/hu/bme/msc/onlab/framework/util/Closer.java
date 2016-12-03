@@ -1,4 +1,4 @@
-package hu.bme.msc.onlab.util;
+package hu.bme.msc.onlab.framework.util;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -8,9 +8,7 @@ public final class Closer {
 
 	public static void close(List<Closeable> objects) {
 		if (objects != null) {
-			objects.stream().forEach((object) -> {
-				close(object);
-			});
+			objects.stream().forEach((object) -> close(object));
 		}
 	}
 

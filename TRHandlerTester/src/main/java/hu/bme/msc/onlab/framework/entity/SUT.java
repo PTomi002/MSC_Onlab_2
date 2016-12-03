@@ -1,12 +1,13 @@
-package hu.bme.msc.onlab.entity;
+package hu.bme.msc.onlab.framework.entity;
 
 import java.net.InetAddress;
 import java.util.Map;
+import java.util.Optional;
 
 import com.google.common.collect.Maps;
 
 public class SUT {
-	
+
 	public SUT(InetAddress host) {
 		this.host = host;
 	}
@@ -16,7 +17,7 @@ public class SUT {
 	private int port;
 
 	private String project;
-	
+
 	private Map<String, String> URLs = Maps.newConcurrentMap();
 
 	public synchronized InetAddress getHost() {
@@ -50,6 +51,7 @@ public class SUT {
 	}
 
 	public synchronized String getSutUrl(String key) {
-		return URLs.get(key);
+		return Optional.ofNullable(URLs.get(key))
+				.orElseThrow(() -> new RuntimeException("Could not find value for key: " + key));
 	}
 }

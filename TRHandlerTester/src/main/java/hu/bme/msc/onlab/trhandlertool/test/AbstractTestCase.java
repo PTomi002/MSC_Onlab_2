@@ -1,12 +1,12 @@
-package hu.bme.msc.onlab.test;
+package hu.bme.msc.onlab.trhandlertool.test;
 
 import java.net.InetAddress;
 
 import org.testng.annotations.Test;
 
-import hu.bme.msc.onlab.driver.DriverFactory;
-import hu.bme.msc.onlab.driver.PingDriver;
 import hu.bme.msc.onlab.framework.BaseTestCase;
+import hu.bme.msc.onlab.trhandlertool.driver.DriverFactory;
+import hu.bme.msc.onlab.trhandlertool.driver.PingDriver;
 
 public abstract class AbstractTestCase extends BaseTestCase {
 	@Test(

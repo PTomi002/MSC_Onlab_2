@@ -1,6 +1,6 @@
-package hu.bme.msc.onlab.util;
+package hu.bme.msc.onlab.framework.util;
 
-import hu.bme.msc.onlab.entity.SUT;
+import hu.bme.msc.onlab.framework.entity.SUT;
 
 public final class SUTHolder {
 	private static SUTHolder sutHolder = null;
