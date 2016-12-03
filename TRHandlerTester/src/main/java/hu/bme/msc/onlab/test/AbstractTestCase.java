@@ -1,4 +1,4 @@
-package hu.bme.msc.onlab.test.authentication;
+package hu.bme.msc.onlab.test;
 
 import java.net.InetAddress;
 
@@ -6,12 +6,13 @@ import org.testng.annotations.Test;
 
 import hu.bme.msc.onlab.driver.DriverFactory;
 import hu.bme.msc.onlab.driver.PingDriver;
-import hu.bme.msc.onlab.test.BaseTestCase;
+import hu.bme.msc.onlab.framework.BaseTestCase;
 
-public abstract class AbstractLoginTest extends BaseTestCase {
-	@Test(groups = {
-			"AVAILABILITY, AvailabbilityTest.AVAILABILITY_PRECONDITION" }, description = "Test Case: AVAILABILITY(AV):PRECONDITION(PRE) 01")
-	public void TC_AV_PRE_01() {
+public abstract class AbstractTestCase extends BaseTestCase {
+	@Test(
+		groups = {"AUTHENTICATION", "LOGIN", "LOGIN_PRECONDITION" },
+		description = "Test Case: AUTHENTICATION(AUTH):LOGIN(LOGIN):PRECONDITION(PRE) 01")
+	public void TC_AUTH_LOGIN_PRE_01() {
 		setTestInfo("Ping web service");
 		final InetAddress host = STANDALONE.getHost();
 		final int port = STANDALONE.getPort();

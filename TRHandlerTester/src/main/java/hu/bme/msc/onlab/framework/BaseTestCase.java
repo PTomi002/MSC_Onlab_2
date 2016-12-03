@@ -1,4 +1,4 @@
-package hu.bme.msc.onlab.test;
+package hu.bme.msc.onlab.framework;
 
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
@@ -15,7 +15,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.asserts.Assertion;
 
 import hu.bme.msc.onlab.entity.SUT;
-import hu.bme.msc.onlab.framework.LogLevel;
 import hu.bme.msc.onlab.util.SUTHolder;
 
 public abstract class BaseTestCase {
@@ -40,14 +39,14 @@ public abstract class BaseTestCase {
 
 	// ~ Methods
 	// ================================================================================================
-	@BeforeMethod
+	@BeforeMethod(alwaysRun = true)
 	protected void setup(final Method testMethod) {
 		setTestInfo("<--------------- START TEST ---------------->");
 		setTestInfo("TEST NAME:            " + testMethod.getName());
 		setTestInfo("<------------------------------------------->");
 	}
 
-	@AfterMethod
+	@AfterMethod(alwaysRun = true)
 	protected void teardown(final ITestResult testResult) {
 		setTestInfo("<--------------- TEST RESULT --------------->");
 		setTestInfo("TEST FUNCTIONAL AREAS: " + Arrays.asList(testResult.getMethod().getGroups()));
