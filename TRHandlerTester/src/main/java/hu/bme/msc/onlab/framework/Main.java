@@ -15,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.TestNG;
+import org.testng.TestNGException;
 import org.testng.xml.Parser;
 import org.testng.xml.XmlSuite;
 
@@ -78,7 +79,14 @@ public class Main {
 		LOGGER.info("<====================================>");
 		LOGGER.info("        Running Test Framework");
 		LOGGER.info("<====================================>");
-		testng.run();
+		try {
+			testng.run();
+		} catch (TestNGException e) {
+			LOGGER.error("TestNG exception happened!", e);
+		}
+		LOGGER.info("<====================================>");
+		LOGGER.info("             Shutting down");
+		LOGGER.info("<====================================>");
 	}
 
 	private static void redirectSystemOutput() {

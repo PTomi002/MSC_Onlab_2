@@ -1,4 +1,4 @@
-package hu.bme.msc.onlab.test.availability;
+package hu.bme.msc.onlab.test.authentication;
 
 import java.net.InetAddress;
 
@@ -8,9 +8,9 @@ import hu.bme.msc.onlab.driver.DriverFactory;
 import hu.bme.msc.onlab.driver.PingDriver;
 import hu.bme.msc.onlab.test.BaseTestCase;
 
-public class AvailabbilityTest extends BaseTestCase {
+public abstract class AbstractLoginTest extends BaseTestCase {
 	@Test(groups = {
-			"AVAILABILITY, AVAILABILITY_PRECONDITION" }, description = "Test Case: AVAILABILITY(AV):PRECONDITION(PRE) 01")
+			"AVAILABILITY, AvailabbilityTest.AVAILABILITY_PRECONDITION" }, description = "Test Case: AVAILABILITY(AV):PRECONDITION(PRE) 01")
 	public void TC_AV_PRE_01() {
 		setTestInfo("Ping web service");
 		final InetAddress host = STANDALONE.getHost();
@@ -24,5 +24,4 @@ public class AvailabbilityTest extends BaseTestCase {
 		assertTrue("Ping failed, service is unavailable!", ping.ping());
 		setTestInfo("Ping successful, service is available");
 	}
-
 }
