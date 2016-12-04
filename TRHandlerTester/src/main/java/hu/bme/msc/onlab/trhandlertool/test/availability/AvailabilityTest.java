@@ -125,8 +125,8 @@ public class AvailabilityTest extends AbstractTestCase {
 			HtmlUnorderedList ul = (HtmlUnorderedList) result.get(0);
 			saveAssertEquals("Unordered list (<ul>) element should contain 3 list elements (<li>)", ul.getChildElementCount(), 3);
 			
-			setTestInfo("Checking side menu elements: Sign up/Sign in/Search");
-			List<String> listElements = Arrays.asList("Sign up", "Sign in", "Search");
+//			setTestInfo("Checking side menu elements: Sign up/Sign in/Search");
+//			List<String> listElements = Arrays.asList("Sign up", "Sign in", "Search");
 //			StreamSupport.stream(ul.getChildren().spliterator(), false)
 //				.
 //			
