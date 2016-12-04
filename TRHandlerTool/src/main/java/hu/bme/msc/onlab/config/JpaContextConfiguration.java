@@ -56,8 +56,9 @@ public class JpaContextConfiguration {
 		LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
 		localContainerEntityManagerFactoryBean.setDataSource(dataSource());
 		localContainerEntityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdapter());
-		localContainerEntityManagerFactoryBean.setPersistenceXmlLocation("classpath:persistence.xml");
-
+//		localContainerEntityManagerFactoryBean.setPersistenceXmlLocation("classpath:persistence.xml");
+		localContainerEntityManagerFactoryBean.setPackagesToScan("hu.bme.msc.onlab.model.sql");
+		
 		return localContainerEntityManagerFactoryBean;
 	}
 

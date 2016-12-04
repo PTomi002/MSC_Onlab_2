@@ -9,10 +9,15 @@
 	for the hibernate.properties file or, if both are present, to override properties. -->
 <hibernate-configuration>
 	<session-factory>
-		<mapping resource="hu/bme/msc/onlab/model/sql/user.hbm.xml" />
-		<mapping resource="hu/bme/msc/onlab/model/sql/trouble_report.hbm.xml" />
-		<mapping resource="hu/bme/msc/onlab/model/sql/history.hbm.xml" />
-		<mapping resource="hu/bme/msc/onlab/model/sql/product.hbm.xml" />
-		<mapping resource="hu/bme/msc/onlab/model/sql/mho.hbm.xml" />
+<!-- 		<mapping resource="hu/bme/msc/onlab/model/sql/user.hbm.xml" /> -->
+<!-- 		<mapping resource="hu/bme/msc/onlab/model/sql/trouble_report.hbm.xml" /> -->
+<!-- 		<mapping resource="hu/bme/msc/onlab/model/sql/history.hbm.xml" /> -->
+<!-- 		<mapping resource="hu/bme/msc/onlab/model/sql/product.hbm.xml" /> -->
+<!-- 		<mapping resource="hu/bme/msc/onlab/model/sql/mho.hbm.xml" /> -->
+		<mapping class="hu.bme.msc.onlab.model.sql.User"/>
+		<mapping class="hu.bme.msc.onlab.model.sql.ModificationHandlingOffice"/>
+		<mapping class="hu.bme.msc.onlab.model.sql.Product"/>
+		<mapping class="hu.bme.msc.onlab.model.sql.History"/>
+		<mapping class="hu.bme.msc.onlab.model.sql.TroubleReport"/>
 	</session-factory>
 </hibernate-configuration>
