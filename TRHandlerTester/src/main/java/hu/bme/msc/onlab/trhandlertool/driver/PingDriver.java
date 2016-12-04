@@ -1,6 +1,7 @@
 package hu.bme.msc.onlab.trhandlertool.driver;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.time.Duration;
@@ -8,17 +9,19 @@ import java.time.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import hu.bme.msc.onlab.framework.entity.SUT;
-
+//At driver level using ResponseDto is not sufficient
 public class PingDriver {
 	private static final int DEFAULT_TIMEOUT = 3;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PingDriver.class);
 
-	private SUT sut;
+	private InetAddress host;
 
-	public PingDriver(SUT sut) {
-		this.sut = sut;
+	private int port;
+
+	public PingDriver(InetAddress host, int port) {
+		this.host = host;
+		this.port = port;
 	}
 
 	public boolean ping() {
@@ -26,12 +29,12 @@ public class PingDriver {
 	}
 
 	public boolean ping(Duration timeout) {
-		LOGGER.info("Ping host " + sut.getHost().getHostAddress() + ":" + sut.getPort() + " with timeout: "
-				+ timeout.toMillis());
+		LOGGER.info("Ping host " + host.getHostAddress() + ":" + port + " with timeout: " + timeout.toMillis());
 		try (Socket socket = new Socket()) {
-			socket.connect(new InetSocketAddress(sut.getHost(), sut.getPort()), (int) timeout.toMillis());
+			socket.connect(new InetSocketAddress(host, port), (int) timeout.toMillis());
 			return true;
 		} catch (IOException e) {
+			LOGGER.error("Cold not ping target!", e);
 			return false; // Either timeout or unreachable or failed DNS lookup.
 		}
 	}

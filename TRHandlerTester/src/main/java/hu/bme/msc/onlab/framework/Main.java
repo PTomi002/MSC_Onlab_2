@@ -66,7 +66,8 @@ public class Main {
 	
 			LOGGER.info("Creating test output dir, if not exists");
 			final String outputDir = parseTestOutputDir(args, INDEX_2);
-	
+			TestConfiguration.getInstance().put(PropertyKey.LOGDIR, outputDir);
+			
 			LOGGER.info("Configuring TestNG framework");
 			TestNG testng = new TestNG();
 			testng.setXmlSuites(tests);
@@ -169,8 +170,9 @@ public class Main {
 	private static SUT initSystemUnderTest(final TestConfiguration config) {
 		try {
 			final String host = config.getProperty(PropertyKey.HOST_DOMAIN);
-			final int port = config.getIntegerProperty(PropertyKey.HOST_PORT);
-
+			final Integer port = config.getIntegerProperty(PropertyKey.HOST_PORT);
+			final String project = config.getProperty(PropertyKey.PROJECT_NAME);
+			
 			LOGGER.info("Checking host: " + host);
 			InetAddress inetAddress = InetAddress.getByName(host);
 
@@ -179,7 +181,10 @@ public class Main {
 
 			LOGGER.info("Creating SUT...");
 			final SUT sut = new SUT(inetAddress).setPort(port);
-
+			
+			LOGGER.info("Adding project: " + project);
+			sut.setProject(project);
+			
 			LOGGER.info("Adding service URLs");
 			TestConfiguration.getInstance().entrySet().stream()
 					.filter(e -> String.valueOf(e.getKey()).startsWith(PropertyKey.URL_PREFIX)).forEach(e -> {

@@ -2,6 +2,7 @@ package hu.bme.msc.onlab.framework.configuration;
 
 import java.util.Properties;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,7 +27,7 @@ public class TestConfiguration extends Properties {
 		final String numberString = getProperty(key);
 		Integer number = null;
 
-		if (numberString != null) {
+		if (!StringUtils.isEmpty(numberString)) {
 			try {
 				number = Integer.parseInt(numberString);
 			} catch (NumberFormatException e) {

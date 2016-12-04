@@ -2,7 +2,6 @@ package hu.bme.msc.onlab.framework.entity;
 
 import java.net.InetAddress;
 import java.util.Map;
-import java.util.Optional;
 
 import com.google.common.collect.Maps;
 
@@ -51,7 +50,9 @@ public class SUT {
 	}
 
 	public synchronized String getSutUrl(String key) {
-		return Optional.ofNullable(URLs.get(key))
-				.orElseThrow(() -> new RuntimeException("Could not find value for key: " + key));
+		// return Optional.ofNullable(URLs.get(key))
+		// .orElseThrow(() -> new RuntimeException("Could not find value for
+		// key: " + key));
+		return URLs.get(key);
 	}
 }
