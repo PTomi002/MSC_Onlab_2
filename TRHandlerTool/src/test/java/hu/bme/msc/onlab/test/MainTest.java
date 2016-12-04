@@ -1,4 +1,4 @@
-package onlab.msc.bme.hu;
+package hu.bme.msc.onlab.test;
 
 public class MainTest {
 

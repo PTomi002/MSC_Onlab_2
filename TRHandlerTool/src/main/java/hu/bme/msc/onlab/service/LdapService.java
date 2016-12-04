@@ -17,6 +17,7 @@ import org.springframework.ldap.support.LdapUtils;
 import org.springframework.stereotype.Service;
 
 import hu.bme.msc.onlab.dao.ldap.ILdapDatabaseManager;
+import hu.bme.msc.onlab.dto.SystemNotification;
 import hu.bme.msc.onlab.exception.LdapEntryExistsException;
 import hu.bme.msc.onlab.exception.LdapUnknownRegistrationException;
 import hu.bme.msc.onlab.exception.RegistrationException;
@@ -60,6 +61,7 @@ public class LdapService extends BaseService implements ILdapService {
 		LOGGER.info("Adding LdapUserEntry to LDAP database");
 		final ResponseDto<Void> createResponse = create(ldapUserEntry);
 		checkOperationSuccess(createResponse, user);
+		notificationService.send(new SystemNotification().setId(0).setMessage("Hi"));
 
 		LOGGER.info("Adding LdapUserEntry to the default groups");
 		final LdapUsersGroupEntry defaultUserGroup = LdapUsersGroupEntry.of();

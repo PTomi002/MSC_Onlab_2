@@ -5,11 +5,15 @@ import java.util.function.Supplier;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import hu.bme.msc.onlab.util.LoggerUtil;
 import hu.bme.msc.onlab.util.ResponseDto;
 
 public abstract class BaseService {
+	@Autowired
+	protected NotificationJmsService notificationService;
+	
 	protected static final String EXCEPTION_MESSAGE = "Unhandled exception happened during executing operation: ";
 
 	protected final Logger LOGGER = LoggerFactory.getLogger(getClass());

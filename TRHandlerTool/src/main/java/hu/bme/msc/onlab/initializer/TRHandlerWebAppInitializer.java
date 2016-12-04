@@ -19,6 +19,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 
 import com.google.common.collect.Lists;
 
+import hu.bme.msc.onlab.config.JmsConfiguration;
 import hu.bme.msc.onlab.config.JpaContextConfiguration;
 import hu.bme.msc.onlab.config.LdapContextConfig;
 import hu.bme.msc.onlab.config.MessageResolverContext;
@@ -37,7 +38,7 @@ public class TRHandlerWebAppInitializer implements WebApplicationInitializer {
 
 	private final static List<Class<?>> CONFIGURATION_CLASSES = Lists.newArrayList(MvcWebAppConfiguration.class,
 			MvcWebSecurityConfig.class, LdapContextConfig.class, ViewResolverContextConfig.class,
-			MessageResolverContext.class, JpaContextConfiguration.class);
+			MessageResolverContext.class, JpaContextConfiguration.class, JmsConfiguration.class);
 
 	@Override
 	public void onStartup(ServletContext container) throws ServletException {
