@@ -6,8 +6,9 @@
 	version="1.0">
 
 	<!-- setPackagesToScan és akkor nem kell ez az xml -->
-	<persistence-unit name="hu.bme.msc.onlab.model.sql">
-		<class>hu.bme.msc.onlab.model.sql.User</class>
+	<!-- TODO Colud not deploy in webserver!!!! -->
+	<persistence-unit name="hu.bme.msc.onlab.model.sql"
+		transaction-type="RESOURCE_LOCAL">
 	</persistence-unit>
 
 </persistence>

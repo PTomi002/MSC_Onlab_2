@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorate="~{layout/commonLayout}">
+<head>
+	<title th:text="#{page.tr.create.name}">Create TR page name prototype</title>
+	<!-- create_tr.html scripts -->
+	<!-- create_tr.html css -->
+</head>
+<body>
+	<div layout:fragment="sidebar-content">
+		<!-- Create TR page sidebar content -->
+		<ul class="sidebar-nav">
+			<li class="active"><a th:href="@{${@environment.getProperty('page.welcome')}}">Welcome<span class="sr-only">(current)</span></a></li>
+			<li><a th:href="@{${@environment.getProperty('page.signin')}}">Sign in</a></li>
+			<li><a th:href="@{${@environment.getProperty('page.signout')}}">Sign out</a></li>
+		</ul>
+	</div>
+	<div layout:fragment="page-content" class="container-fluid">
+		<!-- Welcome page content -->
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="col-sm-6 col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">Work list - Trouble Reports</div>
+						<div class="panel-body"></div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">Panel heading without title</div>
+						<div class="panel-body">
+							<a th:href="@{${@environment.getProperty('page.welcome')}}">AAA</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</html>

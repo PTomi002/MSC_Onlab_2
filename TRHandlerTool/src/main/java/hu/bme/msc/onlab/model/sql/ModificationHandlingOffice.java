@@ -52,8 +52,7 @@ public class ModificationHandlingOffice implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ModificationHandlingOffice [mhoId=" + mhoId + ", name=" + name + ", users=" + users + ", trs=" + trs
-				+ "]";
+		return "ModificationHandlingOffice [mhoId=" + mhoId + ", name=" + name + "]";
 	}
 	
 	

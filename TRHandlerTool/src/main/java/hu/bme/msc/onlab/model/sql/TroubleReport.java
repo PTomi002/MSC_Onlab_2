@@ -124,8 +124,8 @@ public class TroubleReport implements Serializable {
 	public String toString() {
 		return "TroubleReport [troubleReportId=" + troubleReportId + ", actualUser=" + actualUser + ", answerField="
 				+ answerField + ", observationField=" + observationField + ", plannedReleaseVersion="
-				+ plannedReleaseVersion + ", releaseVersion=" + releaseVersion + ", issuedFor=" + issuedFor
-				+ ", history=" + history + ", stage=" + stage + ", priority=" + priority + ", mho=" + mho + "]";
+				+ plannedReleaseVersion + ", releaseVersion=" + releaseVersion + ", issuedFor=" + issuedFor + ", stage="
+				+ stage + ", priority=" + priority + ", mho=" + mho + "]";
 	}
 
 }
