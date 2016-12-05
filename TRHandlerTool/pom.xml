@@ -249,6 +249,8 @@
 					</execution>
 				</executions>
 				<configuration>
+					<scanClasses>true</scanClasses>
+					<hibernateConfig>hibernate.cfg.xml</hibernateConfig>
 					<scanDependencies>none</scanDependencies>
 					<outputFile>${basedir}/src/main/resources/scripts/schema.sql</outputFile>
 					<force>true</force>
