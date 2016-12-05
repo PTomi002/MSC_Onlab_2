@@ -27,7 +27,7 @@ public class MvcWebAppConfiguration extends WebMvcConfigurerAdapter {
 //	public PropertyPlaceholderConfigurer propertyPlaceholderConfigurer() {
 //		PropertyPlaceholderConfigurer propertyPlaceholderConfigurer = new PropertyPlaceholderConfigurer();
 //		propertyPlaceholderConfigurer.setLocations(
-//				new ClassPathResource("pages/url.properties"));
+//				new ClassPathResource("activemq_broker/activemq.properties"));
 //		
 //		return propertyPlaceholderConfigurer;
 //	}

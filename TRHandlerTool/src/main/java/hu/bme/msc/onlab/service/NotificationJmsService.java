@@ -12,7 +12,11 @@ public class NotificationJmsService extends JmsGatewaySupport {
 	
 	public void send(SystemNotification systemNotification) {
 		LOGGER.info("Sending SystemNotification: " + systemNotification.toString());
-		getJmsTemplate().convertAndSend(systemNotification);
+		try {
+			getJmsTemplate().convertAndSend(systemNotification);
+		} catch (Exception e) {
+			LOGGER.error("Could not send JMS message!", e);
+		}
 	}
 	
 }
