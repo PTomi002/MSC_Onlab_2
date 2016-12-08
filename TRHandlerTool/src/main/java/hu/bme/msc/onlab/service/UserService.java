@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import hu.bme.msc.onlab.dao.repository.IUserRepository;
+import hu.bme.msc.onlab.dto.SystemNotification;
+import hu.bme.msc.onlab.enums.SystemNotificationType;
 import hu.bme.msc.onlab.exception.MySqlRegisrationException;
 import hu.bme.msc.onlab.exception.RegistrationException;
 import hu.bme.msc.onlab.model.sql.User;
@@ -24,6 +26,7 @@ public class UserService extends BaseService implements IUserService {
 	@Transactional(rollbackFor = Exception.class)
 	public ResponseDto<User> register(User user) throws RegistrationException {
 		LOGGER.info("Setting registration date of user: " + LOGGER_UTIL.getValue(user));
+		notificationService.send(SystemNotification.of(SystemNotificationType.RMDBS_REGISTRAION_STARTED));
 		user.setRegistration_date(new Date());
 
 		LOGGER.info("Checking if User exists in MySQL database: " + LOGGER_UTIL.getValue(user));
@@ -44,6 +47,7 @@ public class UserService extends BaseService implements IUserService {
 		}
 
 		LOGGER.info("MySQL registration has been finished successfullly");
+		notificationService.send(SystemNotification.of(SystemNotificationType.RMDBS_REGISTRATION_FINISHED));
 		return ResponseDto.ok(user);
 	}
 

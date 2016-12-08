@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import hu.bme.msc.onlab.dao.ldap.ILdapDatabaseManager;
 import hu.bme.msc.onlab.dto.SystemNotification;
+import hu.bme.msc.onlab.enums.SystemNotificationType;
 import hu.bme.msc.onlab.exception.LdapEntryExistsException;
 import hu.bme.msc.onlab.exception.LdapUnknownRegistrationException;
 import hu.bme.msc.onlab.exception.RegistrationException;
@@ -41,6 +42,7 @@ public class LdapService extends BaseService implements ILdapService {
 	@Override
 	public ResponseDto<LdapUserEntry> register(final User user) throws RegistrationException {
 		LOGGER.info("Registering user to LDAP server: " + LOGGER_UTIL.getValue(user));
+		notificationService.send(SystemNotification.of(SystemNotificationType.LDAP_REGISTRAION_STARTED));
 		LdapUserEntry ldapUserEntry = null;
 
 		LOGGER.info("Getting and parsing base DN");
@@ -57,11 +59,10 @@ public class LdapService extends BaseService implements ILdapService {
 		if (!checkResponse.isSuccess()) {
 			throw new LdapEntryExistsException(checkResponse).setUser(user);
 		}
-			
+
 		LOGGER.info("Adding LdapUserEntry to LDAP database");
 		final ResponseDto<Void> createResponse = create(ldapUserEntry);
 		checkOperationSuccess(createResponse, user);
-		notificationService.send(new SystemNotification().setId(0).setMessage("Hi"));
 
 		LOGGER.info("Adding LdapUserEntry to the default groups");
 		final LdapUsersGroupEntry defaultUserGroup = LdapUsersGroupEntry.of();
@@ -71,17 +72,19 @@ public class LdapService extends BaseService implements ILdapService {
 		checkOperationSuccess(modifyResponse, user);
 
 		LOGGER.info("LDAP registration has been finished successfullly");
+		notificationService.send(SystemNotification.of(SystemNotificationType.LDAP_REGISTRATION_FINISHED));
 		return ResponseDto.ok(ldapUserEntry);
 	}
 
 	@Override
 	public ResponseDto<Void> unRegister(final User user) {
 		LOGGER.info("Unregistering user from LDAP server: " + LOGGER_UTIL.getValue(user));
+		notificationService.send(SystemNotification.of(SystemNotificationType.LDAP_REGISTRATION_ERROR));
 		LOGGER.info("Getting and parsing base DN");
 		final ResponseDto<List<Rdn>> rdnsResponse = parseDnToRnds(
 				LdapUtil.getRelativeDnToTheBaseDn(user.getUsernameId()));
 		LOGGER_UTIL.errorIfNotOk(rdnsResponse);
-		
+
 		LOGGER.info("Creating LdapUserEntry object");
 		final ResponseDto<LdapUserEntry> ldapUserEntryResponse = createLdapUserEntry(user, rdnsResponse.getValue());
 		final LdapUserEntry ldapUserEntry = ldapUserEntryResponse.getValue();
@@ -92,7 +95,7 @@ public class LdapService extends BaseService implements ILdapService {
 		final List<ModificationItem> modificationItems = Arrays.asList(LdapUtil.getModificationItem(
 				DirContext.REMOVE_ATTRIBUTE, new BasicAttribute(UNIQUE_MEMBER, ldapUserEntry.getFullDn())));
 		LOGGER_UTIL.errorIfNotOk(modify(defaultUserGroup, modificationItems));
-		
+
 		LOGGER.info("Deleting LdapUserEntry from LDAP database");
 		LOGGER_UTIL.errorIfNotOk(delete(ldapUserEntry));
 
