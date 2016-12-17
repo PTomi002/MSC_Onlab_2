@@ -39,44 +39,48 @@ public class Main {
 
 	public static void main(String[] args) {
 		try {
+			// TODO: apache commons CLI parser
 			LOGGER.info("Checking arguments");
 			checkArgs(args, ARGS_NUMBER_EXPECTED);
-	
+
 			LOGGER.info("Reading arguments");
 			final String testxmlFilePath = parseConfiguratonFile(args, INDEX_0);
 			final String testConfigFilePath = parseConfiguratonFile(args, INDEX_1);
-	
+
 			LOGGER.info("Get test configuration files");
 			InputStream testXmlFile = fetchTestConfigurationFile(testxmlFilePath);
 			InputStream testConfigFile = fetchTestConfigurationFile(testConfigFilePath);
-	
+
 			LOGGER.info("Initialize test configuration");
 			initTestConfiguration(testConfigFile);
-	
+
 			LOGGER.info("Initialize System Under Test");
 			final TestConfiguration config = TestConfiguration.getInstance();
 			SUT standalone = initSystemUnderTest(config);
-	
+
 			LOGGER.info("Storing SUT");
 			SUTHolder.getInstance(standalone);
-	
+
+			LOGGER.info("Adding event listeners");
+			initEventListeners(config);
+
 			LOGGER.info("Parsing Test XML");
 			List<XmlSuite> tests = parseTestXml(testXmlFile);
 			Closer.close(Arrays.asList(testXmlFile, testConfigFile));
-	
+
 			LOGGER.info("Creating test output dir, if not exists");
 			final String outputDir = parseTestOutputDir(args, INDEX_2);
 			TestConfiguration.getInstance().put(PropertyKey.LOGDIR, outputDir);
-			
+
 			LOGGER.info("Configuring TestNG framework");
 			TestNG testng = new TestNG();
 			testng.setXmlSuites(tests);
 			testng.setOutputDirectory(outputDir);
 			testng.addListener(new FailureListener());
-	
+
 			LOGGER.info("Redirecting System out/err to the Loggers");
 			redirectSystemOutput();
-	
+
 			LOGGER.info("<====================================>");
 			LOGGER.info("        Running Test Framework");
 			LOGGER.info("<====================================>");
@@ -91,6 +95,15 @@ public class Main {
 		} catch (Exception e) {
 			exitFromApplication("Unhandled failure case, development error!", e, EXIT_CODE);
 		}
+	}
+
+	private static void initEventListeners(final TestConfiguration config) {
+		config.entrySet().stream().filter(e -> String.valueOf(e.getKey()).startsWith(PropertyKey.EVENT_LISTENER_PREFIX))
+				.forEach(e -> {
+					String listenerKey = (String) e.getKey();
+					String listenerClass = (String) e.getValue();
+					LOGGER.info("Adding event listeners (key: " + listenerKey + "): " + listenerClass);
+				});
 	}
 
 	private static void redirectSystemOutput() {
@@ -172,7 +185,7 @@ public class Main {
 			final String host = config.getProperty(PropertyKey.HOST_DOMAIN);
 			final Integer port = config.getIntegerProperty(PropertyKey.HOST_PORT);
 			final String project = config.getProperty(PropertyKey.PROJECT_NAME);
-			
+
 			LOGGER.info("Checking host: " + host);
 			InetAddress inetAddress = InetAddress.getByName(host);
 
@@ -181,10 +194,10 @@ public class Main {
 
 			LOGGER.info("Creating SUT...");
 			final SUT sut = new SUT(inetAddress).setPort(port);
-			
+
 			LOGGER.info("Adding project: " + project);
 			sut.setProject(project);
-			
+
 			LOGGER.info("Adding service URLs");
 			TestConfiguration.getInstance().entrySet().stream()
 					.filter(e -> String.valueOf(e.getKey()).startsWith(PropertyKey.URL_PREFIX)).forEach(e -> {

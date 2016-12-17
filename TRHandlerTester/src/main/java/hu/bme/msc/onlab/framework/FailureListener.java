@@ -68,6 +68,12 @@ public class FailureListener implements IResultListener2 {
 
 	@Override
 	public void onConfigurationSkip(ITestResult itr) {
+		if (!itr.isSuccess()) {
+			String stack = Optional.ofNullable(itr.getThrowable()).map(exc -> {
+				return ExceptionUtils.getStackTrace(exc);
+			}).orElse("No trace was found!");
+			log(stack);
+		}
 	}
 
 	@Override

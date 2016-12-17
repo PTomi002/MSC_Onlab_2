@@ -11,9 +11,13 @@ import org.slf4j.LoggerFactory;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 import org.testng.asserts.Assertion;
 import org.testng.asserts.SoftAssert;
+
+import hu.bme.msc.onlab.framework.util.EventListenerHolder;
 
 public abstract class FrameworkTestCase {
 
@@ -32,18 +36,30 @@ public abstract class FrameworkTestCase {
 	// ~ Methods
 	// ================================================================================================
 	@BeforeMethod(alwaysRun = true)
-	protected void frameWorkSetUp(final Method testMethod) {
+	protected void frameWorkBeforeMethodSetUp(final Method testMethod) {
 		setTestInfo("<--------------- START TEST ---------------->");
 		setTestInfo("TEST NAME:            " + testMethod.getName());
 		setTestInfo("<------------------------------------------->");
 	}
 
 	@AfterMethod(alwaysRun = true)
-	protected void frameWorkTearDown(final ITestResult testResult) {
+	protected void frameWorkAfterMethodTearDown(final ITestResult testResult) {
 		setTestInfo("<--------------- TEST RESULT --------------->");
 		setTestInfo("TEST FUNCTIONAL AREAS: " + Arrays.asList(testResult.getMethod().getGroups()));
 		setTestInfo("TEST RESULT:           " + testResult.isSuccess());
 		setTestInfo("<------------------------------------------->");
+	}
+	
+	@BeforeSuite(alwaysRun = true)
+	protected void frameWorkBeforeSuiteSetUp(){
+		setTestInfo("Starting event listener(s)...");
+		EventListenerHolder.getInstance().runAll();
+	}
+	
+	@AfterSuite(alwaysRun = true)
+	protected void frameWorkAfterSuiteSetUp(){
+		setTestInfo("Stopping event listener(s)...");
+		EventListenerHolder.getInstance().stopAll();
 	}
 
 	// ~ Assert Methods
