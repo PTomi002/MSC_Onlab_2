@@ -92,6 +92,10 @@ public class Main {
 			LOGGER.info("<====================================>");
 			LOGGER.info("             Shutting down");
 			LOGGER.info("<====================================>");
+			
+			if (testng.hasFailure()) {
+				System.exit(EXIT_CODE);
+			}
 		} catch (Exception e) {
 			exitFromApplication("Unhandled failure case, development error!", e, EXIT_CODE);
 		}
