@@ -92,8 +92,12 @@ public class Main {
 			LOGGER.info("<====================================>");
 			LOGGER.info("             Shutting down");
 			LOGGER.info("<====================================>");
-			
+
 			if (testng.hasFailure()) {
+				// Jenkins runs comands qith #!/bin/sh -ex
+				// where x = means to print every command executed
+				// and e = means to exit with failure if any of the commands in
+				// the script failed
 				System.exit(EXIT_CODE);
 			}
 		} catch (Exception e) {
