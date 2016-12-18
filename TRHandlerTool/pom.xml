@@ -319,12 +319,8 @@
 						</goals>
 						<phase>validate</phase>
 						<configuration>
-							<shortRevisionLength>5</shortRevisionLength>
+							<shortRevisionLength>7</shortRevisionLength>
 							<useLastCommittedRevision>true</useLastCommittedRevision>
-<!-- 							<format>{0,date,yyyyMMddHHmmss}</format> -->
-<!-- 							<items> -->
-<!-- 								<item>timestamp</item> -->
-<!-- 							</items> -->
 						</configuration>
 					</execution>
 				</executions>
