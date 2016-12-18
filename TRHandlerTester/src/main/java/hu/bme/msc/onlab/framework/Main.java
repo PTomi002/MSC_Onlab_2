@@ -29,6 +29,7 @@ import hu.bme.msc.onlab.framework.util.Closer;
 import hu.bme.msc.onlab.framework.util.SUTHolder;
 
 public class Main {
+	private static final String MAIN_CLASS_DELIMETER = "<====================================>";
 	private static final int EXIT_CODE = 1;
 	private static final int INDEX_2 = 2;
 	private static final int INDEX_1 = 1;
@@ -81,17 +82,17 @@ public class Main {
 			LOGGER.info("Redirecting System out/err to the Loggers");
 			redirectSystemOutput();
 
-			LOGGER.info("<====================================>");
+			LOGGER.info(MAIN_CLASS_DELIMETER);
 			LOGGER.info("        Running Test Framework");
-			LOGGER.info("<====================================>");
+			LOGGER.info(MAIN_CLASS_DELIMETER);
 			try {
 				testng.run();
 			} catch (TestNGException e) {
 				LOGGER.error("TestNG exception happened!", e);
 			}
-			LOGGER.info("<====================================>");
+			LOGGER.info(MAIN_CLASS_DELIMETER);
 			LOGGER.info("             Shutting down");
-			LOGGER.info("<====================================>");
+			LOGGER.info(MAIN_CLASS_DELIMETER);
 
 			if (testng.hasFailure()) {
 				// Jenkins runs comands qith #!/bin/sh -ex

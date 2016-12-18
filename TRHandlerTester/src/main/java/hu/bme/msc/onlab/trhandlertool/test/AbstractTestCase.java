@@ -41,7 +41,7 @@ public abstract class AbstractTestCase extends FrameworkTestCase {
 		return title.equals(page.getTitleText());
 	}
 	
-	protected List<?> getPageElementsByXPath(HtmlPage page, String xPath) {
+	protected List<? extends Object> getPageElementsByXPath(HtmlPage page, String xPath) {
 		setTestInfo("Getting page: " + page.getUrl().toString() + " ,elements by xPath: " + xPath);
 		return page.getByXPath(xPath);
 	}

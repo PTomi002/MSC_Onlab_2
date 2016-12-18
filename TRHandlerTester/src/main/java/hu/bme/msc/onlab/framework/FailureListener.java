@@ -14,7 +14,7 @@ import org.testng.internal.IResultListener2;
 
 public class FailureListener implements IResultListener2 {
 	private static final Logger LOGGER = LoggerFactory.getLogger("SystemErr");
-	
+
 	private static final String LINE_SEPARATOR = "<br/>";
 
 	private static final SimpleDateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -26,10 +26,12 @@ public class FailureListener implements IResultListener2 {
 
 	@Override
 	public void onTestStart(ITestResult result) {
+		// Not relevant yet.
 	}
 
 	@Override
 	public void onTestSuccess(ITestResult result) {
+		// Not relevant yet.
 	}
 
 	@Override
@@ -44,26 +46,32 @@ public class FailureListener implements IResultListener2 {
 
 	@Override
 	public void onTestSkipped(ITestResult result) {
+		// Not relevant yet.
 	}
 
 	@Override
 	public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
+		// Not relevant yet.
 	}
 
 	@Override
 	public void onStart(ITestContext context) {
+		// Not relevant yet.
 	}
 
 	@Override
 	public void onFinish(ITestContext context) {
+		// Not relevant yet.
 	}
 
 	@Override
 	public void onConfigurationSuccess(ITestResult itr) {
+		// Not relevant yet.
 	}
 
 	@Override
 	public void onConfigurationFailure(ITestResult itr) {
+		// Not relevant yet.
 	}
 
 	@Override
@@ -78,5 +86,6 @@ public class FailureListener implements IResultListener2 {
 
 	@Override
 	public void beforeConfiguration(ITestResult tr) {
+		// Not relevant yet.
 	}
 }
