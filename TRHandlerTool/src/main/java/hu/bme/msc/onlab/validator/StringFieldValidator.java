@@ -14,6 +14,7 @@ public class StringFieldValidator extends BaseValidator implements ConstraintVal
 	
 	@Override
 	public void initialize(StringField constraintAnnotation) {
+		// Not required to implement.
 	}
 
 	@Override

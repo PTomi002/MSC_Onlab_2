@@ -15,9 +15,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 public class UserNameFilter implements Filter {
 
 	public static final String DEFAULT_FILTER_NAME = "userNameFilter";
-	
+
 	@Override
 	public void destroy() {
+		// Implementation is not needed.
 	}
 
 	@Override
@@ -34,6 +35,7 @@ public class UserNameFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
+		// Implementation is not needed.
 	}
 
 }

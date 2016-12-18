@@ -69,6 +69,7 @@ public class User implements Serializable {
 	private List<ModificationHandlingOffice> mhos;
 	
 	public User() {
+		// Needed for Hibernate instantiation.
 	}
 
 	public String getUsernameId() {

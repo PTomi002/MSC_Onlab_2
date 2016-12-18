@@ -44,6 +44,7 @@ public class History implements Serializable {
 	private TroubleReportStage newState;
 	
 	public History() {
+		// Needed for Hibernate instantiation.
 	}
 
 	public TroubleReport getTroubleReport() {

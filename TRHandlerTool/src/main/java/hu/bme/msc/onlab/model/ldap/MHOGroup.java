@@ -20,6 +20,7 @@ public class MHOGroup implements Serializable {
 	private String ou;
 	
 	public MHOGroup() {
+		// Needed for LdapTemplate instantiation.
 	}
 
 	public Name getDn() {

@@ -69,6 +69,7 @@ public class TroubleReport implements Serializable {
 	private ModificationHandlingOffice mho;
 
 	public TroubleReport() {
+		// Needed for Hibernate instantiation.
 	}
 
 	public ModificationHandlingOffice getMho() {

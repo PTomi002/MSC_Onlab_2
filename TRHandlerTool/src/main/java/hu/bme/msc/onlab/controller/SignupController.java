@@ -40,11 +40,12 @@ public class SignupController extends BaseController {
 		final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 //		TODO !!! Only for development !!!
-		user.setFirstname("aaaaa");
-		user.setLastname("aaaaa");
+		final String testUser = "aaaaa";
+		user.setFirstname(testUser);
+		user.setLastname(testUser);
 		user.setEmail("aaa@aaa.aaa");
 		user.setPassword("aA0+++");
-		user.setUsernameId("aaaaa");
+		user.setUsernameId(testUser);
 
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			LOGGER.info("Forwarding welcome page");

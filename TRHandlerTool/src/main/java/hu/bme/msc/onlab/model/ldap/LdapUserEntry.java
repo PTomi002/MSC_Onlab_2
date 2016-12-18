@@ -36,6 +36,7 @@ public final class LdapUserEntry implements Serializable {
 	private String password;
 
 	public LdapUserEntry() {
+		// Needed for LdapTemplate instantiation.
 	}
 	
 	private LdapUserEntry(List<Rdn> rnds) {

@@ -10,22 +10,23 @@ import org.springframework.ldap.odm.annotations.Id;
 
 @Entry(objectClasses = { "groupOfUniqueNames", "top" })
 public class MHOUserType implements Serializable {
-	
+
 	private static final long serialVersionUID = 6616442795099719516L;
-	
+
 	@Id
 	private Name dn;
-	
+
 	@Attribute(name = "cn")
 	private String cn;
-	
+
 	@Attribute(name = "uniqueMember")
 	private String uniqueMember;
-	
+
 	@Attribute(name = "businessCategory")
 	private String businessCategory;
-	
+
 	public MHOUserType() {
+		// Needed for LdapTemplate instantiation.
 	}
 
 	public Name getDn() {

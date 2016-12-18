@@ -21,6 +21,7 @@ public class Product implements Serializable {
 	private String version;
 
 	public Product() {
+		// Needed for Hibernate instantiation.
 	}
 
 	public String getProductId() {

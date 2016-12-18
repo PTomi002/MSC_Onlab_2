@@ -40,6 +40,7 @@ public class ModificationHandlingOffice implements Serializable {
 	private List<TroubleReport> trs;
 
 	public ModificationHandlingOffice() {
+		// Needed for Hibernate instantiation.
 	}
 
 	public int getMhoId() {

@@ -14,6 +14,7 @@ public class EmailValidator extends BaseValidator implements ConstraintValidator
 	
 	@Override
 	public void initialize(Email constraintAnnotation) {
+		// Not required to implement.
 	}
 
 	@Override

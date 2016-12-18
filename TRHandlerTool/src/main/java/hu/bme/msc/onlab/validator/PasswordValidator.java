@@ -24,6 +24,7 @@ public class PasswordValidator extends BaseValidator implements ConstraintValida
 	
 	@Override
 	public void initialize(Password constraintAnnotation) {
+		// Not required to implement.
 	}
 
 	@Override
