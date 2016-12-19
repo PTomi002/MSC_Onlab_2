@@ -43,7 +43,7 @@ public class LdapService extends BaseService implements ILdapService {
 	public ResponseDto<LdapUserEntry> register(final User user) throws RegistrationException {
 		LOGGER.info("Registering user to LDAP server: " + LOGGER_UTIL.getValue(user));
 		notificationService.send(SystemNotification.of(SystemNotificationType.LDAP_REGISTRAION_STARTED));
-		LdapUserEntry ldapUserEntry = null;
+		LdapUserEntry ldapUserEntry;
 
 		LOGGER.info("Getting and parsing base DN");
 		ResponseDto<List<Rdn>> rdnsResponse = parseDnToRnds(LdapUtil.getRelativeDnToTheBaseDn(user.getUsernameId()));
@@ -128,7 +128,7 @@ public class LdapService extends BaseService implements ILdapService {
 				LOGGER.error("LdapUserEntry exists in LDAP database: " + ldapUserEntry.toString());
 				return ResponseDto.fail("LdapUserEntry exists in LDAP database: " + ldapUserEntry.toString());
 			} catch (IncorrectResultSizeDataAccessException e) {
-				LOGGER.info("LdapUserEntry does not exists in LDAP database: " + ldapUserEntry.toString());
+				LOGGER.info("LdapUserEntry does not exists in LDAP database: " + ldapUserEntry.toString(), e);
 				return ResponseDto.ok();
 			}
 		});

@@ -12,7 +12,7 @@ import javax.servlet.ServletResponse;
 import org.apache.log4j.MDC;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-public class UserNameFilter implements Filter {
+public class UserNameFilter extends BaseFilter implements Filter {
 
 	public static final String DEFAULT_FILTER_NAME = "userNameFilter";
 
@@ -27,7 +27,8 @@ public class UserNameFilter implements Filter {
 		try {
 			MDC.put("user", SecurityContextHolder.getContext().getAuthentication().getName());
 			chain.doFilter(request, response);
-		} catch (Throwable t) {
+		} catch (IOException | ServletException e) {
+			LOGGER.warn("Exception during filtering username!", e);
 		} finally {
 			MDC.remove("user");
 		}

@@ -16,37 +16,35 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 @Configuration
 public class ViewResolverContextConfig {
-//	-----------------------------------------------------------------
-//	-----------------------------------------------------------------
-//	||		Setting default VievResolver back end to: Thymeleaf		||
-//	-----------------------------------------------------------------
-//	-----------------------------------------------------------------
+	// -----------------------------------------------------------------
+	// Setting default VievResolver back end to: Thymeleaf
+
 	@Bean(name = "thymeleafViewResolver")
 	public ThymeleafViewResolver thymeleafViewResolver() {
 		ThymeleafViewResolver bean = new ThymeleafViewResolver();
 		bean.setTemplateEngine(springTemplateEngine());
 		return bean;
 	}
-	
+
 	@Bean(name = "springTemplateEngine")
 	public SpringTemplateEngine springTemplateEngine() {
 		SpringTemplateEngine bean = new SpringTemplateEngine();
 		bean.setTemplateResolver(springResourceTemplateResolver());
-//		Add extra dialects
+		// Add extra dialects
 		Set<IDialect> additionalDialects = new HashSet<>();
 		additionalDialects.add(new LayoutDialect());
 		additionalDialects.add(new SpringSecurityDialect());
 		bean.setAdditionalDialects(additionalDialects);
 		return bean;
 	}
-	
+
 	@Bean(name = "springResourceTemplateResolver")
 	public SpringResourceTemplateResolver springResourceTemplateResolver() {
 		SpringResourceTemplateResolver bean = new SpringResourceTemplateResolver();
 		bean.setSuffix(".html");
 		bean.setPrefix("/WEB-INF/page/");
 		bean.setTemplateMode(TemplateMode.HTML);
-//		TODO !!! Only for development !!!
+		// TODO !!! Only for development !!!
 		bean.setCacheable(false);
 		return bean;
 	}

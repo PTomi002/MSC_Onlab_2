@@ -31,10 +31,7 @@ public class ExceptionController {
 	private static final String ERROR_PAGE_NAME = "error";
 
 	// ----------------------------------------------
-	// ----------------------------------------------
-	// || Specific exceptions ||
-	// ----------------------------------------------
-	// ----------------------------------------------
+	// Specific exceptions
 
 	@ExceptionHandler({ NoHandlerFoundException.class })
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
@@ -65,10 +62,9 @@ public class ExceptionController {
 		return model;
 	}
 
-	@ExceptionHandler({ LdapUnknownRegistrationException.class , MySqlRegisrationException.class})
+	@ExceptionHandler({ LdapUnknownRegistrationException.class, MySqlRegisrationException.class })
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-	public ModelAndView ldapRegistrationException(RegistrationException exception,
-			HttpServletRequest request) {
+	public ModelAndView ldapRegistrationException(RegistrationException exception, HttpServletRequest request) {
 		try {
 			final User user = exception.getUser();
 			if (user != null) {
@@ -84,10 +80,8 @@ public class ExceptionController {
 	}
 
 	// ----------------------------------------------
-	// ----------------------------------------------
-	// || Every not specific exception ||
-	// ----------------------------------------------
-	// ----------------------------------------------
+	// Every not specific exception
+	
 	@ExceptionHandler({ Exception.class })
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 	public ModelAndView unhandledException(Exception exception, HttpServletRequest request) {

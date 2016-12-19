@@ -46,7 +46,7 @@ public class ImageController extends BaseController {
 			try {
 				response.getOutputStream().close();
 			} catch (IOException e) {
-				LOGGER.error("Can not close HttpServletResponse outputstream!");
+				LOGGER.error("Can not close HttpServletResponse outputstream!", e);
 			}
 		}
 	}

@@ -13,8 +13,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 @ComponentScan(basePackages = {"hu.bme.msc.onlab.listener"})
 public class MvcWebSecurityConfig extends WebSecurityConfigurerAdapter{
-//	----------------------------------------------
-//	Static attributes
+	// ----------------------------------------------
+	// Static attributes
 	
 	private static final String PATH_LOGOUT = "/j_spring_security_logout";
 	private static final String J_PASSWORD = "j_password";
@@ -28,23 +28,18 @@ public class MvcWebSecurityConfig extends WebSecurityConfigurerAdapter{
 	private static final String PATH_ADMIN = PATH_DASHBOARD + "/admin"; 
 	private static final String PATH_FAILURE_LOGIN = PATH_SIGNIN + "?invalid=true";
 	
-//	----------------------------------------------
-//	Application default roles
+	// ----------------------------------------------
+	// Application default roles
 	
 	private static final String ROLE_ADMIN = "hasRole('ROLE_ADMIN')";
 	private static final String ROLE_USER = "hasRole('ROLE_USER')";
 	
-//	----------------------------------------------
-//	----------------------------------------------
-//	||		Configure HTTP auth.				||
-//	----------------------------------------------		
-//	----------------------------------------------
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-//				* matches for zero or more character
-//				** matches for zero or more character including /
+				// * matches for zero or more character
+				// ** matches for zero or more character including /
 				.mvcMatchers(PATH_DASHBOARD, PATH_APPLICATION_REALM).access(ROLE_USER)
 				.mvcMatchers(PATH_ADMIN).access(ROLE_ADMIN)
 				.anyRequest().permitAll()
@@ -65,26 +60,15 @@ public class MvcWebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.and()
 				.headers()
 					.frameOptions()
-//					Enable iframe tags
 							.sameOrigin();
-//			.and()
-//				.exceptionHandling()
-//					.accessDeniedPage("");
-//			.and()
-//				.csrf();
 	}
 	
-//	----------------------------------------------
-//	----------------------------------------------
-//	||		Configure auth possibilities.		||
-//	----------------------------------------------		
-//	----------------------------------------------
 	@Autowired
 	private LdapAuthenticationProviderConfigurer<AuthenticationManagerBuilder> ldapAuthenticationProvider;
 	
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//		LDAP authentication
+		// LDAP authentication
 		ldapAuthenticationProvider.configure(auth);
 	}
 }

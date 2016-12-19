@@ -14,11 +14,6 @@ import org.springframework.security.config.annotation.authentication.configurers
 //Environment source annotation
 @PropertySource("classpath:ldap/ldap.properties")
 public class LdapContextConfig {
-//	----------------------------------------------
-//	----------------------------------------------
-//	||		Setting ldap server					||
-//	----------------------------------------------		
-//	----------------------------------------------
 	@Autowired
 	private Environment env;
 
@@ -37,11 +32,6 @@ public class LdapContextConfig {
 		return new LdapTemplate(contextSource());
 	}
 	
-//	-------------------------------------------------
-//	-------------------------------------------------
-//	||		Setting ldap auth provider configurer	||
-//	-------------------------------------------------	
-//	-------------------------------------------------
 	@Bean(name = "ldapAuthenticationProvider")
 	public LdapAuthenticationProviderConfigurer<AuthenticationManagerBuilder> ldapAuthenticationProvider(){
 		LdapAuthenticationProviderConfigurer<AuthenticationManagerBuilder> config = new LdapAuthenticationProviderConfigurer<AuthenticationManagerBuilder>();

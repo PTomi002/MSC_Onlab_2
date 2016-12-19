@@ -56,7 +56,6 @@ public class JpaContextConfiguration {
 		LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
 		localContainerEntityManagerFactoryBean.setDataSource(dataSource());
 		localContainerEntityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdapter());
-//		localContainerEntityManagerFactoryBean.setPersistenceXmlLocation("classpath:persistence.xml");
 		localContainerEntityManagerFactoryBean.setPackagesToScan("hu.bme.msc.onlab.model.sql");
 		
 		return localContainerEntityManagerFactoryBean;
@@ -65,8 +64,6 @@ public class JpaContextConfiguration {
 	@Bean(name = "transactionManager")
 	public PlatformTransactionManager platformTransactionManager(EntityManagerFactory entityManagerFactory) {
 		JpaTransactionManager jpaTransactionManager = new JpaTransactionManager();
-		// jpaTransactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
-		// OR THIS WAY
 		jpaTransactionManager.setEntityManagerFactory(entityManagerFactory);
 
 		return jpaTransactionManager;
