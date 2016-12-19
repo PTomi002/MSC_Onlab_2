@@ -17,7 +17,7 @@ public class MvcWebSecurityConfig extends WebSecurityConfigurerAdapter{
 	// Static attributes
 	
 	private static final String PATH_LOGOUT = "/j_spring_security_logout";
-	private static final String J_PWD = "j_password";
+	private static final String J_P = "j_password";
 	private static final String J_USERNAME = "j_username";
 	private static final String J_SPRING_SECURITY_CHECK = "/j_spring_security_check";
 	private static final String JSESSIONID = "JSESSIONID";
@@ -56,7 +56,7 @@ public class MvcWebSecurityConfig extends WebSecurityConfigurerAdapter{
 					.defaultSuccessUrl(PATH_WELCOME)
 					.failureUrl(PATH_FAILURE_LOGIN)
 					.usernameParameter(J_USERNAME)
-					.passwordParameter(J_PWD)
+					.passwordParameter(J_P)
 			.and()
 				.logout()
 					.deleteCookies(JSESSIONID)
