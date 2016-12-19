@@ -36,7 +36,7 @@ public class TRHandlerWebAppInitializer implements WebApplicationInitializer {
 
 	private static final String SERVLET_NAME = "root";
 
-	private final static List<Class<?>> CONFIGURATION_CLASSES = Lists.newArrayList(MvcWebAppConfiguration.class,
+	private static final List<Class<?>> CONFIGURATION_CLASSES = Lists.newArrayList(MvcWebAppConfiguration.class,
 			MvcWebSecurityConfig.class, LdapContextConfig.class, ViewResolverContextConfig.class,
 			MessageResolverContext.class, JpaContextConfiguration.class, JmsConfiguration.class);
 

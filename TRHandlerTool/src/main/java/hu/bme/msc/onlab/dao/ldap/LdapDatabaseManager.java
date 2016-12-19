@@ -39,7 +39,7 @@ public class LdapDatabaseManager implements ILdapDatabaseManager {
 
 	@Override
 	public void modify(Name dn, ModificationItem modificationItem) {
-		ModificationItem modifications[] = new ModificationItem[1];
+		ModificationItem[] modifications = new ModificationItem[1];
 		modifications[0] = modificationItem;
 		ldapTemplate.modifyAttributes(dn, modifications);
 	}

@@ -46,9 +46,7 @@ public class JpaContextConfiguration {
 
 	@Bean(name = "jpaVendorAdapter")
 	public JpaVendorAdapter jpaVendorAdapter() {
-		HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
-
-		return hibernateJpaVendorAdapter;
+		return new HibernateJpaVendorAdapter();
 	}
 
 	@Bean(name = "entityManagerFactory")

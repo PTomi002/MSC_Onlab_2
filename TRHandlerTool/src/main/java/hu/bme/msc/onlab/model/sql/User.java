@@ -60,7 +60,7 @@ public class User implements Serializable {
 	
 	// is not validated because generated in server side
 	@Column(name = "REGISTRATION_DATE", nullable = false)
-	private Date registration_date;
+	private Date registrationDate;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "actualUser")
 	private List<TroubleReport> trList;
@@ -120,12 +120,12 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-	public Date getRegistration_date() {
-		return registration_date;
+	public Date getRegistrationDate() {
+		return registrationDate;
 	}
 
-	public void setRegistration_date(Date registration_date) {
-		this.registration_date = registration_date;
+	public void setRegistratinDate(Date registrationDate) {
+		this.registrationDate = registrationDate;
 	}
 
 	public List<TroubleReport> getTrList() {
@@ -139,6 +139,6 @@ public class User implements Serializable {
 	@Override
 	public String toString() {
 		return "User [usernameId=" + usernameId + ", firstname=" + firstname + ", lastname=" + lastname + ", email="
-				+ email + ", registration_date=" + registration_date + "]";
+				+ email + ", registration_date=" + registrationDate + "]";
 	}
 }

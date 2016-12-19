@@ -7,23 +7,21 @@ public class RegistrationException extends Exception {
 
 	private static final long serialVersionUID = -7017191303205901069L;
 
-	protected User user;
+	private final User user;
 	
-	public RegistrationException(String message) {
+	public RegistrationException(String message, User user) {
 		super(message);
-	}
-
-	public RegistrationException(String message, Throwable cause) {
-		super(message, cause);
-	}
-
-	public RegistrationException(ResponseDto<?> cause) {
-		super(cause.getReason(), cause.getException());
-	}
-
-	public RegistrationException setUser(User user) {
 		this.user = user;
-		return this;
+	}
+
+	public RegistrationException(String message, User user, Throwable cause) {
+		super(message, cause);
+		this.user = user;
+	}
+
+	public RegistrationException(ResponseDto<?> cause, User user) {
+		super(cause.getReason(), cause.getException());
+		this.user = user;
 	}
 
 	public User getUser() {

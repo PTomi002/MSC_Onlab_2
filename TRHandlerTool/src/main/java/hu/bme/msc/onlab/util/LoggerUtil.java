@@ -21,15 +21,13 @@ public final class LoggerUtil {
 	}
 
 	public String getValue(Object object) {
-		return Optional.ofNullable(object).map((obj) -> {
-			return obj.toString();
-		}).orElse("[value is null]");
+		return Optional.ofNullable(object).map(Object::toString).orElse("[value is null]");
 	}
 
 	public void error(ResponseDto<?> responseDto) {
 		error(StringUtils.EMPTY, responseDto);
 	}
-	
+
 	public void errorIfNotOk(ResponseDto<?> responseDto) {
 		if (!responseDto.isSuccess()) {
 			error(StringUtils.EMPTY, responseDto);

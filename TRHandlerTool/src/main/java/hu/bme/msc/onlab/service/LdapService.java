@@ -57,7 +57,7 @@ public class LdapService extends BaseService implements ILdapService {
 		LOGGER.info("Checking if LdapUserEntry exists");
 		final ResponseDto<Void> checkResponse = checkIfExists(ldapUserEntry);
 		if (!checkResponse.isSuccess()) {
-			throw new LdapEntryExistsException(checkResponse).setUser(user);
+			throw new LdapEntryExistsException(checkResponse, user);
 		}
 
 		LOGGER.info("Adding LdapUserEntry to LDAP database");
@@ -109,9 +109,7 @@ public class LdapService extends BaseService implements ILdapService {
 				+ LOGGER_UTIL.getValue(modifications));
 		return executeOperation(() -> {
 			try {
-				modifications.forEach((modificationItem) -> {
-					ldapDatabaseManager.modify(group.getDn(), modificationItem);
-				});
+				modifications.forEach(modificationItem -> ldapDatabaseManager.modify(group.getDn(), modificationItem));
 				return ResponseDto.ok();
 			} catch (NamingException e) {
 				return ResponseDto.fail("Could not modify ldap group: " + group.toString(), e);
@@ -184,9 +182,7 @@ public class LdapService extends BaseService implements ILdapService {
 
 	private void checkOperationSuccess(ResponseDto<?> response, User user) throws RegistrationException {
 		if (!response.isSuccess()) {
-			LdapUnknownRegistrationException exc = new LdapUnknownRegistrationException(response);
-			exc.setUser(user);
-			throw exc;
+			throw new LdapUnknownRegistrationException(response, user);
 		}
 	}
 

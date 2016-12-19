@@ -34,7 +34,7 @@ public class LdapContextConfig {
 	
 	@Bean(name = "ldapAuthenticationProvider")
 	public LdapAuthenticationProviderConfigurer<AuthenticationManagerBuilder> ldapAuthenticationProvider(){
-		LdapAuthenticationProviderConfigurer<AuthenticationManagerBuilder> config = new LdapAuthenticationProviderConfigurer<AuthenticationManagerBuilder>();
+		LdapAuthenticationProviderConfigurer<AuthenticationManagerBuilder> config = new LdapAuthenticationProviderConfigurer<>();
 		config.userSearchBase("ou=People");
 		config.userSearchFilter("(uid={0})");
 		config.groupSearchBase("ou=Groups");

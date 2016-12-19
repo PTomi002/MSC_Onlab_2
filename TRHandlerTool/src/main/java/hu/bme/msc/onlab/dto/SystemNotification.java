@@ -21,6 +21,11 @@ public class SystemNotification implements Serializable {
 	@XmlElement
 	private String message;
 
+	public SystemNotification(Integer id, String message) {
+		this.id = id;
+		this.message = message;
+	}
+	
 	public static SystemNotification of(SystemNotificationType systemNotifiction) {
 		return of(systemNotifiction.getValue(), systemNotifiction.getMessage());
 	}
@@ -31,11 +36,6 @@ public class SystemNotification implements Serializable {
 
 	public static SystemNotification of(Integer id, String message) {
 		return new SystemNotification(id, message);
-	}
-
-	public SystemNotification(Integer id, String message) {
-		this.id = id;
-		this.message = message;
 	}
 
 	public Integer getId() {

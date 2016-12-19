@@ -30,6 +30,9 @@ public class ExceptionController {
 
 	private static final String ERROR_PAGE_NAME = "error";
 
+	@Autowired
+	private ILdapService ldapService;
+	
 	// ----------------------------------------------
 	// Specific exceptions
 
@@ -38,9 +41,6 @@ public class ExceptionController {
 	public ModelAndView pageNotFoundException(NoHandlerFoundException exception, HttpServletRequest request) {
 		return handleError(exception, request, HttpStatus.NOT_FOUND);
 	}
-
-	@Autowired
-	private ILdapService ldapService;
 
 	@ExceptionHandler({ LdapEntryExistsException.class })
 	@ResponseStatus(value = HttpStatus.OK)

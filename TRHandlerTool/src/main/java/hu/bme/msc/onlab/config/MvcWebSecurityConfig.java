@@ -29,6 +29,12 @@ public class MvcWebSecurityConfig extends WebSecurityConfigurerAdapter{
 	private static final String PATH_FAILURE_LOGIN = PATH_SIGNIN + "?invalid=true";
 	
 	// ----------------------------------------------
+	// Autowired attributes
+	
+	@Autowired
+	private LdapAuthenticationProviderConfigurer<AuthenticationManagerBuilder> ldapAuthenticationProvider;
+	
+	// ----------------------------------------------
 	// Application default roles
 	
 	private static final String ROLE_ADMIN = "hasRole('ROLE_ADMIN')";
@@ -63,8 +69,6 @@ public class MvcWebSecurityConfig extends WebSecurityConfigurerAdapter{
 							.sameOrigin();
 	}
 	
-	@Autowired
-	private LdapAuthenticationProviderConfigurer<AuthenticationManagerBuilder> ldapAuthenticationProvider;
 	
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {

@@ -11,7 +11,6 @@ public class TroubleReportController extends BaseController {
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView createTroubleReport() {
-		final ModelAndView model = new ModelAndView("create_tr");
-		return model;
+		return new ModelAndView("create_tr");
 	}
 }

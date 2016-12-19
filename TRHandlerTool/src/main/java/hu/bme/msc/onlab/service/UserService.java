@@ -27,23 +27,22 @@ public class UserService extends BaseService implements IUserService {
 	public ResponseDto<User> register(User user) throws RegistrationException {
 		LOGGER.info("Setting registration date of user: " + LOGGER_UTIL.getValue(user));
 		notificationService.send(SystemNotification.of(SystemNotificationType.RMDBS_REGISTRAION_STARTED));
-		user.setRegistration_date(new Date());
+		user.setRegistratinDate(new Date());
 
 		LOGGER.info("Checking if User exists in MySQL database: " + LOGGER_UTIL.getValue(user));
 		ResponseDto<Boolean> existResponse = exists(user);
 		if (!existResponse.isSuccess()) {
 			// exception happened
-			throw new MySqlRegisrationException(existResponse).setUser(user);
+			throw new MySqlRegisrationException(existResponse, user);
 		} else if (existResponse.isSuccess() && Boolean.TRUE.equals(existResponse.getValue())) {
-			throw new MySqlRegisrationException("User exists in MySQL database: " + LOGGER_UTIL.getValue(user))
-					.setUser(user);
+			throw new MySqlRegisrationException("User exists in MySQL database: " + LOGGER_UTIL.getValue(user), user);
 		}
 		LOGGER.info("User does not exists in MySQL database: " + LOGGER_UTIL.getValue(user));
 
 		LOGGER.info("Registering user to MySQL server: " + LOGGER_UTIL.getValue(user));
 		ResponseDto<Void> createResponse = create(user);
 		if (!createResponse.isSuccess()) {
-			throw new MySqlRegisrationException(createResponse).setUser(user);
+			throw new MySqlRegisrationException(createResponse, user);
 		}
 
 		LOGGER.info("MySQL registration has been finished successfullly");
@@ -65,20 +64,15 @@ public class UserService extends BaseService implements IUserService {
 	@Override
 	public ResponseDto<Boolean> exists(User user) {
 		LOGGER.info("Searching User in MySQL database: " + LOGGER_UTIL.getValue(user));
-		return executeOperation(() -> {
-			return ResponseDto.ok(userRepository.exists(user.getUsernameId()));
-		});
+		return executeOperation(() -> ResponseDto.ok(userRepository.exists(user.getUsernameId())));
 	}
 
 	@Override
 	@Transactional
 	public ResponseDto<User> get(String usernameId) {
 		LOGGER.info("Get user by its username: " + usernameId);
-		return executeOperation(() -> {
-			return Optional.ofNullable(userRepository.findByUsernameId(usernameId)).map(user -> {
-				return ResponseDto.ok(user);
-			}).orElse(ResponseDto.fail("Could not find user by id: " + usernameId));
-		});
+		return executeOperation(() -> Optional.ofNullable(userRepository.findByUsernameId(usernameId))
+				.map(ResponseDto::ok).orElse(ResponseDto.fail("Could not find user by id: " + usernameId)));
 	}
 
 }
