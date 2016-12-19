@@ -1,5 +1,12 @@
 package hu.bme.msc.onlab.test;
 
-public class MainTest {
+import static org.junit.Assert.assertTrue;
 
+import org.junit.Test;
+
+public class MainTest {
+	@Test
+	public void TC_DUMMY() {
+		assertTrue(true);
+	}
 }

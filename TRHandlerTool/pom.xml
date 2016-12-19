@@ -10,7 +10,7 @@
 
 	<properties>
 		<!-- JUnit -->
-		<junit.version>3.8.1</junit.version>
+		<junit.version>4.1</junit.version>
 		<!-- JDK Complie and Build -->
 		<jdk.version>1.8</jdk.version>
 		<!-- JavaX Servlet Provided -->

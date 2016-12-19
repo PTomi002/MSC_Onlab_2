@@ -25,7 +25,7 @@ public class JpaContextConfiguration {
 	private static final String DRIVER_NAME_KEY = "hibernate.connection.driver_class";
 	private static final String URL_KEY = "hibernate.connection.url";
 	private static final String USERNAME_KEY = "hibernate.connection.username";
-	private static final String PASSWORD_KEY = "hibernate.connection.password";
+	private static final String PWD_KEY = "hibernate.connection.password";
 
 	@Autowired
 	private Environment env;
@@ -35,7 +35,7 @@ public class JpaContextConfiguration {
 		BasicDataSource basicDataSource = new BasicDataSource();
 		basicDataSource.setUrl(env.getProperty(URL_KEY));
 		basicDataSource.setUsername(env.getProperty(USERNAME_KEY));
-		basicDataSource.setPassword(env.getProperty(PASSWORD_KEY));
+		basicDataSource.setPassword(env.getProperty(PWD_KEY));
 		basicDataSource.setDriverClassName(env.getProperty(DRIVER_NAME_KEY));
 		// Pooling
 		basicDataSource.setInitialSize(8);

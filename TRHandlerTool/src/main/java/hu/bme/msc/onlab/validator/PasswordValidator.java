@@ -9,7 +9,7 @@ import hu.bme.msc.onlab.util.Assert;
 import hu.bme.msc.onlab.validator.annotation.Password;
 
 public class PasswordValidator extends BaseValidator implements ConstraintValidator<Password, String> {
-	private static final String DEFAULT_PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{5,15}$";
+	private static final String DEFAULT_PWD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{5,15}$";
 	
 	/*
 	^                 # start-of-string
@@ -30,7 +30,7 @@ public class PasswordValidator extends BaseValidator implements ConstraintValida
 	@Override
 	public boolean isValid(String password, ConstraintValidatorContext context) {
 		try {
-			Assert.checkAgainstPattern(Pattern.compile(DEFAULT_PASSWORD_PATTERN), password);
+			Assert.checkAgainstPattern(Pattern.compile(DEFAULT_PWD_PATTERN), password);
 		} catch (IllegalArgumentException e) {
 			LOGGER.warn("Invalid password!", e);
 			return false;
