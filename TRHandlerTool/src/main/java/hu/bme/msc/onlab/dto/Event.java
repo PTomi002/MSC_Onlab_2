@@ -24,23 +24,26 @@ public class Event {
 	private static final String A_DELIMETER = ":";
 
 	@XmlElement(name = "MESSAGE")
-	protected final String message;
+	protected String message;
 
 	@XmlElement(name = "DATE")
 	@XmlJavaTypeAdapter(value = DateTimeAdapter.class)
-	protected final Date date;
+	protected Date date;
 
 	@XmlElement(name = "ROOT")
-	protected final Class<? extends Event> root = getClass();
+	protected Class<? extends Event> root = getClass();
 
 	@XmlElement(name = "THREAD")
-	protected final String thread = Thread.currentThread().getName();
+	protected String thread = Thread.currentThread().getName();
 
 	@XmlElement(name = "ELEMENT")
 	@XmlElementWrapper(name = "ADDITIONAL")
-	protected final Map<String, String> additional;
+	protected Map<String, String> additional;
 
-	private Event(EventBuilder eventBuilder) {
+	public Event() {
+	}
+	
+	protected Event(EventBuilder eventBuilder) {
 		this.message = eventBuilder.message;
 		this.date = eventBuilder.date;
 		this.additional = Maps.newHashMap(eventBuilder.additional);
