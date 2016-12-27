@@ -3,13 +3,13 @@ package hu.bme.msc.onlab.service;
 import java.util.Date;
 import java.util.Optional;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import hu.bme.msc.onlab.dao.repository.IUserRepository;
-import hu.bme.msc.onlab.dto.SystemNotification;
-import hu.bme.msc.onlab.enums.SystemNotificationType;
+import hu.bme.msc.onlab.dto.Event.EventBuilder;
 import hu.bme.msc.onlab.exception.MySqlRegisrationException;
 import hu.bme.msc.onlab.exception.RegistrationException;
 import hu.bme.msc.onlab.model.sql.User;
@@ -24,18 +24,29 @@ public class UserService extends BaseService implements IUserService {
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public ResponseDto<User> register(User user) throws RegistrationException {
+	public ResponseDto<User> register(final User user) throws RegistrationException {
 		LOGGER.info("Setting registration date of user: " + LOGGER_UTIL.getValue(user));
-		notificationService.send(SystemNotification.of(SystemNotificationType.RMDBS_REGISTRAION_STARTED));
+		notificationService.send(EventBuilder.of().setMessage("RDBMS Registration: Starting")
+				.addAdditional(() -> "Username", () -> user.getUsernameId()).build());
 		user.setRegistratinDate(new Date());
 
 		LOGGER.info("Checking if User exists in MySQL database: " + LOGGER_UTIL.getValue(user));
 		ResponseDto<Boolean> existResponse = exists(user);
 		if (!existResponse.isSuccess()) {
 			// exception happened
-			throw new MySqlRegisrationException(existResponse, user);
+			MySqlRegisrationException exc = new MySqlRegisrationException(existResponse, user);
+			notificationService.send(EventBuilder.of().setMessage("RDBMS Registration: Operation unsuccessful")
+					.addAdditional(() -> "Username", () -> user.getUsernameId())
+					.addAdditional(() -> "Trace", () -> ExceptionUtils.getStackTrace(exc))
+					.build());
+			throw exc;
 		} else if (existResponse.isSuccess() && Boolean.TRUE.equals(existResponse.getValue())) {
-			throw new MySqlRegisrationException("User exists in MySQL database: " + LOGGER_UTIL.getValue(user), user);
+			MySqlRegisrationException exc = new MySqlRegisrationException("User exists in MySQL database: " + LOGGER_UTIL.getValue(user), user);
+			notificationService.send(EventBuilder.of().setMessage("RDBMS Registration: Operation unsuccessful")
+					.addAdditional(() -> "Username", () -> user.getUsernameId())
+					.addAdditional(() -> "Trace", () -> ExceptionUtils.getStackTrace(exc))
+					.build());
+			throw exc;
 		}
 		LOGGER.info("User does not exists in MySQL database: " + LOGGER_UTIL.getValue(user));
 
@@ -46,7 +57,8 @@ public class UserService extends BaseService implements IUserService {
 		}
 
 		LOGGER.info("MySQL registration has been finished successfullly");
-		notificationService.send(SystemNotification.of(SystemNotificationType.RMDBS_REGISTRATION_FINISHED));
+		notificationService.send(EventBuilder.of().setMessage("RDBMS Registration: Ending")
+				.addAdditional(() -> "Username", () -> user.getUsernameId()).build());
 		return ResponseDto.ok(user);
 	}
 
