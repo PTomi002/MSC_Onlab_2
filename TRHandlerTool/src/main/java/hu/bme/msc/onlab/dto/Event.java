@@ -16,7 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.google.common.collect.Maps;
 
 @XmlRootElement(name = "EVENT")
-@XmlType(propOrder = { "root", "date", "message", "additional" })
+@XmlType(propOrder = { "root", "thread", "date", "message", "additional" })
 public class Event {
 
 	private static final String DELIMETER = "::";
@@ -51,7 +51,7 @@ public class Event {
 
 	@Override
 	public String toString() {
-		return "Event [" + root + DELIMETER + date + DELIMETER + message + DELIMETER + additional.entrySet().stream()
+		return "Event [" + root + DELIMETER + thread + DELIMETER + date + DELIMETER + message + DELIMETER + additional.entrySet().stream()
 				.map(entry -> entry.getKey() + " - " + entry.getValue()).collect(Collectors.joining(A_DELIMETER)) + "]";
 	}
 
