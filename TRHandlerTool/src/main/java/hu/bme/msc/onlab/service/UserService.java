@@ -19,6 +19,7 @@ import hu.bme.msc.onlab.util.ResponseDto;
 @Service
 public class UserService extends BaseService implements IUserService {
 
+	private static final String USERNAME = "Username";
 	@Autowired
 	private IUserRepository userRepository;
 
@@ -27,7 +28,7 @@ public class UserService extends BaseService implements IUserService {
 	public ResponseDto<User> register(final User user) throws RegistrationException {
 		LOGGER.info("Setting registration date of user: " + LOGGER_UTIL.getValue(user));
 		notificationService.send(EventBuilder.of().setMessage("RDBMS Registration: Starting")
-				.addAdditional(() -> "Username", () -> user.getUsernameId()).build());
+				.addAdditional(() -> USERNAME, () -> user.getUsernameId()).build());
 		user.setRegistratinDate(new Date());
 
 		LOGGER.info("Checking if User exists in MySQL database: " + LOGGER_UTIL.getValue(user));
@@ -36,14 +37,14 @@ public class UserService extends BaseService implements IUserService {
 			// exception happened
 			MySqlRegisrationException exc = new MySqlRegisrationException(existResponse, user);
 			notificationService.send(EventBuilder.of().setMessage("RDBMS Registration: Operation unsuccessful")
-					.addAdditional(() -> "Username", () -> user.getUsernameId())
+					.addAdditional(() -> USERNAME, () -> user.getUsernameId())
 					.addAdditional(() -> "Trace", () -> ExceptionUtils.getStackTrace(exc))
 					.build());
 			throw exc;
 		} else if (existResponse.isSuccess() && Boolean.TRUE.equals(existResponse.getValue())) {
 			MySqlRegisrationException exc = new MySqlRegisrationException("User exists in MySQL database: " + LOGGER_UTIL.getValue(user), user);
 			notificationService.send(EventBuilder.of().setMessage("RDBMS Registration: Operation unsuccessful")
-					.addAdditional(() -> "Username", () -> user.getUsernameId())
+					.addAdditional(() -> USERNAME, () -> user.getUsernameId())
 					.addAdditional(() -> "Trace", () -> ExceptionUtils.getStackTrace(exc))
 					.build());
 			throw exc;
@@ -58,7 +59,7 @@ public class UserService extends BaseService implements IUserService {
 
 		LOGGER.info("MySQL registration has been finished successfullly");
 		notificationService.send(EventBuilder.of().setMessage("RDBMS Registration: Ending")
-				.addAdditional(() -> "Username", () -> user.getUsernameId()).build());
+				.addAdditional(() -> USERNAME, () -> user.getUsernameId()).build());
 		return ResponseDto.ok(user);
 	}
 

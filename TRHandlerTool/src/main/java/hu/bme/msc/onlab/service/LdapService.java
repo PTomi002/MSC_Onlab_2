@@ -32,6 +32,10 @@ import hu.bme.msc.onlab.util.ResponseDto;
 @Service
 public class LdapService extends BaseService implements ILdapService {
 
+	private static final String GROUP = "Group";
+
+	private static final String USERNAME = "Username";
+
 	public static final String UID = "uid";
 
 	public static final String UNIQUE_MEMBER = "uniqueMember";
@@ -43,7 +47,7 @@ public class LdapService extends BaseService implements ILdapService {
 	public ResponseDto<LdapUserEntry> register(final User user) throws RegistrationException {
 		LOGGER.info("Registering user to LDAP server: " + LOGGER_UTIL.getValue(user));
 		notificationService.send(EventBuilder.of().setMessage("LDAP Registration: Starting")
-				.addAdditional(() -> "Username", () -> user.getUsernameId()).build());
+				.addAdditional(() -> USERNAME, () -> user.getUsernameId()).build());
 		LdapUserEntry ldapUserEntry;
 
 		LOGGER.info("Getting and parsing base DN");
@@ -60,7 +64,7 @@ public class LdapService extends BaseService implements ILdapService {
 		if (!checkResponse.isSuccess()) {
 			LdapEntryExistsException exc = new LdapEntryExistsException(checkResponse, user);
 			notificationService.send(EventBuilder.of().setMessage("LDAP Registration: User exist in the LDAP database")
-					.addAdditional(() -> "Username", () -> user.getUsernameId())
+					.addAdditional(() -> USERNAME, () -> user.getUsernameId())
 					.addAdditional(() -> "Trace", () -> ExceptionUtils.getStackTrace(exc)).build());
 			throw exc;
 		}
@@ -72,8 +76,8 @@ public class LdapService extends BaseService implements ILdapService {
 		LOGGER.info("Adding LdapUserEntry to the default groups");
 		final LdapUsersGroupEntry defaultUserGroup = LdapUsersGroupEntry.of();
 		notificationService.send(EventBuilder.of().setMessage("LDAP Registration: Addig user to the default group(s)")
-				.addAdditional(() -> "Username", () -> user.getUsernameId())
-				.addAdditional(() -> "Group", () -> defaultUserGroup.toString()).build());
+				.addAdditional(() -> USERNAME, () -> user.getUsernameId())
+				.addAdditional(() -> GROUP, () -> defaultUserGroup.toString()).build());
 		final List<ModificationItem> modificationItems = Arrays.asList(LdapUtil.getModificationItem(
 				DirContext.ADD_ATTRIBUTE, new BasicAttribute(UNIQUE_MEMBER, ldapUserEntry.getFullDn())));
 		ResponseDto<Void> modifyResponse = modify(defaultUserGroup, modificationItems);
@@ -81,7 +85,7 @@ public class LdapService extends BaseService implements ILdapService {
 
 		LOGGER.info("LDAP registration has been finished successfullly");
 		notificationService.send(EventBuilder.of().setMessage("LDAP Registration: Ending")
-				.addAdditional(() -> "Username", () -> user.getUsernameId()).build());
+				.addAdditional(() -> USERNAME, () -> user.getUsernameId()).build());
 		return ResponseDto.ok(ldapUserEntry);
 	}
 
@@ -89,7 +93,7 @@ public class LdapService extends BaseService implements ILdapService {
 	public ResponseDto<Void> unRegister(final User user) {
 		LOGGER.info("Unregistering user from LDAP server: " + LOGGER_UTIL.getValue(user));
 		notificationService.send(EventBuilder.of().setMessage("LDAP Deleting: Starting")
-				.addAdditional(() -> "Username", () -> user.getUsernameId()).build());
+				.addAdditional(() -> USERNAME, () -> user.getUsernameId()).build());
 		LOGGER.info("Getting and parsing base DN");
 		final ResponseDto<List<Rdn>> rdnsResponse = parseDnToRnds(
 				LdapUtil.getRelativeDnToTheBaseDn(user.getUsernameId()));
@@ -103,8 +107,8 @@ public class LdapService extends BaseService implements ILdapService {
 		LOGGER.info("Deleting LdapUserEntry from the default groups");
 		final LdapUsersGroupEntry defaultUserGroup = LdapUsersGroupEntry.of();
 		notificationService.send(EventBuilder.of().setMessage("LDAP Deleting: Deleting user from LDAP group")
-				.addAdditional(() -> "Username", () -> user.getUsernameId())
-				.addAdditional(() -> "Group", () -> defaultUserGroup.toString()).build());
+				.addAdditional(() -> USERNAME, () -> user.getUsernameId())
+				.addAdditional(() -> GROUP, () -> defaultUserGroup.toString()).build());
 		final List<ModificationItem> modificationItems = Arrays.asList(LdapUtil.getModificationItem(
 				DirContext.REMOVE_ATTRIBUTE, new BasicAttribute(UNIQUE_MEMBER, ldapUserEntry.getFullDn())));
 		LOGGER_UTIL.errorIfNotOk(modify(defaultUserGroup, modificationItems));
@@ -114,8 +118,8 @@ public class LdapService extends BaseService implements ILdapService {
 
 		LOGGER.info("LDAP unregistration has been finished successfullly");
 		notificationService.send(EventBuilder.of().setMessage("LDAP Deleting: Ending")
-				.addAdditional(() -> "Username", () -> user.getUsernameId())
-				.addAdditional(() -> "Group", () -> defaultUserGroup.toString()).build());
+				.addAdditional(() -> USERNAME, () -> user.getUsernameId())
+				.addAdditional(() -> GROUP, () -> defaultUserGroup.toString()).build());
 		return ResponseDto.ok();
 	}
 
